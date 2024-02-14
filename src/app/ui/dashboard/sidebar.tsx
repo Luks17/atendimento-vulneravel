@@ -1,37 +1,7 @@
-interface SidebarItem {
-  title: string,
-  list: SidebarLink[]
-}
+import Link from "next/link";
+import type { SidebarLink } from "@/lib/sidebar/types";
+import { menuItems } from "@/lib/sidebar/items";
 
-interface SidebarLink {
-  label: string,
-  icon: string,
-}
-
-const menuItems: SidebarItem[] = [
-  {
-    title: "Cidadão",
-    list: [
-      {
-        label: "Cadastrar Vulnerável",
-        icon: "",
-      }
-    ]
-  },
-  {
-    title: "Administrador",
-    list: [
-      {
-        label: "Pesquisar Vulneráveis",
-        icon: "",
-      },
-      {
-        label: "Visualizar Totalizadores",
-        icon: "",
-      }
-    ]
-  }
-]
 
 function Sidebar() {
   return (
@@ -51,7 +21,7 @@ function SidebarLinks({ sidebarLinks }: { sidebarLinks: SidebarLink[] }) {
   return (
     <ul className="rounded-box">
       {sidebarLinks.map((item, i) => <li key={i}>
-        <a href="#">{item.icon}{item.label}</a>
+        <Link href={`/dashboard/${item.url}`}>{item.icon}{item.label}</Link>
       </li>)}
     </ul>
   )

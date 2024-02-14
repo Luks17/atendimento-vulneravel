@@ -5,7 +5,7 @@ function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
     <div className="drawer lg:drawer-open">
       <input id="sidebar" type="checkbox" className="drawer-toggle" />
-      <div className="drawer-content">
+      <div className="drawer-content m-3 flex flex-col gap-y-3">
         <Navbar />
         <main>
           {children}
