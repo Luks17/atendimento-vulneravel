@@ -7,9 +7,12 @@ import {
   cadastrarVulneravelSchema,
 } from "@/lib/forms/cadastrarVulneravel";
 import { zodResolver } from "@hookform/resolvers/zod";
+import RadioGroup from "@/app/ui/form/RadioGroup";
 
 function CadastrarVulneravel() {
+  // TODO: remove later when no need to debug anymore
   const [output, setOutput] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -32,32 +35,19 @@ function CadastrarVulneravel() {
       />
 
       <input
-        className={`input w-full max-w-md ${errors.totalAdultos ? "input-error" : "input-bordered"}`}
+        className={`input w-full max-w-md ${errors.total_adultos ? "input-error" : "input-bordered"}`}
         type="number"
-        {...register("totalAdultos")}
+        {...register("total_adultos")}
         placeholder="Total de Adultos"
       />
 
-      <div className="flex gap-x-2 form-control">
-        <label className="label">
-          <span className="label-text">Aluguel</span>
-          <input
-            type="radio"
-            {...register("moradia")}
-            className="radio"
-            value="aluguel"
-          />
-        </label>
-        <label className="label">
-          <span className="label-text">Casa Própria</span>
-          <input
-            type="radio"
-            {...register("moradia")}
-            className="radio"
-            value="casa_própria"
-          />
-        </label>
-      </div>
+      <RadioGroup
+        register={register}
+        enumName="moradia"
+        schema={cadastrarVulneravelSchema}
+      />
+
+      {errors.moradia?.message}
 
       <input className="mt-3 btn btn-primary w-fit" type="submit" />
 
