@@ -1,3 +1,4 @@
+import { FieldError } from "react-hook-form";
 import { z } from "zod";
 
 interface Expected {
@@ -9,10 +10,12 @@ export default function RadioGroup({
   register,
   enumName,
   schema,
+  error,
 }: {
   register: Function;
   enumName: string;
   schema: z.AnyZodObject;
+  error?: FieldError;
 }) {
   let rawEnum = schema.shape[enumName].enum;
   let enumOptions = Object.entries(rawEnum).map(
@@ -21,8 +24,8 @@ export default function RadioGroup({
 
   return (
     <div className="form-control gap-x-2">
-      {enumOptions.map((option: Expected) => (
-        <label className="label">
+      {enumOptions.map((option: Expected, i) => (
+        <label className="label" key={i}>
           <span className="label-text pr-2">{option.key}</span>
           <input
             type="radio"
@@ -32,6 +35,8 @@ export default function RadioGroup({
           />
         </label>
       ))}
+
+      {error && <span className="text-error text-sm p-1">{error.message}</span>}
     </div>
   );
 }
