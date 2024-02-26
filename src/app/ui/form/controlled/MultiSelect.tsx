@@ -47,7 +47,7 @@ export default function MultiSelect({
     setInputValue(e.currentTarget.value);
   }
 
-  function handleSpecialKeys(e: React.KeyboardEvent<HTMLInputElement>) {
+  function handleInputSpecialKeys(e: React.KeyboardEvent<HTMLInputElement>) {
     let key = e.key;
 
     if (key === "Backspace" && inputValue.length === 0) {
@@ -55,6 +55,19 @@ export default function MultiSelect({
     } else if (key === "Enter") {
       e.preventDefault();
       addChip(inputValue);
+    }
+  }
+
+  function handleMenuSpecialKeys(e: React.KeyboardEvent<HTMLButtonElement>) {
+    let key = e.key;
+
+    if (key === "Enter") {
+      e.preventDefault();
+
+      let target = e.currentTarget.value;
+      inputContainer.current!.focus();
+
+      addChip(target);
     }
   }
 
@@ -86,7 +99,7 @@ export default function MultiSelect({
             type="text"
             value={inputValue}
             onChange={handleInputChange}
-            onKeyDown={handleSpecialKeys}
+            onKeyDown={handleInputSpecialKeys}
             size={inputValue.length + 1}
             className="bg-transparent w-fit"
           />
@@ -94,12 +107,20 @@ export default function MultiSelect({
       </div>
       <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
         <li>
-          <button value="Covid" onClick={handleMenuClick}>
+          <button
+            value="Covid"
+            onClick={handleMenuClick}
+            onKeyDown={handleMenuSpecialKeys}
+          >
             Covid
           </button>
         </li>
         <li>
-          <button value="Dengue" onClick={handleMenuClick}>
+          <button
+            value="Dengue"
+            onClick={handleMenuClick}
+            onKeyDown={handleMenuSpecialKeys}
+          >
             Dengue
           </button>
         </li>

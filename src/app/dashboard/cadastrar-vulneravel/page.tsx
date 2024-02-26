@@ -1,6 +1,6 @@
 "use client";
 
-import { Controller, useForm } from "react-hook-form";
+import { Controller, useForm, useWatch } from "react-hook-form";
 import { useState } from "react";
 import {
   CadastrarVulneravelFormData,
@@ -11,6 +11,7 @@ import RadioGroup from "@/app/ui/form/uncontrolled/RadioGroup";
 import Input from "@/app/ui/form/uncontrolled/Input";
 import ComboBox from "@/app/ui/form/uncontrolled/ComboBox";
 import MultiSelect from "@/app/ui/form/controlled/MultiSelect";
+import Error from "@/app/ui/form/Error";
 
 function CadastrarVulneravel() {
   // TODO: remove later when no need to debug anymore
@@ -23,6 +24,12 @@ function CadastrarVulneravel() {
     formState: { errors },
   } = useForm<CadastrarVulneravelFormData>({
     resolver: zodResolver(cadastrarVulneravelSchema),
+  });
+
+  const problemasSaudeFamilia = useWatch({
+    control,
+    name: "problemas_saude_familia",
+    defaultValue: [],
   });
 
   return (
@@ -50,15 +57,8 @@ function CadastrarVulneravel() {
       <RadioGroup
         register={register}
         enumName="moradia"
-        schema={cadastrarVulneravelSchema}
+        schema={cadastrarVulneravelSchema.sourceType()}
         error={errors.moradia}
-      />
-
-      <ComboBox
-        register={register}
-        enumName="perdas_catastrofes"
-        schema={cadastrarVulneravelSchema}
-        error={errors.perdas_catastrofes}
       />
 
       <Controller
@@ -68,6 +68,26 @@ function CadastrarVulneravel() {
         render={({ field: { value, onChange, onBlur } }) => (
           <MultiSelect value={value} onChange={onChange} onBlur={onBlur} />
         )}
+      />
+      <Error error={errors.problemas_saude_familia?.root} />
+
+      {problemasSaudeFamilia.length > 0 && (
+        <div className="animate-[fade-in_.5s]">
+          <Input
+            register={register}
+            name="despesas"
+            placeholder="Despesas"
+            type="number"
+            error={errors.despesas_saude}
+          />
+        </div>
+      )}
+
+      <ComboBox
+        register={register}
+        enumName="perdas_catastrofes"
+        schema={cadastrarVulneravelSchema.sourceType()}
+        error={errors.perdas_catastrofes}
       />
 
       <input className="mt-3 btn btn-primary w-fit" type="submit" />

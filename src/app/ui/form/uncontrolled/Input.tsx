@@ -1,4 +1,5 @@
 import { FieldError } from "react-hook-form";
+import Error from "../Error";
 
 export default function Input({
   register,
@@ -21,7 +22,8 @@ export default function Input({
         placeholder={placeholder}
         type={type}
       />
-      {error && <span className="text-error text-sm p-1">{error.message}</span>}
+
+      <Error error={error} />
     </div>
   );
 }

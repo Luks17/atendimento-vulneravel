@@ -1,5 +1,6 @@
 import { FieldError } from "react-hook-form";
 import { z } from "zod";
+import Error from "../Error";
 
 interface Expected {
   key: string;
@@ -36,7 +37,7 @@ export default function RadioGroup({
         </label>
       ))}
 
-      {error && <span className="text-error text-sm p-1">{error.message}</span>}
+      <Error error={error} />
     </div>
   );
 }
