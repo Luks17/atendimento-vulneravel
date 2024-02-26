@@ -5,8 +5,13 @@ import { useState } from "react";
 import {
   CadastrarVulneravelFormData,
   cadastrarVulneravelSchema,
-} from "@/lib/forms/cadastrarVulneravel";
-import { zodResolver } from "@hookform/resolvers/zod";
+} from "@/lib/forms/cadastrar-vulneravel/schema";
+import { yupResolver } from "@hookform/resolvers/yup";
+import {
+  moradiaOptions,
+  perdasCatastrofesOptions,
+} from "@/lib/forms/cadastrar-vulneravel/options";
+
 import RadioGroup from "@/app/ui/form/uncontrolled/RadioGroup";
 import Input from "@/app/ui/form/uncontrolled/Input";
 import ComboBox from "@/app/ui/form/uncontrolled/ComboBox";
@@ -23,7 +28,7 @@ function CadastrarVulneravel() {
     control,
     formState: { errors },
   } = useForm<CadastrarVulneravelFormData>({
-    resolver: zodResolver(cadastrarVulneravelSchema),
+    resolver: yupResolver(cadastrarVulneravelSchema),
   });
 
   const problemasSaudeFamilia = useWatch({
@@ -40,24 +45,22 @@ function CadastrarVulneravel() {
       })}
     >
       <Input
-        register={register}
-        name="nome"
+        register={register("nome")}
         placeholder="Nome"
         error={errors.nome}
       />
 
       <Input
-        register={register}
-        name="total_adultos"
+        register={register("total_adultos")}
         placeholder="Total de Adultos"
         type="number"
+        defaultValue={0}
         error={errors.total_adultos}
       />
 
       <RadioGroup
-        register={register}
-        enumName="moradia"
-        schema={cadastrarVulneravelSchema.sourceType()}
+        register={register("moradia")}
+        enumOptions={moradiaOptions}
         error={errors.moradia}
       />
 
@@ -74,19 +77,16 @@ function CadastrarVulneravel() {
       {problemasSaudeFamilia.length > 0 && (
         <div className="animate-[fade-in_.5s]">
           <Input
-            register={register}
-            name="despesas"
+            register={register("despesas_saude", { shouldUnregister: true })}
             placeholder="Despesas"
-            type="number"
             error={errors.despesas_saude}
           />
         </div>
       )}
 
       <ComboBox
-        register={register}
-        enumName="perdas_catastrofes"
-        schema={cadastrarVulneravelSchema.sourceType()}
+        register={register("perdas_catastrofes")}
+        enumOptions={perdasCatastrofesOptions}
         error={errors.perdas_catastrofes}
       />
 

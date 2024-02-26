@@ -1,40 +1,28 @@
-import { FieldError } from "react-hook-form";
-import { z } from "zod";
+import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import Error from "../Error";
-
-interface Expected {
-  key: string;
-  value: string;
-}
+import { Option } from "@/lib/forms/common";
 
 export default function ComboBox({
   register,
-  enumName,
-  schema,
+  enumOptions,
   defaultValue,
   error,
 }: {
-  register: Function;
-  enumName: string;
-  schema: z.AnyZodObject;
+  register: UseFormRegisterReturn;
+  enumOptions: Option[];
   defaultValue?: string;
   error?: FieldError;
 }) {
-  let rawEnum = schema.shape[enumName].enum;
-  let enumOptions = Object.entries(rawEnum).map(
-    ([key, value]) => ({ key, value }) as Expected,
-  );
-
   return (
     <div>
       <select
-        {...register(enumName)}
+        {...register}
         className="select select-bordered w-full max-w-xs"
         defaultValue={defaultValue}
       >
         {enumOptions.map((item, i) => (
           <option key={i} value={item.value}>
-            {item.key}
+            {item.label}
           </option>
         ))}
       </select>
