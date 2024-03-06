@@ -25,7 +25,9 @@ function Navbar() {
           </svg>
         </label>
       </div>
-      <div className="flex-1 px-2 font-bold text-xl text-accent">Dashboard</div>
+      <div className="flex-1 px-2 font-bold text-xl text-base-content">
+        Dashboard
+      </div>
       <ul className="flex items-stretch">
         {/* Navbar menu content here */}
         <li className="btn btn-ghost">
