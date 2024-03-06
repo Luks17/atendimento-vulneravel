@@ -77,7 +77,7 @@ export default function MultiSelect({
   }
 
   return (
-    <div className="dropdown">
+    <div className="dropdown static">
       <div
         onClick={handleComponentClick}
         className="input cursor-text input-bordered h-fit p-3 flex flex-wrap w-72 gap-x-0.5 items-center overflow-hidden"
@@ -93,19 +93,18 @@ export default function MultiSelect({
             </div>
           </div>
         ))}
-        <div>
-          <input
-            ref={inputContainer}
-            type="text"
-            value={inputValue}
-            onChange={handleInputChange}
-            onKeyDown={handleInputSpecialKeys}
-            size={inputValue.length + 1}
-            className="bg-transparent w-fit"
-          />
-        </div>
+        <input
+          ref={inputContainer}
+          type="text"
+          value={inputValue}
+          onChange={handleInputChange}
+          onKeyDown={handleInputSpecialKeys}
+          size={inputValue.length + 1}
+          className="bg-transparent w-fit"
+        />
       </div>
-      <ul className="dropdown-content z-[1] menu p-2 shadow bg-base-100 rounded-box w-52">
+
+      <ul className="dropdown-content z-10 menu p-2 shadow bg-base-100 rounded-box w-52">
         <li>
           <button
             value="Covid"

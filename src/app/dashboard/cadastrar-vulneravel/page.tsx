@@ -1,7 +1,7 @@
 "use client";
 
 import { Controller, useForm, useWatch } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import {
   CadastrarVulneravelFormData,
   cadastrarVulneravelSchema,
@@ -11,6 +11,7 @@ import {
   moradiaOptions,
   perdasCatastrofesOptions,
 } from "@/lib/forms/cadastrar-vulneravel/options";
+import { sections } from "@/lib/forms/cadastrar-vulneravel/sections";
 
 import RadioGroup from "@/app/ui/form/uncontrolled/RadioGroup";
 import Input from "@/app/ui/form/uncontrolled/Input";
@@ -19,14 +20,16 @@ import MultiSelect from "@/app/ui/form/controlled/MultiSelect";
 import Error from "@/app/ui/form/Error";
 
 function CadastrarVulneravel() {
-  // TODO: remove later when no need to debug anymore
   const [output, setOutput] = useState("");
+  const [currentSection, setCurrentSection] = useState(0);
 
   const {
     register,
+    unregister,
     handleSubmit,
+    trigger,
     control,
-    formState: { errors },
+    formState: { errors, isValid },
   } = useForm<CadastrarVulneravelFormData>({
     resolver: yupResolver(cadastrarVulneravelSchema),
   });
@@ -37,63 +40,146 @@ function CadastrarVulneravel() {
     defaultValue: [],
   });
 
+  function changeSection(
+    e: React.MouseEvent<HTMLButtonElement>,
+    next: boolean,
+  ) {
+    e.preventDefault();
+
+    const currentSectionItems = sections[currentSection].items;
+
+    currentSectionItems?.forEach((item) => trigger(item));
+
+    if (isValid) {
+      const newCurrentSection = next ? currentSection + 1 : currentSection - 1;
+
+      document.querySelector(`#section-${newCurrentSection}`)?.scrollIntoView();
+
+      setCurrentSection(newCurrentSection);
+    }
+  }
+
+  useEffect(() => {
+    if (problemasSaudeFamilia.length === 0) {
+      unregister("despesas_saude");
+    }
+  }, [problemasSaudeFamilia.length]);
+
   return (
-    <form
-      className="form-control gap-y-4 items-center p-1 w-full"
-      onSubmit={handleSubmit((data) => {
-        setOutput(JSON.stringify(data, null, 2));
-      })}
-    >
-      <Input
-        register={register("nome")}
-        placeholder="Nome"
-        error={errors.nome}
-      />
+    <div className="w-full bg-base-200 rounded-2xl form-control">
+      <ul className="steps border-8 border-base-200 bg-accent rounded-t-2xl px-10 py-16 text-xl">
+        {sections.map((section, i) => (
+          <li
+            key={i}
+            className={`step text-accent-content ${currentSection >= i && "step-neutral"}`}
+          >
+            {section.label}
+          </li>
+        ))}
+      </ul>
 
-      <Input
-        register={register("total_adultos")}
-        placeholder="Total de Adultos"
-        type="number"
-        defaultValue={0}
-        error={errors.total_adultos}
-      />
+      <form
+        className="p-10"
+        onSubmit={handleSubmit((data) => {
+          setOutput(JSON.stringify(data, null, 2));
+        })}
+      >
+        <div className="carousel my-auto py-1 w-full overflow-x-hidden">
+          <section
+            className="carousel-item w-full flex-col items-center gap-y-4"
+            id="section-0"
+          >
+            <Input
+              register={register("nome")}
+              placeholder="Nome"
+              error={errors.nome}
+            />
 
-      <RadioGroup
-        register={register("moradia")}
-        enumOptions={moradiaOptions}
-        error={errors.moradia}
-      />
+            <Input
+              register={register("total_adultos")}
+              placeholder="Total de Adultos"
+              type="number"
+              defaultValue={0}
+              error={errors.total_adultos}
+            />
 
-      <Controller
-        name="problemas_saude_familia"
-        control={control}
-        defaultValue={[] as string[]}
-        render={({ field: { value, onChange, onBlur } }) => (
-          <MultiSelect value={value} onChange={onChange} onBlur={onBlur} />
-        )}
-      />
-      <Error error={errors.problemas_saude_familia?.root} />
+            <RadioGroup
+              register={register("moradia")}
+              enumOptions={moradiaOptions}
+              error={errors.moradia}
+            />
 
-      {problemasSaudeFamilia.length > 0 && (
-        <div className="animate-[fade-in_.5s]">
-          <Input
-            register={register("despesas_saude", { shouldUnregister: true })}
-            placeholder="Despesas"
-            error={errors.despesas_saude}
-          />
+            <Controller
+              name="problemas_saude_familia"
+              control={control}
+              defaultValue={[] as string[]}
+              render={({ field: { value, onChange, onBlur } }) => (
+                <MultiSelect
+                  value={value}
+                  onChange={onChange}
+                  onBlur={onBlur}
+                />
+              )}
+            />
+            <Error error={errors.problemas_saude_familia?.root} />
+
+            {problemasSaudeFamilia.length > 0 && (
+              <div className="animate-[fade-in_.5s]">
+                <Input
+                  register={register("despesas_saude")}
+                  placeholder="Despesas"
+                  error={errors.despesas_saude}
+                />
+              </div>
+            )}
+
+            <ComboBox
+              register={register("perdas_catastrofes")}
+              enumOptions={perdasCatastrofesOptions}
+              error={errors.perdas_catastrofes}
+            />
+          </section>
+          <section
+            className="carousel-item w-full flex-col items-center gap-y-4"
+            id="section-1"
+          >
+            <label className="label w-fit h-fit">
+              <input
+                type="checkbox"
+                {...register("cesta_basica")}
+                className="checkbox w-4 h-4"
+              />
+              <span className="label-text">Cesta básica</span>
+            </label>
+          </section>
         </div>
-      )}
 
-      <ComboBox
-        register={register("perdas_catastrofes")}
-        enumOptions={perdasCatastrofesOptions}
-        error={errors.perdas_catastrofes}
-      />
-
-      <input className="mt-3 btn btn-primary w-fit" type="submit" />
-
-      <pre className="mt-20 text-lg">{output}</pre>
-    </form>
+        <div className="w-full flex gap-x-5 mt-16 justify-center">
+          <button
+            className="btn btn-outline"
+            onClick={(e) => changeSection(e, false)}
+            disabled={currentSection === 0}
+          >
+            Previous
+          </button>
+          <button
+            className="btn btn-outline"
+            onClick={(e) => changeSection(e, true)}
+            disabled={currentSection === sections.length - 1}
+          >
+            Next
+          </button>
+          <button
+            disabled={currentSection !== sections.length - 1}
+            className="btn btn-accent w-fit"
+            type="submit"
+          >
+            Submit
+          </button>
+        </div>
+      </form>
+      <pre className="mt-20 text-lg mx-auto">{output}</pre>
+    </div>
   );
 }
 

@@ -19,6 +19,7 @@ export const cadastrarVulneravelSchema = yup.object({
       then: (schema) => schema.required(),
     }),
   perdas_catastrofes: yup.string().oneOf(PerdasCatastrofesValues).required(),
+  cesta_basica: yup.boolean().required(),
 });
 
 export type CadastrarVulneravelFormData = yup.InferType<
