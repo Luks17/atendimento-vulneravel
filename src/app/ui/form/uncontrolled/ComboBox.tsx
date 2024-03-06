@@ -6,15 +6,20 @@ export default function ComboBox({
   register,
   enumOptions,
   defaultValue,
+  label,
+  required = true,
   error,
 }: {
   register: UseFormRegisterReturn;
   enumOptions: Option[];
   defaultValue?: string;
+  label: string;
+  required?: boolean;
   error?: FieldError;
 }) {
   return (
-    <div>
+    <div className="form-control">
+      <span>{label + (required ? "*" : "")}</span>
       <select
         {...register}
         className="select select-bordered w-full max-w-xs"

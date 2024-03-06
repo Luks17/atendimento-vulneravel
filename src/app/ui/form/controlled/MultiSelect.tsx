@@ -6,10 +6,14 @@ export default function MultiSelect({
   value,
   onChange,
   onBlur,
+  label,
+  required = true,
 }: {
   value: string[];
   onChange: Function;
   onBlur: Function;
+  label: string;
+  required?: boolean;
 }) {
   const [inputValue, setInputValue] = useState<string>("");
   const [chips, setChips] = useState<string[]>(value);
@@ -77,53 +81,56 @@ export default function MultiSelect({
   }
 
   return (
-    <div className="dropdown static">
-      <div
-        onClick={handleComponentClick}
-        className="input cursor-text input-bordered h-fit p-3 flex flex-wrap w-72 gap-x-0.5 items-center overflow-hidden"
-      >
-        {chips.map((chip, i) => (
-          <div key={i} className="badge badge-secondary px-3 py-4">
-            <span>{chip}</span>
-            <div
-              onClick={() => handleDelete(i)}
-              className="ml-1 cursor-pointer focus:outline-none"
-            >
-              x
+    <label className="form-control">
+      <span className="mb-1">{label + (required ? "*" : "")}</span>
+      <div className="dropdown static">
+        <div
+          onClick={handleComponentClick}
+          className="input cursor-text input-bordered h-fit p-3 flex flex-wrap w-72 gap-x-0.5 items-center overflow-hidden"
+        >
+          {chips.map((chip, i) => (
+            <div key={i} className="badge badge-secondary px-3 py-4">
+              <span>{chip}</span>
+              <div
+                onClick={() => handleDelete(i)}
+                className="ml-1 cursor-pointer focus:outline-none"
+              >
+                x
+              </div>
             </div>
-          </div>
-        ))}
-        <input
-          ref={inputContainer}
-          type="text"
-          value={inputValue}
-          onChange={handleInputChange}
-          onKeyDown={handleInputSpecialKeys}
-          size={inputValue.length + 1}
-          className="bg-transparent w-fit"
-        />
-      </div>
+          ))}
+          <input
+            ref={inputContainer}
+            type="text"
+            value={inputValue}
+            onChange={handleInputChange}
+            onKeyDown={handleInputSpecialKeys}
+            size={inputValue.length + 1}
+            className="bg-transparent w-fit"
+          />
+        </div>
 
-      <ul className="dropdown-content z-10 menu p-2 shadow bg-base-100 rounded-box w-52">
-        <li>
-          <button
-            value="Covid"
-            onClick={handleMenuClick}
-            onKeyDown={handleMenuSpecialKeys}
-          >
-            Covid
-          </button>
-        </li>
-        <li>
-          <button
-            value="Dengue"
-            onClick={handleMenuClick}
-            onKeyDown={handleMenuSpecialKeys}
-          >
-            Dengue
-          </button>
-        </li>
-      </ul>
-    </div>
+        <ul className="dropdown-content z-10 menu p-2 shadow bg-base-100 rounded-box w-52">
+          <li>
+            <button
+              value="Covid"
+              onClick={handleMenuClick}
+              onKeyDown={handleMenuSpecialKeys}
+            >
+              Covid
+            </button>
+          </li>
+          <li>
+            <button
+              value="Dengue"
+              onClick={handleMenuClick}
+              onKeyDown={handleMenuSpecialKeys}
+            >
+              Dengue
+            </button>
+          </li>
+        </ul>
+      </div>
+    </label>
   );
 }

@@ -90,26 +90,28 @@ function CadastrarVulneravel() {
       >
         <div className="carousel my-auto py-1 w-full overflow-x-hidden">
           <section
-            className="carousel-item w-full flex-col items-center gap-y-4"
+            className="carousel-item w-full items-center flex-col gap-y-4"
             id="section-0"
           >
             <Input
               register={register("nome")}
-              placeholder="Nome"
+              label="Nome"
               error={errors.nome}
             />
 
             <Input
               register={register("total_adultos")}
-              placeholder="Total de Adultos"
+              label="Total de Adultos"
               type="number"
               defaultValue={0}
+              size={10}
               error={errors.total_adultos}
             />
 
             <RadioGroup
               register={register("moradia")}
               enumOptions={moradiaOptions}
+              label="Moradia"
               error={errors.moradia}
             />
 
@@ -122,6 +124,7 @@ function CadastrarVulneravel() {
                   value={value}
                   onChange={onChange}
                   onBlur={onBlur}
+                  label="Problemas de Saúde da Família"
                 />
               )}
             />
@@ -131,7 +134,7 @@ function CadastrarVulneravel() {
               <div className="animate-[fade-in_.5s]">
                 <Input
                   register={register("despesas_saude")}
-                  placeholder="Despesas"
+                  label="Despesas por Saúde"
                   error={errors.despesas_saude}
                 />
               </div>
@@ -140,6 +143,7 @@ function CadastrarVulneravel() {
             <ComboBox
               register={register("perdas_catastrofes")}
               enumOptions={perdasCatastrofesOptions}
+              label="Perdas por Catástrofes"
               error={errors.perdas_catastrofes}
             />
           </section>
