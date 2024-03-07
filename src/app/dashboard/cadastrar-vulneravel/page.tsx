@@ -18,6 +18,7 @@ import Input from "@/app/ui/form/uncontrolled/Input";
 import ComboBox from "@/app/ui/form/uncontrolled/ComboBox";
 import MultiSelect from "@/app/ui/form/controlled/MultiSelect";
 import Error from "@/app/ui/form/Error";
+import { binaryOptions } from "@/lib/forms/common";
 
 function CadastrarVulneravel() {
   const [output, setOutput] = useState("");
@@ -29,7 +30,7 @@ function CadastrarVulneravel() {
     handleSubmit,
     trigger,
     control,
-    formState: { errors, isValid },
+    formState: { errors },
   } = useForm<CadastrarVulneravelFormData>({
     resolver: yupResolver(cadastrarVulneravelSchema),
   });
@@ -58,15 +59,19 @@ function CadastrarVulneravel() {
 
     const currentSectionItems = sections[currentSection].items;
 
-    currentSectionItems?.forEach((item) => trigger(item));
+    trigger(next ? currentSectionItems : []).then((isValid) => {
+      if (isValid) {
+        const newCurrentSection = next
+          ? currentSection + 1
+          : currentSection - 1;
 
-    if (isValid) {
-      const newCurrentSection = next ? currentSection + 1 : currentSection - 1;
+        document
+          .querySelector(`#section-${newCurrentSection}`)
+          ?.scrollIntoView();
 
-      document.querySelector(`#section-${newCurrentSection}`)?.scrollIntoView();
-
-      setCurrentSection(newCurrentSection);
-    }
+        setCurrentSection(newCurrentSection);
+      }
+    });
   }
 
   return (
@@ -151,14 +156,12 @@ function CadastrarVulneravel() {
             className="carousel-item w-full flex-col items-center gap-y-4"
             id="section-1"
           >
-            <label className="label w-fit h-fit">
-              <input
-                type="checkbox"
-                {...register("cesta_basica")}
-                className="checkbox w-4 h-4"
-              />
-              <span className="label-text">Cesta básica</span>
-            </label>
+            <RadioGroup
+              register={register("cesta_basica")}
+              enumOptions={binaryOptions}
+              label="Solicitar Cesta Básica?"
+              error={errors.cesta_basica}
+            />
           </section>
         </div>
 

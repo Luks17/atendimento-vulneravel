@@ -14,6 +14,6 @@ export const sections = [
   {
     label: "Solicitações",
     value: "solicitacoes",
-    items: [] as const,
+    items: ["cesta_basica"] as const,
   },
 ] as const;
