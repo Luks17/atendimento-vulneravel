@@ -129,6 +129,7 @@ function CadastrarVulneravel() {
                   value={value}
                   onChange={onChange}
                   onBlur={onBlur}
+                  required={false}
                   label="Problemas de Saúde da Família"
                 />
               )}
