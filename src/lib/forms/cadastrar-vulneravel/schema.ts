@@ -1,10 +1,5 @@
 import * as yup from "yup";
-import { moradiaOptions, perdasCatastrofesOptions } from "./options";
-
-const MoradiaValues = moradiaOptions.map(({ label: _, value }) => value);
-const PerdasCatastrofesValues = perdasCatastrofesOptions.map(
-  ({ label: _, value }) => value,
-);
+import { MoradiaValues, PerdasCatastrofesValues } from "./options";
 
 export const cadastrarVulneravelSchema = yup.object({
   nome: yup.string().required(),

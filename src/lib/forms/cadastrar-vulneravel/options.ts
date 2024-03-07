@@ -1,4 +1,4 @@
-import { Option } from "../common";
+import { Option, extractValues } from "../common";
 
 export const moradiaOptions: Option[] = [
   { label: "Casa Própria", value: "casa_propria" },
@@ -11,3 +11,6 @@ export const perdasCatastrofesOptions: Option[] = [
   { label: "Temporal", value: "temporal" },
   { label: "Enchente", value: "enchente" },
 ];
+
+export const MoradiaValues = extractValues(moradiaOptions);
+export const PerdasCatastrofesValues = extractValues(perdasCatastrofesOptions);
