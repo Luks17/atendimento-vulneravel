@@ -7,10 +7,6 @@ import {
   cadastrarVulneravelSchema,
 } from "@/lib/forms/cadastrar-vulneravel/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  moradiaOptions,
-  perdasCatastrofesOptions,
-} from "@/lib/forms/cadastrar-vulneravel/options";
 import { sections } from "@/lib/forms/cadastrar-vulneravel/sections";
 
 import RadioGroup from "@/app/ui/form/uncontrolled/RadioGroup";
@@ -18,7 +14,11 @@ import Input from "@/app/ui/form/uncontrolled/Input";
 import ComboBox from "@/app/ui/form/uncontrolled/ComboBox";
 import MultiSelect from "@/app/ui/form/controlled/MultiSelect";
 import Error from "@/app/ui/form/Error";
-import { binaryOptions } from "@/lib/forms/common";
+import { BinaryOptionsEnum, enumEntries } from "@/lib/forms/common";
+import {
+  MoradiaEnum,
+  PerdasCatastrofesEnum,
+} from "@/lib/forms/cadastrar-vulneravel/options";
 
 function CadastrarVulneravel() {
   const [output, setOutput] = useState("");
@@ -115,7 +115,7 @@ function CadastrarVulneravel() {
 
             <RadioGroup
               register={register("moradia")}
-              enumOptions={moradiaOptions}
+              enumOptions={enumEntries(MoradiaEnum)}
               label="Moradia"
               error={errors.moradia}
             />
@@ -148,7 +148,7 @@ function CadastrarVulneravel() {
 
             <ComboBox
               register={register("perdas_catastrofes")}
-              enumOptions={perdasCatastrofesOptions}
+              enumOptions={enumEntries(PerdasCatastrofesEnum)}
               label="Perdas por Catástrofes"
               error={errors.perdas_catastrofes}
             />
@@ -159,7 +159,7 @@ function CadastrarVulneravel() {
           >
             <RadioGroup
               register={register("cesta_basica")}
-              enumOptions={binaryOptions}
+              enumOptions={enumEntries(BinaryOptionsEnum)}
               label="Solicitar Cesta Básica?"
               error={errors.cesta_basica}
             />

@@ -1,10 +1,11 @@
 import * as yup from "yup";
-import { MoradiaValues, PerdasCatastrofesValues } from "./options";
+import { MoradiaEnum, PerdasCatastrofesEnum } from "./options";
+import { enumValues } from "../common";
 
 export const cadastrarVulneravelSchema = yup.object({
   nome: yup.string().required(),
   total_adultos: yup.number().positive().integer().required(),
-  moradia: yup.string().oneOf(MoradiaValues).required(),
+  moradia: yup.string().oneOf(enumValues(MoradiaEnum)).required(),
   problemas_saude_familia: yup.array().of(yup.string().required()).required(),
   despesas_saude: yup
     .number()
@@ -13,7 +14,10 @@ export const cadastrarVulneravelSchema = yup.object({
       is: (val: string[]) => val.length > 0,
       then: (schema) => schema.required(),
     }),
-  perdas_catastrofes: yup.string().oneOf(PerdasCatastrofesValues).required(),
+  perdas_catastrofes: yup
+    .string()
+    .oneOf(enumValues(PerdasCatastrofesEnum))
+    .required(),
   cesta_basica: yup.boolean().required(),
 });
 

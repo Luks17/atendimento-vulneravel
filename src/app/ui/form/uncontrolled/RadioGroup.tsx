@@ -1,6 +1,7 @@
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-import Error from "../Error";
 import { Option } from "@/lib/forms/common";
+
+import Error from "../Error";
 
 export default function RadioGroup({
   register,
@@ -21,7 +22,7 @@ export default function RadioGroup({
       <div className="form-control gap-x-2 border-l-2 pl-2 border-primary">
         {enumOptions.map((option, i) => (
           <label className="label" key={i}>
-            <span className="label-text pr-2">{option.label}</span>
+            <span className="label-text pr-2">{option.key}</span>
             <input
               type="radio"
               {...register}
