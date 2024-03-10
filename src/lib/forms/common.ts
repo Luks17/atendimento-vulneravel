@@ -8,6 +8,6 @@ export enum BinaryOptionsEnum {
   Não = "false",
 }
 
-export const enumValues = (e: Object): String[] => Object.values(e);
+export const enumValues = <T>(e: Object): T[] => Object.values(e);
 export const enumEntries = <T extends Record<string, string>>(e: T): Option[] =>
   Object.entries(e).map(([key, value]) => ({ key, value }));

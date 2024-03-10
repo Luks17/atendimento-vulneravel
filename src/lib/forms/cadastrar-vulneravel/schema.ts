@@ -8,7 +8,7 @@ import {
 export const cadastrarVulneravelSchema = yup.object({
   nome: yup.string().required(),
   total_adultos: yup.number().positive().integer().required(),
-  moradia: yup.string().oneOf(enumValues(MoradiaEnum)).required(),
+  moradia: yup.mixed<MoradiaEnum>().oneOf(enumValues(MoradiaEnum)).required(),
   problemas_saude_familia: yup.array().of(yup.string().required()).required(),
   despesas_saude: yup
     .number()
@@ -18,7 +18,7 @@ export const cadastrarVulneravelSchema = yup.object({
       then: (schema) => schema.required(),
     }),
   perdas_catastrofes: yup
-    .string()
+    .mixed<MoradiaEnum>()
     .oneOf(enumValues(PerdasCatastrofesEnum))
     .required(),
   cesta_basica: yup.boolean().required(),
