@@ -1,13 +1,21 @@
-import {
-  MoradiaEnum,
-  PerdasCatastrofesEnum,
-} from "@/lib/forms/cadastrar-vulneravel/options";
 import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
 
-@Entity()
+export enum MoradiaEnum {
+  "Casa Própria" = "casa_propria",
+  "Aluguel" = "aluguel",
+}
+
+export enum PerdasCatastrofesEnum {
+  "Nenhum" = "nenhum",
+  "Incêndio" = "incendio",
+  "Temporal" = "temporal",
+  "Enchente" = "enchente",
+}
+
+@Entity("vulneraveis")
 export class Vulneravel {
   @PrimaryGeneratedColumn("uuid")
-  id: number;
+  id: string;
 
   @Column({ type: "varchar", length: 155 })
   nome: string;
@@ -21,7 +29,7 @@ export class Vulneravel {
   @Column("simple-array")
   problemas_saude_familia: string[];
 
-  @Column({ type: "decimal", precision: 10, scale: 2, nullable: true })
+  @Column({ type: "decimal", precision: 10, scale: 3, nullable: true })
   despesas_saude: number;
 
   @Column({ type: "enum", enum: PerdasCatastrofesEnum })

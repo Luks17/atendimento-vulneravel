@@ -18,7 +18,7 @@ import { BinaryOptionsEnum, enumEntries } from "@/lib/forms/common";
 import {
   MoradiaEnum,
   PerdasCatastrofesEnum,
-} from "@/lib/forms/cadastrar-vulneravel/options";
+} from "@/database/models/Vulneravel";
 
 function CadastrarVulneravel() {
   const [output, setOutput] = useState("");

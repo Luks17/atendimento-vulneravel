@@ -6,7 +6,9 @@
     "dev": "next dev",
     "build": "next build",
     "start": "next start",
-    "lint": "next lint"
+    "lint": "next lint",
+    "new-migration": "ts-node -r dotenv/config ./node_modules/.bin/typeorm-ts-node-esm -d ./src/database/Connection.ts migration:generate",
+    "migrate": "ts-node -r dotenv/config ./node_modules/.bin/typeorm-ts-node-esm migration:run -d ./src/database/Connection.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
@@ -27,12 +29,14 @@
     "@types/react-dom": "^18",
     "autoprefixer": "^10.0.1",
     "daisyui": "^4.6.1",
+    "dotenv": "^16.4.5",
     "eslint": "^8",
     "eslint-config-next": "14.1.0",
     "eslint-config-prettier": "^9.1.0",
     "postcss": "^8",
     "prettier": "3.2.4",
     "tailwindcss": "^3.3.0",
+    "ts-node": "^10.9.2",
     "typescript": "^5"
   }
 }

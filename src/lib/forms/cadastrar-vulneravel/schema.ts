@@ -1,6 +1,9 @@
 import * as yup from "yup";
-import { MoradiaEnum, PerdasCatastrofesEnum } from "./options";
 import { enumValues } from "../common";
+import {
+  MoradiaEnum,
+  PerdasCatastrofesEnum,
+} from "@/database/models/Vulneravel";
 
 export const cadastrarVulneravelSchema = yup.object({
   nome: yup.string().required(),
