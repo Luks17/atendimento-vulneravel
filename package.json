@@ -8,10 +8,12 @@
     "start": "next start",
     "lint": "next lint",
     "new-migration": "ts-node -r dotenv/config ./node_modules/.bin/typeorm-ts-node-esm -d ./src/database/Connection.ts migration:generate",
-    "migrate": "ts-node -r dotenv/config ./node_modules/.bin/typeorm-ts-node-esm migration:run -d ./src/database/Connection.ts"
+    "migrate": "ts-node -r dotenv/config ./node_modules/.bin/typeorm-ts-node-esm migration:run -d ./src/database/Connection.ts",
+    "migrate-down": "ts-node -r dotenv/config ./node_modules/.bin/typeorm-ts-node-esm migration:revert -d ./src/database/Connection.ts"
   },
   "dependencies": {
     "@hookform/resolvers": "^3.3.4",
+    "class-validator": "^0.14.1",
     "next": "14.1.0",
     "pg": "^8.11.3",
     "react": "^18",

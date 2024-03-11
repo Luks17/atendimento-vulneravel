@@ -18,7 +18,7 @@ export const cadastrarVulneravelSchema = yup.object({
       then: (schema) => schema.required(),
     }),
   perdas_catastrofes: yup
-    .mixed<MoradiaEnum>()
+    .mixed<PerdasCatastrofesEnum>()
     .oneOf(enumValues(PerdasCatastrofesEnum))
     .required(),
   cesta_basica: yup.boolean().required(),

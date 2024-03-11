@@ -1,14 +1,15 @@
 import "reflect-metadata";
 import { DataSource, ObjectLiteral, ObjectType, Repository } from "typeorm";
 import { Vulneravel } from "./models/Vulneravel";
-import { Initial1710097189264 } from "./migrations/1710097189264-initial";
+import { ProblemaSaude } from "./models/ProblemaSaude";
+import { Initial1710122007898 } from "./migrations/1710122007898-initial";
 
 export const dbDataSource = new DataSource({
   type: "postgres",
   url: process.env.POSTGRES_URL,
   synchronize: false,
-  entities: [Vulneravel],
-  migrations: [Initial1710097189264],
+  entities: [Vulneravel, ProblemaSaude],
+  migrations: [Initial1710122007898],
   subscribers: [],
 });
 

@@ -1,31 +1,49 @@
+import { ProblemaSaude } from "@/database/models/ProblemaSaude";
 import {
   MoradiaEnum,
   PerdasCatastrofesEnum,
 } from "@/database/models/Vulneravel";
 import { NextRequest } from "next/server";
+import { CadastrarVulneravelFormData } from "../forms/cadastrar-vulneravel/schema";
 
 export class CreateVulneravelDTO {
   constructor(
     public nome: string,
     public total_adultos: number,
     public moradia: MoradiaEnum,
-    public problemas_saude_familia: string[],
     public despesas_saude: number | undefined,
     public perdas_catastrofes: PerdasCatastrofesEnum,
     public cesta_basica: boolean,
-  ) {}
 
-  static async fromRequest(request: NextRequest) {
-    const data = await request.json();
+    public tipos: ProblemaSaude[],
+  ) { }
+
+  static async fromFormData(data: CadastrarVulneravelFormData) {
+    let tipos = data.problemas_saude_familia.map((tipo: string) => {
+      let Problema = new ProblemaSaude();
+      Problema.tipo = tipo;
+
+      return Problema;
+    });
 
     return new this(
       data.nome,
       data.total_adultos,
       data.moradia,
-      data.problemas_saude_familia,
       data.despesas_saude,
       data.perdas_catastrofes,
       data.cesta_basica,
+
+      tipos,
     );
+  }
+
+  static async fromRequest(request: NextRequest) {
+    try {
+      const data: CadastrarVulneravelFormData = await request.json();
+      return this.fromFormData(data);
+    } catch (e) {
+      throw new Error("Invalid Request Body");
+    }
   }
 }
