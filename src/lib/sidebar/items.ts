@@ -7,9 +7,14 @@ export const menuItems: SidebarItem[] = [
       {
         label: "Cadastrar Vulnerável",
         icon: "",
-        url: "cadastrar-vulneravel"
-      }
-    ]
+        url: "cadastrar-vulneravel",
+      },
+      {
+        label: "Visualizar Vulneráveis",
+        icon: "",
+        url: "visualizar-vulneraveis",
+      },
+    ],
   },
   {
     title: "Administrador",
@@ -17,13 +22,13 @@ export const menuItems: SidebarItem[] = [
       {
         label: "Pesquisar Vulneráveis",
         icon: "",
-        url: "pesquisar-vulneraveis"
+        url: "pesquisar-vulneraveis",
       },
       {
         label: "Visualizar Totalizadores",
         icon: "",
-        url: "visualizar-totalizadores"
-      }
-    ]
-  }
-]
+        url: "visualizar-totalizadores",
+      },
+    ],
+  },
+];

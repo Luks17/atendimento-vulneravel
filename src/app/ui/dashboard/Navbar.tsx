@@ -30,9 +30,6 @@ function Navbar() {
       </div>
       <ul className="flex items-stretch">
         {/* Navbar menu content here */}
-        <li className="btn btn-ghost">
-          <a>Item</a>
-        </li>
         <li>
           <ThemeDropdown />
         </li>

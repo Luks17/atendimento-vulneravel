@@ -6,13 +6,13 @@ export class VulneravelService {
   static async getAll() {
     const vulneravelRepository = await dbSource.getRepository(Vulneravel);
 
-    vulneravelRepository.find();
+    return vulneravelRepository.find();
   }
 
   static async findOne(id: string) {
     const vulneravelRepository = await dbSource.getRepository(Vulneravel);
 
-    vulneravelRepository.findOne({
+    return vulneravelRepository.findOne({
       where: { id },
     });
   }
