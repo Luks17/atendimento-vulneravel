@@ -1,15 +1,14 @@
 import * as yup from "yup";
-import { moradiaOptions, perdasCatastrofesOptions } from "./options";
-
-const MoradiaValues = moradiaOptions.map(({ label: _, value }) => value);
-const PerdasCatastrofesValues = perdasCatastrofesOptions.map(
-  ({ label: _, value }) => value,
-);
+import { enumValues } from "../common";
+import {
+  MoradiaEnum,
+  PerdasCatastrofesEnum,
+} from "@/database/models/Vulneravel";
 
 export const cadastrarVulneravelSchema = yup.object({
   nome: yup.string().required(),
   total_adultos: yup.number().positive().integer().required(),
-  moradia: yup.string().oneOf(MoradiaValues).required(),
+  moradia: yup.mixed<MoradiaEnum>().oneOf(enumValues(MoradiaEnum)).required(),
   problemas_saude_familia: yup.array().of(yup.string().required()).required(),
   despesas_saude: yup
     .number()
@@ -18,7 +17,10 @@ export const cadastrarVulneravelSchema = yup.object({
       is: (val: string[]) => val.length > 0,
       then: (schema) => schema.required(),
     }),
-  perdas_catastrofes: yup.string().oneOf(PerdasCatastrofesValues).required(),
+  perdas_catastrofes: yup
+    .mixed<PerdasCatastrofesEnum>()
+    .oneOf(enumValues(PerdasCatastrofesEnum))
+    .required(),
   cesta_basica: yup.boolean().required(),
 });
 

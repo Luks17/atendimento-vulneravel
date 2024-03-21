@@ -1,16 +1,12 @@
 "use client";
 
 import { Controller, useForm, useWatch } from "react-hook-form";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   CadastrarVulneravelFormData,
   cadastrarVulneravelSchema,
 } from "@/lib/forms/cadastrar-vulneravel/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import {
-  moradiaOptions,
-  perdasCatastrofesOptions,
-} from "@/lib/forms/cadastrar-vulneravel/options";
 import { sections } from "@/lib/forms/cadastrar-vulneravel/sections";
 
 import RadioGroup from "@/app/ui/form/uncontrolled/RadioGroup";
@@ -18,11 +14,16 @@ import Input from "@/app/ui/form/uncontrolled/Input";
 import ComboBox from "@/app/ui/form/uncontrolled/ComboBox";
 import MultiSelect from "@/app/ui/form/controlled/MultiSelect";
 import Error from "@/app/ui/form/Error";
-import { binaryOptions } from "@/lib/forms/common";
+import { BinaryOptionsEnum, enumEntries } from "@/lib/forms/common";
+import {
+  MoradiaEnum,
+  PerdasCatastrofesEnum,
+} from "@/database/models/Vulneravel";
+import { submitVulneravel } from "@/app/actions/VulneraveisActions";
 
 function CadastrarVulneravel() {
-  const [output, setOutput] = useState("");
   const [currentSection, setCurrentSection] = useState(0);
+  const outputContainer = useRef<HTMLDivElement | null>(null);
 
   const {
     register,
@@ -74,6 +75,18 @@ function CadastrarVulneravel() {
     });
   }
 
+  function outputChange(success: boolean, msg: any) {
+    const output = outputContainer.current!;
+
+    output.classList.remove("hidden");
+
+    success
+      ? output.classList.add("badge-success")
+      : output.classList.add("badge-error");
+
+    output.querySelector("span")!.textContent = msg;
+  }
+
   return (
     <div className="w-full bg-base-200 rounded-2xl form-control">
       <ul className="steps border-8 border-base-200 bg-neutral rounded-t-2xl px-10 py-16 text-xl">
@@ -88,11 +101,27 @@ function CadastrarVulneravel() {
       </ul>
 
       <form
-        className="p-10"
+        className="p-10 form-control"
         onSubmit={handleSubmit((data) => {
-          setOutput(JSON.stringify(data, null, 2));
+          submitVulneravel(data)
+            .then(() => outputChange(true, "Success"))
+            .catch((e) => outputChange(false, e));
         })}
       >
+        <div
+          className="mx-auto badge gap-x-1 items-center hidden"
+          ref={outputContainer}
+        >
+          <button
+            onClick={(e) => {
+              e.preventDefault();
+              outputContainer.current!.classList.add("hidden");
+            }}
+          >
+            x
+          </button>
+          <span />
+        </div>
         <div className="carousel my-auto py-1 w-full overflow-x-hidden">
           <section
             className="carousel-item w-full items-center flex-col gap-y-4"
@@ -115,7 +144,7 @@ function CadastrarVulneravel() {
 
             <RadioGroup
               register={register("moradia")}
-              enumOptions={moradiaOptions}
+              enumOptions={enumEntries(MoradiaEnum)}
               label="Moradia"
               error={errors.moradia}
             />
@@ -148,7 +177,7 @@ function CadastrarVulneravel() {
 
             <ComboBox
               register={register("perdas_catastrofes")}
-              enumOptions={perdasCatastrofesOptions}
+              enumOptions={enumEntries(PerdasCatastrofesEnum)}
               label="Perdas por Catástrofes"
               error={errors.perdas_catastrofes}
             />
@@ -159,7 +188,7 @@ function CadastrarVulneravel() {
           >
             <RadioGroup
               register={register("cesta_basica")}
-              enumOptions={binaryOptions}
+              enumOptions={enumEntries(BinaryOptionsEnum)}
               label="Solicitar Cesta Básica?"
               error={errors.cesta_basica}
             />
@@ -190,7 +219,6 @@ function CadastrarVulneravel() {
           </button>
         </div>
       </form>
-      <pre className="mt-20 pb-10 text-lg mx-auto">{output}</pre>
     </div>
   );
 }

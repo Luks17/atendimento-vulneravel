@@ -1,9 +1,13 @@
 export interface Option {
-  label: string;
+  key: string;
   value: string;
 }
 
-export const binaryOptions: Option[] = [
-  { label: "Sim", value: "true" },
-  { label: "Não", value: "false" },
-];
+export enum BinaryOptionsEnum {
+  Sim = "true",
+  Não = "false",
+}
+
+export const enumValues = <T>(e: Object): T[] => Object.values(e);
+export const enumEntries = <T extends Record<string, string>>(e: T): Option[] =>
+  Object.entries(e).map(([key, value]) => ({ key, value }));

@@ -1,6 +1,7 @@
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-import Error from "../Error";
 import { Option } from "@/lib/forms/common";
+
+import Error from "../Error";
 
 export default function ComboBox({
   register,
@@ -27,7 +28,7 @@ export default function ComboBox({
       >
         {enumOptions.map((item, i) => (
           <option key={i} value={item.value}>
-            {item.label}
+            {item.key}
           </option>
         ))}
       </select>
