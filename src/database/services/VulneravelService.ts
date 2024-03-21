@@ -6,13 +6,13 @@ export class VulneravelService {
   static async getAll() {
     const vulneravelRepository = await dbSource.getRepository(Vulneravel);
 
-    return vulneravelRepository.find();
+    return await vulneravelRepository.find({ relations: { tipos: true } });
   }
 
   static async findOne(id: string) {
     const vulneravelRepository = await dbSource.getRepository(Vulneravel);
 
-    return vulneravelRepository.findOne({
+    return await vulneravelRepository.findOne({
       where: { id },
     });
   }
@@ -22,7 +22,7 @@ export class VulneravelService {
 
     const entity = vulneravelRepository.create({ ...dto });
 
-    await vulneravelRepository.insert(entity);
+    await vulneravelRepository.save(entity);
 
     return entity;
   }

@@ -16,10 +16,10 @@ export class CreateVulneravelDTO {
     public cesta_basica: boolean,
 
     public tipos: ProblemaSaude[],
-  ) { }
+  ) {}
 
   static async fromFormData(data: CadastrarVulneravelFormData) {
-    let tipos = data.problemas_saude_familia.map((tipo: string) => {
+    const tipos = data.problemas_saude_familia.map((tipo: string) => {
       let Problema = new ProblemaSaude();
       Problema.tipo = tipo;
 
