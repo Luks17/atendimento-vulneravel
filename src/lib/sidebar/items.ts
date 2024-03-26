@@ -9,11 +9,6 @@ export const menuItems: SidebarItem[] = [
         icon: "",
         url: "cadastrar-vulneravel",
       },
-      {
-        label: "Visualizar Vulneráveis",
-        icon: "",
-        url: "visualizar-vulneraveis",
-      },
     ],
   },
   {
