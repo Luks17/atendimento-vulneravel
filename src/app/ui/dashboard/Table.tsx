@@ -30,9 +30,10 @@ interface Props<T extends ObjectLiteral> {
 function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
   const modalContainer = useRef<HTMLDialogElement | null>(null);
 
-  const [data, _] = useState(initialData);
   const [currentModalTitle, setCurrentModalTitle] = useState("");
   const [currentModalElements, setCurrentModalElements] = useState<any[]>([]);
+
+  const [data, _] = useState(initialData);
   const [sorting, setSorting] = useState<SortingState>([]);
   const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
@@ -101,18 +102,26 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
                 ))}
               </thead>
               <tbody>
-                {table.getRowModel().rows.map((row) => (
-                  <tr key={row.id} className="border-b-neutral bg-base-300">
-                    {row.getVisibleCells().map((cell) => (
-                      <td key={cell.id}>
-                        {flexRender(
-                          cell.column.columnDef.cell,
-                          cell.getContext(),
-                        )}
-                      </td>
-                    ))}
+                {table.getPrePaginationRowModel().rows.length > 0 ? (
+                  table.getRowModel().rows.map((row) => (
+                    <tr key={row.id} className="border-b-neutral bg-base-300">
+                      {row.getVisibleCells().map((cell) => (
+                        <td key={cell.id}>
+                          {flexRender(
+                            cell.column.columnDef.cell,
+                            cell.getContext(),
+                          )}
+                        </td>
+                      ))}
+                    </tr>
+                  ))
+                ) : (
+                  <tr className="border-b-neutral bg-base-300">
+                    <td colSpan={table.getFlatHeaders().length}>
+                      Nenhum item encontrado!
+                    </td>
                   </tr>
-                ))}
+                )}
               </tbody>
             </table>
           </div>
