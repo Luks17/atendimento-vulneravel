@@ -1,7 +1,5 @@
 "use client";
 
-import { Vulneravel } from "@/database/models/Vulneravel";
-import { columns } from "@/lib/tables/vulneraveis";
 import {
   ChevronDoubleLeftIcon,
   ChevronLeftIcon,
@@ -13,6 +11,7 @@ import {
 } from "@heroicons/react/24/outline";
 import { FunnelIcon } from "@heroicons/react/24/solid";
 import {
+  ColumnDef,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -22,11 +21,17 @@ import {
   useReactTable,
 } from "@tanstack/react-table";
 import { useRef, useState } from "react";
+import { ObjectLiteral } from "typeorm";
 
-function Table({ vulneraveisJson }: { vulneraveisJson: string }) {
+interface Props<T extends ObjectLiteral> {
+  initialData: T[];
+  columns: ColumnDef<T, any>[];
+}
+
+function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
   const modalContainer = useRef<HTMLDialogElement | null>(null);
 
-  const [vulneraveis, _] = useState<Vulneravel[]>(JSON.parse(vulneraveisJson));
+  const [data, _] = useState(initialData);
   const [currentModalTitle, setCurrentModalTitle] = useState("");
   const [currentModalElements, setCurrentModalElements] = useState<any[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -45,8 +50,8 @@ function Table({ vulneraveisJson }: { vulneraveisJson: string }) {
   }
 
   const table = useReactTable({
-    data: vulneraveis,
-    columns: columns,
+    data,
+    columns,
     getCoreRowModel: getCoreRowModel(),
     getPaginationRowModel: getPaginationRowModel(),
     getSortedRowModel: getSortedRowModel(),
@@ -88,7 +93,7 @@ function Table({ vulneraveisJson }: { vulneraveisJson: string }) {
                               Organizar
                             </span>
                             {!header.column.getIsSorted() ||
-                            header.column.getIsSorted() === "desc" ? (
+                              header.column.getIsSorted() === "desc" ? (
                               <button
                                 onClick={() =>
                                   header.column.toggleSorting(false)

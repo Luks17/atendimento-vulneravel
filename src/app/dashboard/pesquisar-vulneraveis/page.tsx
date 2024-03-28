@@ -1,10 +1,10 @@
 import { list } from "@/app/actions/VulneraveisActions";
-import Table from "./table";
+import VulneravelDataTable from "./VulneravelDataTable";
 
 async function VisualizarVulneraveis() {
   const vulneraveis = await list();
 
-  return <Table vulneraveisJson={JSON.stringify(vulneraveis)} />;
+  return <VulneravelDataTable vulneraveisJson={JSON.stringify(vulneraveis)} />;
 }
 
 export default VisualizarVulneraveis;
