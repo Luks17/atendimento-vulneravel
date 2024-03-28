@@ -101,6 +101,7 @@ function FilterDropdownContent<T extends ObjectLiteral>({
               size={10}
               value={(columnFilterValue ?? "") as string}
               onChange={(value) => column.setFilterValue(value)}
+              placeholder="Pesquisar..."
               className="input input-xs text-base-content form-control"
               list={column.id + "list"}
             />

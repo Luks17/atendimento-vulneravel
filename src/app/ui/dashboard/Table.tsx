@@ -6,7 +6,7 @@ import {
   ChevronDoubleRightIcon,
   ChevronRightIcon,
 } from "@heroicons/react/24/outline";
-import { FunnelIcon } from "@heroicons/react/24/solid";
+import { FunnelIcon, TrashIcon } from "@heroicons/react/24/solid";
 import {
   ColumnDef,
   ColumnFiltersState,
@@ -117,36 +117,46 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
             </table>
           </div>
         </div>
-        <div className="join mt-4">
+        <div className="flex flex-col mt-5 md:grid md:grid-cols-12 items-center md:w-full">
           <button
-            disabled={!table.getCanPreviousPage()}
-            onClick={() => table.setPageIndex(0)}
-            className="join-item btn"
+            disabled={columnFilters.length === 0}
+            onClick={() => setColumnFilters([])}
+            className="md:col-start-4 md:col-end-6 btn btn-error btn-outline bg-base-100 w-fit md:w-4/6"
           >
-            <ChevronDoubleLeftIcon className="w-4" />
+            <TrashIcon className="w-3" />
+            Limpar filtros
           </button>
-          <button
-            disabled={!table.getCanPreviousPage()}
-            onClick={() => table.previousPage()}
-            className="join-item btn"
-          >
-            <ChevronLeftIcon className="w-4" />
-          </button>
-          <button className="join-item btn">{`Página ${table.getState().pagination.pageIndex + 1}/${table.getPageCount()}`}</button>
-          <button
-            disabled={!table.getCanNextPage()}
-            onClick={() => table.nextPage()}
-            className="join-item btn"
-          >
-            <ChevronRightIcon className="w-4" />
-          </button>
-          <button
-            disabled={!table.getCanNextPage()}
-            onClick={() => table.setPageIndex(table.getPageCount() - 1)}
-            className="join-item btn"
-          >
-            <ChevronDoubleRightIcon className="w-4" />
-          </button>
+          <div className="join md:col-start-8 md:col-end-10">
+            <button
+              disabled={!table.getCanPreviousPage()}
+              onClick={() => table.setPageIndex(0)}
+              className="join-item btn"
+            >
+              <ChevronDoubleLeftIcon className="w-4" />
+            </button>
+            <button
+              disabled={!table.getCanPreviousPage()}
+              onClick={() => table.previousPage()}
+              className="join-item btn"
+            >
+              <ChevronLeftIcon className="w-4" />
+            </button>
+            <button className="join-item btn">{`Página ${table.getState().pagination.pageIndex + 1}/${table.getPageCount()}`}</button>
+            <button
+              disabled={!table.getCanNextPage()}
+              onClick={() => table.nextPage()}
+              className="join-item btn"
+            >
+              <ChevronRightIcon className="w-4" />
+            </button>
+            <button
+              disabled={!table.getCanNextPage()}
+              onClick={() => table.setPageIndex(table.getPageCount() - 1)}
+              className="join-item btn"
+            >
+              <ChevronDoubleRightIcon className="w-4" />
+            </button>
+          </div>
         </div>
       </div>
       <dialog ref={modalContainer} className="modal">
