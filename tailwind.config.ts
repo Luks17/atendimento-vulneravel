@@ -18,7 +18,15 @@ const config: Config = {
   },
   plugins: [require("daisyui")],
   daisyui: {
-    themes: ["corporate", "dracula"],
+    themes: [
+      "corporate",
+      "cupcake",
+      "pastel",
+      "cmyk",
+      "dracula",
+      "business",
+      "halloween",
+    ],
   },
 };
 export default config;

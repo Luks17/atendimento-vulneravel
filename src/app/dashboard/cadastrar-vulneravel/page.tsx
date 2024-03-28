@@ -89,11 +89,11 @@ function CadastrarVulneravel() {
 
   return (
     <div className="w-full bg-base-200 rounded-2xl form-control">
-      <ul className="steps border-8 border-base-200 bg-neutral rounded-t-2xl px-10 py-16 text-xl">
+      <ul className="steps border-8 border-base-200 bg-secondary rounded-t-2xl px-10 py-16 text-xl">
         {sections.map((section, i) => (
           <li
             key={i}
-            className={`step text-neutral-content ${currentSection >= i && "step-accent"}`}
+            className={`step text-secondary-content ${currentSection >= i && "step-accent"}`}
           >
             {section.label}
           </li>

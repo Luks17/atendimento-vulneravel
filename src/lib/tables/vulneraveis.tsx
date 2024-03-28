@@ -33,7 +33,9 @@ export const columns: ColumnDef<Vulneravel, any>[] = [
             )
           }
         >
-          Visualizar
+          <span className="btn btn-secondary btn-xs btn-outline">
+            Visualizar
+          </span>
         </button>
       ),
   }),

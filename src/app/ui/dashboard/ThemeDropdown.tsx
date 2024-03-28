@@ -20,6 +20,16 @@ export default function ThemeDropdown() {
     localStorage.setItem("data-theme", value);
   }
 
+  const themes = [
+    "corporate",
+    "cupcake",
+    "pastel",
+    "cmyk",
+    "dracula",
+    "business",
+    "halloween",
+  ];
+
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn">
@@ -27,26 +37,19 @@ export default function ThemeDropdown() {
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] p-2 shadow bg-base-100 rounded-box w-52"
+        className="dropdown-content z-[1] p-2 shadow bg-base-100 text-base-content rounded-box w-52"
       >
-        <li>
-          <button
-            className="btn btn-sm btn-block btn-ghost justify-start"
-            value="corporate"
-            onClick={handleThemeChange}
-          >
-            Corporate
-          </button>
-        </li>
-        <li>
-          <button
-            className="btn btn-sm btn-block btn-ghost justify-start"
-            value="dracula"
-            onClick={handleThemeChange}
-          >
-            Dracula
-          </button>
-        </li>
+        {themes.map((theme, i) => (
+          <li key={i}>
+            <button
+              className="btn btn-sm btn-block btn-ghost capitalize justify-start"
+              value={theme}
+              onClick={handleThemeChange}
+            >
+              {theme}
+            </button>
+          </li>
+        ))}
       </ul>
     </div>
   );

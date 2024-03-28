@@ -13,7 +13,7 @@ export default function RootLayout({
   children,
 }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <html lang="en" data-theme="dracula">
+    <html lang="en" data-theme="corporate">
       <body className={`${inter.className} h-full`}>{children}</body>
     </html>
   );

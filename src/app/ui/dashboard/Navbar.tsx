@@ -2,7 +2,7 @@ import ThemeDropdown from "./ThemeDropdown";
 
 function Navbar() {
   return (
-    <nav className="navbar w-auto bg-base-300 rounded-lg">
+    <nav className="navbar w-auto bg-neutral text-neutral-content rounded-box">
       <div className="flex-none lg:hidden">
         <label
           htmlFor="sidebar"
@@ -25,9 +25,7 @@ function Navbar() {
           </svg>
         </label>
       </div>
-      <div className="flex-1 px-2 font-bold text-xl text-base-content">
-        Dashboard
-      </div>
+      <div className="flex-1 px-2 font-bold text-xl">Dashboard</div>
       <ul className="flex items-stretch">
         {/* Navbar menu content here */}
         <li>
