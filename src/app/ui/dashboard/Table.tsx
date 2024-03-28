@@ -5,13 +5,11 @@ import {
   ChevronLeftIcon,
   ChevronDoubleRightIcon,
   ChevronRightIcon,
-  ArrowDownIcon,
-  ArrowUpIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
 import { FunnelIcon } from "@heroicons/react/24/solid";
 import {
   ColumnDef,
+  ColumnFiltersState,
   SortingState,
   flexRender,
   getCoreRowModel,
@@ -22,6 +20,7 @@ import {
 } from "@tanstack/react-table";
 import { useRef, useState } from "react";
 import { ObjectLiteral } from "typeorm";
+import FilterDropdownContent from "./table/FilterDropdownContent";
 
 interface Props<T extends ObjectLiteral> {
   initialData: T[];
@@ -35,6 +34,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
   const [currentModalTitle, setCurrentModalTitle] = useState("");
   const [currentModalElements, setCurrentModalElements] = useState<any[]>([]);
   const [sorting, setSorting] = useState<SortingState>([]);
+  const [columnFilters, setColumnFilters] = useState<ColumnFiltersState>([]);
 
   function showModal(
     e: React.MouseEvent<HTMLButtonElement>,
@@ -58,8 +58,10 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
     getFilteredRowModel: getFilteredRowModel(),
     state: {
       sorting,
+      columnFilters,
     },
     onSortingChange: setSorting,
+    onColumnFiltersChange: setColumnFilters,
     meta: { showModal },
   });
 
@@ -88,38 +90,10 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
                             )}
                             <FunnelIcon className="w-3" />
                           </div>
-                          <div className="z-10 dropdown-content flex items-center gap-x-1 bg-base-200 p-3 rounded-sm">
-                            <span className="text-base-content py-1 px-2">
-                              Organizar
-                            </span>
-                            {!header.column.getIsSorted() ||
-                              header.column.getIsSorted() === "desc" ? (
-                              <button
-                                onClick={() =>
-                                  header.column.toggleSorting(false)
-                                }
-                                className="btn btn-xs"
-                              >
-                                <ArrowDownIcon className="w-3" />
-                              </button>
-                            ) : (
-                              <button
-                                onClick={() =>
-                                  header.column.toggleSorting(true)
-                                }
-                                className="btn btn-xs"
-                              >
-                                <ArrowUpIcon className="w-3" />
-                              </button>
-                            )}
-                            <button
-                              disabled={!header.column.getIsSorted()}
-                              onClick={() => header.column.clearSorting()}
-                              className="btn btn-xs"
-                            >
-                              <XMarkIcon className="w-3" />
-                            </button>
-                          </div>
+                          <FilterDropdownContent
+                            column={header.column}
+                            table={table}
+                          />
                         </div>
                       </th>
                     ))}
