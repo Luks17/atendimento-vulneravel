@@ -68,69 +68,67 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
 
   return (
     <>
-      <div className="w-full py-12 bg-base-200 rounded-2xl form-control items-center">
-        <div className="max-w-full max-md:px-2">
-          <div className="overflow-x-auto rounded-sm">
-            <table className="table table-zebra border-neutral border-b">
-              <thead>
-                {table.getHeaderGroups().map((headerGroup) => (
-                  <tr
-                    key={headerGroup.id}
-                    className="bg-secondary text-secondary-content"
-                  >
-                    {headerGroup.headers.map((header) => (
-                      <th key={header.id}>
-                        <div className="dropdown">
-                          <div
-                            tabIndex={0}
-                            className="cursor-pointer flex gap-x-1"
-                          >
-                            {flexRender(
-                              header.column.columnDef.header,
-                              header.getContext(),
-                            )}
-                            <FunnelIcon className="w-3" />
-                          </div>
-                          <FilterDropdownContent
-                            column={header.column}
-                            table={table}
-                          />
+      <div className="w-full py-12 bg-base-200 rounded-2xl form-control items-center px-2 sm:px-4">
+        <div className="overflow-x-auto w-full rounded-sm max-w-full min-h-40">
+          <table className="table table-zebra border-neutral border-b">
+            <thead>
+              {table.getHeaderGroups().map((headerGroup) => (
+                <tr
+                  key={headerGroup.id}
+                  className="bg-secondary text-secondary-content"
+                >
+                  {headerGroup.headers.map((header) => (
+                    <th key={header.id}>
+                      <div className="dropdown">
+                        <div
+                          tabIndex={0}
+                          className="cursor-pointer flex gap-x-1"
+                        >
+                          {flexRender(
+                            header.column.columnDef.header,
+                            header.getContext(),
+                          )}
+                          <FunnelIcon className="w-3" />
                         </div>
-                      </th>
+                        <FilterDropdownContent
+                          column={header.column}
+                          table={table}
+                        />
+                      </div>
+                    </th>
+                  ))}
+                </tr>
+              ))}
+            </thead>
+            <tbody>
+              {table.getPrePaginationRowModel().rows.length > 0 ? (
+                table.getRowModel().rows.map((row) => (
+                  <tr key={row.id} className="border-b-neutral bg-base-300">
+                    {row.getVisibleCells().map((cell) => (
+                      <td key={cell.id} className="pl-4">
+                        {flexRender(
+                          cell.column.columnDef.cell,
+                          cell.getContext(),
+                        )}
+                      </td>
                     ))}
                   </tr>
-                ))}
-              </thead>
-              <tbody>
-                {table.getPrePaginationRowModel().rows.length > 0 ? (
-                  table.getRowModel().rows.map((row) => (
-                    <tr key={row.id} className="border-b-neutral bg-base-300">
-                      {row.getVisibleCells().map((cell) => (
-                        <td key={cell.id}>
-                          {flexRender(
-                            cell.column.columnDef.cell,
-                            cell.getContext(),
-                          )}
-                        </td>
-                      ))}
-                    </tr>
-                  ))
-                ) : (
-                  <tr className="border-b-neutral bg-base-300">
-                    <td colSpan={table.getFlatHeaders().length}>
-                      Nenhum item encontrado!
-                    </td>
-                  </tr>
-                )}
-              </tbody>
-            </table>
-          </div>
+                ))
+              ) : (
+                <tr className="border-b-neutral bg-base-300">
+                  <td colSpan={table.getFlatHeaders().length}>
+                    Nenhum item encontrado!
+                  </td>
+                </tr>
+              )}
+            </tbody>
+          </table>
         </div>
-        <div className="flex flex-col mt-5 md:grid md:grid-cols-12 items-center md:w-full">
+        <div className="flex flex-col-reverse gap-y-4 mt-5 md:grid md:grid-cols-12 items-center md:w-full">
           <button
             disabled={columnFilters.length === 0}
             onClick={() => setColumnFilters([])}
-            className="md:col-start-4 md:col-end-6 btn btn-error btn-outline bg-base-100 w-fit md:w-4/6"
+            className="md:col-start-2 2xl:col-start-3 md:col-end-6 btn btn-error btn-outline bg-base-100 w-fit md:w-4/6"
           >
             <TrashIcon className="w-3" />
             Limpar filtros

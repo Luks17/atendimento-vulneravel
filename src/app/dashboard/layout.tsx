@@ -3,7 +3,7 @@ import Sidebar from "../ui/dashboard/Sidebar";
 
 function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   return (
-    <div className="drawer lg:drawer-open">
+    <div className="drawer xl:drawer-open">
       <input id="sidebar" type="checkbox" className="drawer-toggle" />
       <div className="drawer-content m-1.5 flex flex-col gap-y-3">
         <Navbar />

@@ -24,7 +24,7 @@ export const columns: ColumnDef<Vulneravel, any>[] = [
     cell: ({ getValue, table, column }) =>
       getValue().length > 0 && (
         <button
-          className="w-full"
+          className="btn btn-secondary btn-xs btn-outline"
           onClick={(e) =>
             table.options.meta?.showModal(
               e,
@@ -33,9 +33,7 @@ export const columns: ColumnDef<Vulneravel, any>[] = [
             )
           }
         >
-          <span className="btn btn-secondary btn-xs btn-outline">
-            Visualizar
-          </span>
+          Visualizar
         </button>
       ),
   }),
