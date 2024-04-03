@@ -20,7 +20,7 @@ import {
 } from "@tanstack/react-table";
 import { useRef, useState } from "react";
 import { ObjectLiteral } from "typeorm";
-import FilterDropdownContent from "./table/FilterDropdownContent";
+import FilterContent from "./table/FilterContent";
 
 interface Props<T extends ObjectLiteral> {
   initialData: T[];
@@ -90,10 +90,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
                           )}
                           <FunnelIcon className="w-3" />
                         </div>
-                        <FilterDropdownContent
-                          column={header.column}
-                          table={table}
-                        />
+                        <FilterContent column={header.column} table={table} />
                       </div>
                     </th>
                   ))}

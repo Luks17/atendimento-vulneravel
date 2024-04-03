@@ -9,4 +9,9 @@ declare module "@tanstack/table-core" {
       elements: string[],
     ) => void;
   }
+
+  interface ColumnMeta<T extends Record<string, string>> {
+    type?: string;
+    enum?: T;
+  }
 }

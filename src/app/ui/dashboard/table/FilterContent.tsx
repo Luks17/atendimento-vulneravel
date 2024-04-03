@@ -6,29 +6,18 @@ import {
 import { Column, Table } from "@tanstack/react-table";
 import { ObjectLiteral } from "typeorm";
 import DebouncedInput from "./DebouncedInput";
-import { useMemo } from "react";
 
 interface Props<T extends ObjectLiteral> {
   table: Table<T>;
   column: Column<T, any>;
 }
 
-function FilterDropdownContent<T extends ObjectLiteral>({
-  table,
-  column,
-}: Props<T>) {
+function FilterContent<T extends ObjectLiteral>({ table, column }: Props<T>) {
   const firstValue = table
     .getPreFilteredRowModel()
     .flatRows[0]?.getValue(column.id);
 
   const columnFilterValue = column.getFilterValue();
-  const sortedUniqueValues = useMemo(
-    () =>
-      typeof firstValue === "number"
-        ? []
-        : Array.from(column.getFacetedUniqueValues().keys()).sort(),
-    [column.getFacetedUniqueValues()],
-  );
 
   return (
     <div className="z-10 dropdown-content bg-base-200 p-3 rounded-sm">
@@ -91,11 +80,6 @@ function FilterDropdownContent<T extends ObjectLiteral>({
           </div>
         ) : (
           <>
-            <datalist id={column.id + "list"}>
-              {sortedUniqueValues.slice(0, 5000).map((value: any) => (
-                <option value={value} key={value} />
-              ))}
-            </datalist>
             <DebouncedInput
               type="text"
               size={10}
@@ -103,7 +87,6 @@ function FilterDropdownContent<T extends ObjectLiteral>({
               onChange={(value) => column.setFilterValue(value)}
               placeholder="Pesquisar..."
               className="input input-xs text-base-content form-control"
-              list={column.id + "list"}
             />
             <div className="h-1" />
           </>
@@ -113,4 +96,4 @@ function FilterDropdownContent<T extends ObjectLiteral>({
   );
 }
 
-export default FilterDropdownContent;
+export default FilterContent;

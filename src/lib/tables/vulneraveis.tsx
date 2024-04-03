@@ -17,10 +17,12 @@ export const columns: ColumnDef<Vulneravel, any>[] = [
   }),
   columnHelper.accessor("moradia", {
     header: "Moradia",
+    meta: { type: "enum", enum: MoradiaEnum },
     cell: (moradia) => findKey(MoradiaEnum, moradia.getValue()),
   }),
   columnHelper.accessor("tipos", {
     header: "Problemas de Saúde da Família",
+    meta: { type: "array" },
     cell: ({ getValue, table, column }) =>
       getValue().length > 0 && (
         <button
@@ -39,6 +41,7 @@ export const columns: ColumnDef<Vulneravel, any>[] = [
   }),
   columnHelper.accessor("perdas_catastrofes", {
     header: "Perdas por Catástrofe",
+    meta: { type: "enum", enum: PerdasCatastrofesEnum },
     cell: (perda_catastrofe) =>
       findKey(PerdasCatastrofesEnum, perda_catastrofe.getValue()),
   }),
