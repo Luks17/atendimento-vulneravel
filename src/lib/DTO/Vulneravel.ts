@@ -1,3 +1,4 @@
+import { v4 as uuidv4 } from "uuid";
 import { ProblemaSaude } from "@/database/models/ProblemaSaude";
 import {
   MoradiaEnum,
@@ -8,6 +9,7 @@ import { CadastrarVulneravelFormData } from "../forms/cadastrar-vulneravel/schem
 
 export class CreateVulneravelDTO {
   constructor(
+    public id: string,
     public nome: string,
     public total_adultos: number,
     public moradia: MoradiaEnum,
@@ -27,6 +29,7 @@ export class CreateVulneravelDTO {
     });
 
     return new this(
+      uuidv4(),
       data.nome,
       data.total_adultos,
       data.moradia,

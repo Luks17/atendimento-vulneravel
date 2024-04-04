@@ -1,10 +1,4 @@
-import {
-  Column,
-  Entity,
-  JoinTable,
-  ManyToMany,
-  PrimaryGeneratedColumn,
-} from "typeorm";
+import { Column, Entity, JoinTable, ManyToMany, PrimaryColumn } from "typeorm";
 import { IsPositive, MinLength } from "class-validator";
 import { ProblemaSaude } from "./ProblemaSaude";
 
@@ -22,7 +16,7 @@ export enum PerdasCatastrofesEnum {
 
 @Entity("vulneraveis")
 export class Vulneravel {
-  @PrimaryGeneratedColumn("uuid")
+  @PrimaryColumn({ type: "char", length: 36 })
   id: string;
 
   @Column({ type: "varchar", length: 155 })
