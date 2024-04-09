@@ -8,7 +8,7 @@ import { NextRequest } from "next/server";
 import { CadastrarVulneravelFormData } from "../forms/cadastrar-vulneravel/schema";
 
 export class CreateVulneravelDTO {
-  constructor(
+  private constructor(
     public id: string,
     public nome: string,
     public total_adultos: number,
@@ -30,6 +30,7 @@ export class CreateVulneravelDTO {
 
     return new this(
       uuidv4(),
+
       data.nome,
       data.total_adultos,
       data.moradia,
