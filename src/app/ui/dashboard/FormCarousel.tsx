@@ -1,7 +1,7 @@
 import React from "react";
 
 function FormCarousel({ children }: { children: React.ReactNode }) {
-  return <div className="carousel py-1 w-full">{children}</div>;
+  return <div className="carousel py-1 w-full overflow-hidden">{children}</div>;
 }
 
 function CarouselSection({
@@ -16,7 +16,9 @@ function CarouselSection({
       className="carousel-item w-full"
       id={`form-carousel-section-${id}`}
     >
-      <div className="flex flex-col items-start gap-y-4 p-10">{children}</div>
+      <div className="flex flex-col items-start gap-y-4 p-10 xl:p-20">
+        {children}
+      </div>
     </section>
   );
 }
