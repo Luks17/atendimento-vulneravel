@@ -20,6 +20,8 @@ import {
   PerdasCatastrofesEnum,
 } from "@/database/models/Vulneravel";
 import { submitVulneravel } from "@/app/actions/VulneraveisActions";
+import FormContainer from "@/app/ui/dashboard/FormContainer";
+import FormCarousel from "@/app/ui/dashboard/FormCarousel";
 
 function CadastrarVulneravel() {
   const [currentSection, setCurrentSection] = useState(0);
@@ -67,7 +69,7 @@ function CadastrarVulneravel() {
           : currentSection - 1;
 
         document
-          .querySelector(`#section-${newCurrentSection}`)
+          .querySelector(`#form-carousel-section-${newCurrentSection}`)
           ?.scrollIntoView();
 
         setCurrentSection(newCurrentSection);
@@ -88,20 +90,8 @@ function CadastrarVulneravel() {
   }
 
   return (
-    <div className="w-full bg-base-200 rounded-2xl form-control">
-      <ul className="steps border-8 border-base-200 bg-secondary rounded-t-2xl px-10 py-16 text-xl">
-        {sections.map((section, i) => (
-          <li
-            key={i}
-            className={`step text-secondary-content ${currentSection >= i && "step-accent"}`}
-          >
-            {section.label}
-          </li>
-        ))}
-      </ul>
-
+    <FormContainer currentSection={currentSection} sections={sections}>
       <form
-        className="p-10 form-control"
         onSubmit={handleSubmit((data) => {
           submitVulneravel(data)
             .then(() => outputChange(true, "Success"))
@@ -122,11 +112,8 @@ function CadastrarVulneravel() {
           </button>
           <span />
         </div>
-        <div className="carousel my-auto py-1 w-full overflow-x-hidden">
-          <section
-            className="carousel-item w-full items-center flex-col gap-y-4"
-            id="section-0"
-          >
+        <FormCarousel.Root>
+          <FormCarousel.Section id={0}>
             <Input
               register={register("nome")}
               label="Nome"
@@ -181,21 +168,18 @@ function CadastrarVulneravel() {
               label="Perdas por Catástrofes"
               error={errors.perdas_catastrofes}
             />
-          </section>
-          <section
-            className="carousel-item w-full flex-col items-center gap-y-4"
-            id="section-1"
-          >
+          </FormCarousel.Section>
+          <FormCarousel.Section id={1}>
             <RadioGroup
               register={register("cesta_basica")}
               enumOptions={enumEntries(BinaryOptionsEnum)}
               label="Solicitar Cesta Básica?"
               error={errors.cesta_basica}
             />
-          </section>
-        </div>
+          </FormCarousel.Section>
+        </FormCarousel.Root>
 
-        <div className="w-full flex gap-x-5 mt-16 justify-center">
+        <div className="w-full flex gap-x-5 my-5 justify-center">
           <button
             className="btn btn-outline"
             onClick={(e) => changeSection(e, false)}
@@ -219,7 +203,7 @@ function CadastrarVulneravel() {
           </button>
         </div>
       </form>
-    </div>
+    </FormContainer>
   );
 }
 

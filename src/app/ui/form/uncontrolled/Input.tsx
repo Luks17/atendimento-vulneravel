@@ -19,7 +19,7 @@ export default function Input({
   error?: FieldError;
 }) {
   return (
-    <div className="form-control w-full items-center">
+    <div className="form-control w-full">
       <label className="form-control w-fit">
         <span>{label + (required ? "*" : "")}</span>
         <input
