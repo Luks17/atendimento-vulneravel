@@ -18,7 +18,7 @@ export class CreateVulneravelDTO {
     public cesta_basica: boolean,
 
     public tipos: ProblemaSaude[],
-  ) {}
+  ) { }
 
   static async fromFormData(data: CadastrarVulneravelFormData) {
     const tipos = data.problemas_saude_familia.map((tipo: string) => {
@@ -45,7 +45,7 @@ export class CreateVulneravelDTO {
   static async fromRequest(request: NextRequest) {
     try {
       const data: CadastrarVulneravelFormData = await request.json();
-      return this.fromFormData(data);
+      return await this.fromFormData(data);
     } catch (e) {
       throw new Error("Invalid Request Body");
     }

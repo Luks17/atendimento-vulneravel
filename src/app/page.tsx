@@ -1,5 +1,4 @@
 import { EnvelopeIcon, KeyIcon } from "@heroicons/react/24/outline";
-import Navbar from "./ui/dashboard/Navbar";
 import ThemeDropdown from "./ui/dashboard/ThemeDropdown";
 
 export default function Home() {

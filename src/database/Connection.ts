@@ -2,14 +2,15 @@ import "reflect-metadata";
 import { DataSource, ObjectLiteral, ObjectType, Repository } from "typeorm";
 import { Vulneravel } from "./models/Vulneravel";
 import { ProblemaSaude } from "./models/ProblemaSaude";
-import { Initial1712259339338 } from "./migrations/1712259339338-initial";
+import { Usuario } from "./models/Usuario";
+import { Initial1712781292019 } from "./migrations/1712781292019-initial";
 
 export const dbDataSource = new DataSource({
   type: "mysql",
   url: process.env.MYSQL_URL,
   synchronize: false,
-  entities: [Vulneravel, ProblemaSaude],
-  migrations: [Initial1712259339338],
+  entities: [Usuario, Vulneravel, ProblemaSaude],
+  migrations: [Initial1712781292019],
   subscribers: [],
 });
 
