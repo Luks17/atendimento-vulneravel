@@ -8,6 +8,7 @@ import { ObjectLiteral } from "typeorm";
 import NumberFilter from "./filters/NumberFilter";
 import TextFilter from "./filters/TextFilter";
 import EnumFilter from "./filters/EnumFilter";
+import CheckboxFilter from "./filters/CheckboxFilter";
 
 interface Props<T extends ObjectLiteral> {
   table: Table<T>;
@@ -23,11 +24,12 @@ function FilterContent<T extends ObjectLiteral>({ table, column }: Props<T>) {
 
   function getFilterType() {
     const meta = column.columnDef.meta;
-    let content = <div></div>;
+    let content: React.JSX.Element | null = null;
     let props = { column, columnFilterValue };
 
     if (meta) {
       if (meta.type === "array") {
+        content = <CheckboxFilter {...props} />;
       } else if (meta.type === "enum") {
         content = <EnumFilter {...{ ...props, enumToFilter: meta.enum }} />;
       }
@@ -70,12 +72,24 @@ function FilterContent<T extends ObjectLiteral>({ table, column }: Props<T>) {
           <XMarkIcon className="w-3" />
         </button>
       </div>
+      <FilterContainer>{getFilterType()}</FilterContainer>
+    </div>
+  );
+}
+
+function FilterContainer({ children }: { children: React.ReactNode | null }) {
+  if (!children) {
+    return null;
+  }
+
+  return (
+    <>
       <div className="divider my-1"></div>
       <div className="flex flex-col gap-y-2 items-center">
         <span className="text-base-content">Filtrar</span>
-        {getFilterType()}
+        {children}
       </div>
-    </div>
+    </>
   );
 }
 

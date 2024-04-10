@@ -38,6 +38,8 @@ export const columns: ColumnDef<Vulneravel, any>[] = [
           Visualizar
         </button>
       ),
+    filterFn: (row, columnId, filterValue) =>
+      !filterValue || row.getValue<string[]>(columnId).length > 0,
   }),
   columnHelper.accessor("perdas_catastrofes", {
     header: "Perdas por Catástrofe",
