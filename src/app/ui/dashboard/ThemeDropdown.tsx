@@ -33,7 +33,7 @@ export default function ThemeDropdown() {
   return (
     <div className="dropdown dropdown-end">
       <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn">
-        Theme
+        Tema
       </div>
       <ul
         tabIndex={0}
