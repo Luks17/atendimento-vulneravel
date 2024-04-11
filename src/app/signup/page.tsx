@@ -1,14 +1,17 @@
 "use client";
 
-import { EnvelopeIcon, KeyIcon } from "@heroicons/react/24/outline";
+import {
+  EnvelopeIcon,
+  KeyIcon,
+  UserCircleIcon,
+} from "@heroicons/react/24/outline";
 import ThemeDropdown from "../ui/dashboard/ThemeDropdown";
-import Link from "next/link";
+import Input from "../ui/form/uncontrolled/Input";
 import { useForm } from "react-hook-form";
 import { SignupFormData, signupSchema } from "@/lib/forms/auth/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "../ui/form/uncontrolled/Input";
 
-function Login() {
+function Signup() {
   const {
     register,
     handleSubmit,
@@ -22,20 +25,24 @@ function Login() {
       <form className="bg-base-300 w-full max-w-md p-10 flex flex-col gap-y-2 rounded-box">
         <div className="w-full flex justify-between py-5">
           <div className="text-base-content w-full">
-            <h2 className="text-2xl font-bold">Login</h2>
+            <h2 className="text-2xl font-bold">Registrar-se</h2>
             <p className="text-sm opacity-70">
-              Não tem uma conta?{" "}
-              <Link className="link link-success font-bold" href="/signup">
-                Registre-se
-              </Link>
+              Criar uma nova conta de usuário
             </p>
           </div>
           <ThemeDropdown />
         </div>
         <div className="form-control gap-y-2.5">
           <Input
+            label="Nome de usuário"
+            type="text"
+            register={register("nome")}
+            placeholder="Fulano123"
+            icon={<UserCircleIcon className="w-6 h-6 opacity-70" />}
+            error={errors.nome}
+          />
+          <Input
             label="E-mail"
-            showLabel={false}
             type="email"
             register={register("email")}
             icon={<EnvelopeIcon className="w-6 h-6 opacity-70" />}
@@ -43,7 +50,6 @@ function Login() {
           />
           <Input
             label="Senha"
-            showLabel={false}
             type="password"
             register={register("passwd")}
             icon={<KeyIcon className="w-6 h-6 opacity-70" />}
@@ -54,11 +60,11 @@ function Login() {
           className="btn btn-primary w-fit self-center mt-2"
           type="submit"
         >
-          Login
+          Criar conta
         </button>
       </form>
     </div>
   );
 }
 
-export default Login;
+export default Signup;

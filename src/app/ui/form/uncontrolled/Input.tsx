@@ -1,32 +1,44 @@
 import { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import Error from "../Error";
+import React from "react";
 
-export default function Input({
-  register,
-  label,
-  type = "text",
-  defaultValue = undefined,
-  required = true,
-  size = 30,
-  error = undefined,
-}: {
+interface Props {
   register: UseFormRegisterReturn;
   label: string;
+  showLabel?: boolean;
   type?: string;
   defaultValue?: string | number;
   required?: boolean;
   size?: number;
+  placeholder?: string;
+  icon?: React.JSX.Element;
   error?: FieldError;
-}) {
+}
+
+export default function Input({
+  register,
+  label,
+  showLabel = true,
+  type = "text",
+  defaultValue = undefined,
+  required = true,
+  size = 30,
+  placeholder,
+  icon,
+  error = undefined,
+}: Props) {
   return (
-    <div className="form-control w-full">
-      <label className="form-control w-fit">
-        <span>{label + (required ? "*" : "")}</span>
+    <div className="form-control">
+      {showLabel && <span>{label + (required ? "*" : "")}</span>}
+      <label
+        className={`input input-bordered flex items-center gap-x-2 ${error ? "input-error" : "input-bordered"}`}
+      >
+        {icon}
         <input
-          className={`input mt-1 w-full max-w-md ${error ? "input-error" : "input-bordered"}`}
+          className={`bg-base-100 w-full`}
           {...register}
           defaultValue={defaultValue}
-          placeholder={label}
+          placeholder={placeholder !== undefined ? placeholder : label}
           size={size}
           type={type}
         />
