@@ -10,8 +10,12 @@ import Input from "../ui/form/uncontrolled/Input";
 import { useForm } from "react-hook-form";
 import { SignupFormData, signupSchema } from "@/lib/forms/auth/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
+import Link from "next/link";
+import { signup } from "../actions/AuthActions";
+import { useRouter } from "next/navigation";
 
 function Signup() {
+  const router = useRouter();
   const {
     register,
     handleSubmit,
@@ -22,12 +26,25 @@ function Signup() {
 
   return (
     <div className="form-control flex-1 h-full items-center justify-center p-2">
-      <form className="bg-base-300 w-full max-w-md p-10 flex flex-col gap-y-2 rounded-box">
+      <form
+        onSubmit={handleSubmit((data) => {
+          signup(data)
+            .then(() => {
+              localStorage.setItem("auth-success", "Conta criada com sucesso!");
+              router.push("/login");
+            })
+            .catch((e) => console.log(e));
+        })}
+        className="bg-base-300 w-full max-w-md p-10 flex flex-col gap-y-2 rounded-box"
+      >
         <div className="w-full flex justify-between py-5">
           <div className="text-base-content w-full">
             <h2 className="text-2xl font-bold">Registrar-se</h2>
             <p className="text-sm opacity-70">
-              Criar uma nova conta de usuário
+              Já possui uma conta?{" "}
+              <Link href="/login" className="link link-success">
+                Conecte-se
+              </Link>
             </p>
           </div>
           <ThemeDropdown />
@@ -45,6 +62,7 @@ function Signup() {
             label="E-mail"
             type="email"
             register={register("email")}
+            placeholder="exemplo.123@mail.com"
             icon={<EnvelopeIcon className="w-6 h-6 opacity-70" />}
             error={errors.email}
           />
@@ -54,6 +72,13 @@ function Signup() {
             register={register("passwd")}
             icon={<KeyIcon className="w-6 h-6 opacity-70" />}
             error={errors.passwd}
+          />
+          <Input
+            label="Confirmar Senha"
+            type="password"
+            register={register("confirmPasswd")}
+            icon={<KeyIcon className="w-6 h-6 opacity-70" />}
+            error={errors.confirmPasswd}
           />
         </div>
         <button
