@@ -1,4 +1,4 @@
-import { CreateUsuarioDTO } from "@/lib/DTO/Usuario";
+import { CreateUsuarioDTO } from "@/lib/DTO/Usuario/CreateUsuarioDTO";
 import { dbSource } from "../Connection";
 import { Usuario } from "../models/Usuario";
 

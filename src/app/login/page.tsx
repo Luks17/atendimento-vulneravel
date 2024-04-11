@@ -7,11 +7,11 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "../ui/form/uncontrolled/Input";
 import { LoginFormData, loginSchema } from "@/lib/forms/auth/loginSchema";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Notification from "../ui/Notification";
 
 function Login() {
-  const authSuccessMessage = localStorage.getItem("auth-success") || "";
+  const [authSuccessMessage, setAuthSuccessMessage] = useState("");
 
   const {
     register,
@@ -22,8 +22,15 @@ function Login() {
   });
 
   useEffect(() => {
-    localStorage.removeItem("auth-success");
-  }, []);
+    if (authSuccessMessage == "") {
+      const message = localStorage.getItem("auth-success");
+      if (message) {
+        setAuthSuccessMessage(message);
+      }
+    } else {
+      localStorage.removeItem("auth-success");
+    }
+  }, [authSuccessMessage]);
 
   return (
     <div className="form-control flex-1 h-full items-center justify-center p-2">
