@@ -39,6 +39,7 @@ function Notification({
 
   const alertType = types[messageType as keyof typeof types];
 
+  // always check if open is true, otherwise a memory leak may happen
   useEffect(() => {
     if (open && progress > 0) {
       const interval = setTimeout(() => {
@@ -46,12 +47,18 @@ function Notification({
       }, 50);
 
       return () => clearTimeout(interval);
-    } else {
+    } else if (open && progress <= 0) {
       setOpen(false);
 
       setTimeout(() => container.current!.classList.add("hidden"), 300);
     }
-  }, [progress]);
+  }, [open, progress]);
+
+  useEffect(() => {
+    if (message !== "") {
+      setOpen(true);
+    }
+  }, [message]);
 
   return (
     <div

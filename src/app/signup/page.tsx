@@ -13,9 +13,13 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { signup } from "../actions/AuthActions";
 import { useRouter } from "next/navigation";
+import { useState } from "react";
+import Notification from "../ui/Notification";
 
 function Signup() {
   const router = useRouter();
+  const [serverError, setServerError] = useState("");
+
   const {
     register,
     handleSubmit,
@@ -33,7 +37,7 @@ function Signup() {
               localStorage.setItem("auth-success", "Conta criada com sucesso!");
               router.push("/login");
             })
-            .catch((e) => console.log(e));
+            .catch((e) => setServerError(e.toString()));
         })}
         className="bg-base-300 w-full max-w-md p-10 flex flex-col gap-y-2 rounded-box"
       >
@@ -88,6 +92,7 @@ function Signup() {
           Criar conta
         </button>
       </form>
+      <Notification message={serverError} messageType="error" />
     </div>
   );
 }
