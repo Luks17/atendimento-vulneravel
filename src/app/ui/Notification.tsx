@@ -5,8 +5,9 @@ import {
   ExclamationCircleIcon,
   InformationCircleIcon,
   XCircleIcon,
+  XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 
 const types = {
   info: {
@@ -31,15 +32,39 @@ function Notification({
   message: string;
   messageType?: string;
 }) {
+  const container = useRef<HTMLDivElement>(null);
+
   const [open, setOpen] = useState(message !== "");
+  const [progress, setProgress] = useState(100);
 
   const alertType = types[messageType as keyof typeof types];
 
-  return !open ? (
-    <></>
-  ) : (
-    <div className="toast">
-      <div className={`alert ${alertType.alert}`}>
+  useEffect(() => {
+    if (open && progress > 0) {
+      const interval = setTimeout(() => {
+        setProgress((old) => old - 1);
+      }, 50);
+
+      return () => clearTimeout(interval);
+    } else {
+      setOpen(false);
+
+      setTimeout(() => container.current!.classList.add("hidden"), 300);
+    }
+  }, [progress]);
+
+  return (
+    <div
+      ref={container}
+      className={`toast transition-opacity duration-200 ${open ? "opacity-100" : "opacity-0"}`}
+    >
+      <div className={`alert relative ${alertType.alert}`}>
+        <button
+          onClick={() => setOpen(false)}
+          className="absolute right-3 top-3"
+        >
+          <XMarkIcon className="opacity-50 hover:opacity-100 transition-opacity duration-300 w-5 h-5" />
+        </button>
         <div className="px-2">
           <p className="flex items-center gap-x-2">
             {alertType.icon}
@@ -47,7 +72,7 @@ function Notification({
           </p>
           <progress
             className="progress progress-primary bg-neutral w-full"
-            value={40}
+            value={progress}
             max={100}
           ></progress>
         </div>
