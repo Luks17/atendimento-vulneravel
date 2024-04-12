@@ -1,4 +1,3 @@
-import { v4 as uuidv4 } from "uuid";
 import { ProblemaSaude } from "@/database/models/ProblemaSaude";
 import {
   MoradiaEnum,
@@ -6,6 +5,7 @@ import {
 } from "@/database/models/Vulneravel";
 import { NextRequest } from "next/server";
 import { CadastrarVulneravelFormData } from "../forms/cadastrar-vulneravel/schema";
+import { generateId } from "lucia";
 
 export class CreateVulneravelDTO {
   private constructor(
@@ -29,7 +29,7 @@ export class CreateVulneravelDTO {
     });
 
     return new this(
-      uuidv4(),
+      generateId(36),
 
       data.nome,
       data.total_adultos,

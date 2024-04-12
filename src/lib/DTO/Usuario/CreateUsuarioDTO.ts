@@ -1,7 +1,7 @@
+import { argon2 } from "@/lib/auth/utils";
 import { SignupFormData } from "@/lib/forms/auth/signupSchema";
-import { hash } from "@node-rs/argon2";
+import { generateId } from "lucia";
 import { NextRequest } from "next/server";
-import { v4 as uuidv4 } from "uuid";
 
 export class CreateUsuarioDTO {
   private constructor(
@@ -12,7 +12,12 @@ export class CreateUsuarioDTO {
   ) { }
 
   static async fromFormData(data: SignupFormData) {
-    return new this(uuidv4(), data.email, data.nome, await hash(data.passwd));
+    return new this(
+      generateId(36),
+      data.email,
+      data.nome,
+      await argon2.hash(data.passwd),
+    );
   }
 
   static async fromRequest(request: NextRequest) {

@@ -14,6 +14,7 @@ export class VulneravelService {
 
     return await vulneravelRepository.findOne({
       where: { id },
+      relations: { tipos: true },
     });
   }
 

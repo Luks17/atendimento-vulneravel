@@ -9,6 +9,12 @@ export class UsuarioService {
     return await usuarioRepository.find();
   }
 
+  static async findOne(id: string) {
+    const usuarioRepository = await dbSource.getRepository(Usuario);
+
+    return await usuarioRepository.findOne({ where: { id } });
+  }
+
   static async new(dto: CreateUsuarioDTO) {
     const usuarioRepository = await dbSource.getRepository(Usuario);
 
