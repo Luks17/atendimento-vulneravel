@@ -5,16 +5,16 @@ import {
   KeyIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
-import ThemeDropdown from "../ui/dashboard/ThemeDropdown";
-import Input from "../ui/form/uncontrolled/Input";
+import ThemeDropdown from "@/app/ui/dashboard/ThemeDropdown";
+import Input from "@/app/ui/form/uncontrolled/Input";
 import { useForm } from "react-hook-form";
 import { SignupFormData, signupSchema } from "@/lib/forms/auth/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
-import { signup } from "../actions/AuthActions";
+import { signup } from "@/app/actions/AuthActions";
 import { useRouter } from "next/navigation";
 import { useState } from "react";
-import Notification from "../ui/Notification";
+import Notification from "@/app/ui/Notification";
 
 function Signup() {
   const router = useRouter();
@@ -31,13 +31,16 @@ function Signup() {
   return (
     <div className="form-control flex-1 h-full items-center justify-center p-2">
       <form
-        onSubmit={handleSubmit((data) => {
-          signup(data)
-            .then(() => {
-              localStorage.setItem("auth-success", "Conta criada com sucesso!");
-              router.push("/login");
-            })
-            .catch((e) => setServerError(e.toString()));
+        onSubmit={handleSubmit(async (formData) => {
+          const response = await signup(formData);
+          const { success, data, error } = JSON.parse(response);
+
+          if (success) {
+            localStorage.setItem("auth-success", data.message);
+            router.push("/auth/login");
+          } else {
+            setServerError(error);
+          }
         })}
         className="bg-base-300 w-full max-w-md p-10 flex flex-col gap-y-2 rounded-box"
       >

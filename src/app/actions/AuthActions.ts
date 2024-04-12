@@ -2,14 +2,65 @@
 
 import { UsuarioService } from "@/database/services/UsuarioService";
 import { CreateUsuarioDTO } from "@/lib/DTO/Usuario/CreateUsuarioDTO";
+import { lucia } from "@/lib/auth/Session";
+import { LoginFormData } from "@/lib/forms/auth/loginSchema";
 import { SignupFormData } from "@/lib/forms/auth/signupSchema";
+import { argon2 } from "@/lib/utils";
+import { cookies } from "next/headers";
 
 export async function signup(data: SignupFormData) {
-  const dto = await CreateUsuarioDTO.fromFormData(data);
-
   try {
+    const dto = await CreateUsuarioDTO.fromFormData(data);
+
     await UsuarioService.new(dto);
+
+    return JSON.stringify({
+      success: true,
+      data: {
+        message: "Conta criada com sucesso!",
+      },
+    });
   } catch (e) {
-    throw new Error("Internal Server Error");
+    return JSON.stringify({
+      success: false,
+      error: "Invalid Form Fields",
+    });
+  }
+}
+
+export async function login(data: LoginFormData) {
+  try {
+    const user = await UsuarioService.findOne({ email: data.email });
+
+    if (!user) {
+      throw new Error("Invalid user or password");
+    }
+
+    const doPasswordsMatch = await argon2.verify(user.passwd, data.passwd);
+
+    if (!doPasswordsMatch) {
+      throw new Error("Invalid user or password");
+    }
+
+    const session = await lucia.createSession(user.id, {});
+    const sessionCookie = lucia.createSessionCookie(session.id);
+
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes,
+    );
+
+    return JSON.stringify({
+      success: true,
+      data: {
+        message: "Login feito com sucesso!",
+      },
+    });
+  } catch (e) {
+    return JSON.stringify({
+      success: false,
+      error: e,
+    });
   }
 }

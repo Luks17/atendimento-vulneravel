@@ -1,6 +1,7 @@
 import { CreateUsuarioDTO } from "@/lib/DTO/Usuario/CreateUsuarioDTO";
 import { dbSource } from "../Connection";
 import { Usuario } from "../models/Usuario";
+import { FindOptionsWhere } from "typeorm";
 
 export class UsuarioService {
   static async getAll() {
@@ -9,10 +10,10 @@ export class UsuarioService {
     return await usuarioRepository.find();
   }
 
-  static async findOne(id: string) {
+  static async findOne<T extends FindOptionsWhere<Usuario>>(condition: T) {
     const usuarioRepository = await dbSource.getRepository(Usuario);
 
-    return await usuarioRepository.findOne({ where: { id } });
+    return await usuarioRepository.findOne({ where: condition });
   }
 
   static async new(dto: CreateUsuarioDTO) {

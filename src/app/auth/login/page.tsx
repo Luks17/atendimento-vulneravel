@@ -1,14 +1,14 @@
 "use client";
 
 import { EnvelopeIcon, KeyIcon } from "@heroicons/react/24/outline";
-import ThemeDropdown from "../ui/dashboard/ThemeDropdown";
+import ThemeDropdown from "@/app/ui/dashboard/ThemeDropdown";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "../ui/form/uncontrolled/Input";
+import Input from "@/app/ui/form/uncontrolled/Input";
 import { LoginFormData, loginSchema } from "@/lib/forms/auth/loginSchema";
 import { useEffect, useState } from "react";
-import Notification from "../ui/Notification";
+import Notification from "@/app/ui/Notification";
 
 function Login() {
   const [authSuccessMessage, setAuthSuccessMessage] = useState("");

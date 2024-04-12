@@ -18,6 +18,8 @@ export async function submitVulneravel(data: CadastrarVulneravelFormData) {
   try {
     await VulneravelService.new(dto);
   } catch (e) {
-    throw new Error("Internal Server Error");
+    return JSON.stringify({
+      error: e,
+    });
   }
 }
