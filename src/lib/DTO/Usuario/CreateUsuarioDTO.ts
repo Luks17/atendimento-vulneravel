@@ -1,4 +1,4 @@
-import { argon2 } from "@/lib/utils";
+import { argon2 } from "@/lib/crypt";
 import { SignupFormData } from "@/lib/forms/auth/signupSchema";
 import { generateId } from "lucia";
 import { NextRequest } from "next/server";

@@ -29,6 +29,7 @@ export class SessionService {
 
     return await sessionRepository.findOne({
       where: condition,
+      loadRelationIds: true,
     });
   }
 
@@ -37,7 +38,10 @@ export class SessionService {
   ) {
     const sessionRepository = await dbSource.getRepository(UsuarioSession);
 
-    return await sessionRepository.find({ where: condition });
+    return await sessionRepository.find({
+      where: condition,
+      loadRelationIds: true,
+    });
   }
 
   static async new(id: string, expires_at: Date, usuario_id: string) {

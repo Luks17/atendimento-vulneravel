@@ -1,7 +1,10 @@
+import { RoutePermissions, validateProtected } from "@/lib/auth/Permissions";
 import Navbar from "../ui/dashboard/Navbar";
 import Sidebar from "../ui/dashboard/Sidebar";
 
-function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
+async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
+  await validateProtected(RoutePermissions.IS_LOGGED);
+
   return (
     <div className="drawer xl:drawer-open">
       <input id="sidebar" type="checkbox" className="drawer-toggle" />
