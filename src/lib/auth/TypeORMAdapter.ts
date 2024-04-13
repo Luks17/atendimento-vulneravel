@@ -1,24 +1,27 @@
 import { SessionService } from "@/database/services/SessionService";
 import { UsuarioService } from "@/database/services/UsuarioService";
 import { Adapter, DatabaseSession, DatabaseUser } from "lucia";
+import { LessThan } from "typeorm";
 
 export class TypeORMAdapter implements Adapter {
   async deleteExpiredSessions(): Promise<void> {
-    await SessionService.deleteAllExpired();
+    const now = new Date();
+
+    await SessionService.deleteAll({ expires_at: LessThan(now) });
   }
 
   async deleteSession(sessionId: string): Promise<void> {
-    await SessionService.deleteById(sessionId);
+    await SessionService.deleteOne({ id: sessionId });
   }
 
   async deleteUserSessions(userId: string): Promise<void> {
-    await SessionService.deleteAllByUserId(userId);
+    await SessionService.deleteAll({ usuario_id: userId });
   }
 
   async getSessionAndUser(
     sessionId: string,
   ): Promise<[session: DatabaseSession | null, user: DatabaseUser | null]> {
-    const sessionDb = await SessionService.findOne(sessionId);
+    const sessionDb = await SessionService.findOne({ id: sessionId });
 
     if (!sessionDb) {
       return [null, null];
@@ -49,7 +52,7 @@ export class TypeORMAdapter implements Adapter {
   }
 
   async getUserSessions(userId: string): Promise<DatabaseSession[]> {
-    const dbSessions = await SessionService.findAllByUserId(userId);
+    const dbSessions = await SessionService.findAll({ usuario_id: userId });
 
     return dbSessions.map((session) => ({
       id: session.id,
@@ -67,6 +70,6 @@ export class TypeORMAdapter implements Adapter {
     sessionId: string,
     expiresAt: Date,
   ): Promise<void> {
-    await SessionService.update(sessionId, expiresAt);
+    await SessionService.update({ id: sessionId }, { expires_at: expiresAt });
   }
 }

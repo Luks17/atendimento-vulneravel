@@ -1,45 +1,43 @@
-import { LessThan } from "typeorm";
+import { FindOptionsWhere } from "typeorm";
 import { dbSource } from "../Connection";
 import { UsuarioSession } from "../models/UsuarioSession";
+import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
 
 export class SessionService {
-  static async deleteAllExpired() {
-    const sessionRepository = await dbSource.getRepository(UsuarioSession);
-    const now = new Date();
-
-    const expiredSessions = await sessionRepository.find({
-      where: { expires_at: LessThan(now) },
-    });
-
-    await sessionRepository.remove(expiredSessions);
-  }
-
-  static async deleteById(id: string) {
+  static async deleteAll<T extends FindOptionsWhere<UsuarioSession>>(
+    condition: T,
+  ) {
     const sessionRepository = await dbSource.getRepository(UsuarioSession);
 
-    await sessionRepository.delete({ id });
+    await sessionRepository.delete(condition);
   }
 
-  static async deleteAllByUserId(userId: string) {
+  static async deleteOne<T extends FindOptionsWhere<UsuarioSession>>(
+    condition: T,
+  ) {
     const sessionRepository = await dbSource.getRepository(UsuarioSession);
 
-    await sessionRepository.delete({ usuario_id: userId });
+    const match = await sessionRepository.findOne({ where: condition });
+
+    if (match) await sessionRepository.remove(match);
   }
 
-  static async findOne(id: string) {
+  static async findOne<T extends FindOptionsWhere<UsuarioSession>>(
+    condition: T,
+  ) {
     const sessionRepository = await dbSource.getRepository(UsuarioSession);
 
     return await sessionRepository.findOne({
-      where: {
-        id,
-      },
+      where: condition,
     });
   }
 
-  static async findAllByUserId(userId: string) {
+  static async findAll<T extends FindOptionsWhere<UsuarioSession>>(
+    condition: T,
+  ) {
     const sessionRepository = await dbSource.getRepository(UsuarioSession);
 
-    return await sessionRepository.find({ where: { usuario_id: userId } });
+    return await sessionRepository.find({ where: condition });
   }
 
   static async new(id: string, expires_at: Date, usuario_id: string) {
@@ -52,9 +50,12 @@ export class SessionService {
     return entity;
   }
 
-  static async update(id: string, expires_at: Date) {
+  static async update<
+    T extends FindOptionsWhere<UsuarioSession>,
+    U extends QueryDeepPartialEntity<UsuarioSession>,
+  >(condition: T, updated: U) {
     const sessionRepository = await dbSource.getRepository(UsuarioSession);
 
-    await sessionRepository.update({ id }, { expires_at });
+    await sessionRepository.update(condition, updated);
   }
 }
