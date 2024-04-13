@@ -31,7 +31,7 @@ export class TypeORMAdapter implements Adapter {
       attributes: {},
     };
 
-    const userDb = await UsuarioService.findOne(sessionDb.usuario_id);
+    const userDb = await UsuarioService.findOne({ id: sessionDb.usuario_id });
 
     if (!userDb) {
       return [session, null];
@@ -40,6 +40,7 @@ export class TypeORMAdapter implements Adapter {
     const user: DatabaseUser = {
       id: userDb.id,
       attributes: {
+        role: "",
         ...userDb,
       },
     };
@@ -52,7 +53,7 @@ export class TypeORMAdapter implements Adapter {
 
     return dbSessions.map((session) => ({
       id: session.id,
-      userId: session.id,
+      userId: session.usuario_id,
       expiresAt: session.expires_at,
       attributes: {},
     }));

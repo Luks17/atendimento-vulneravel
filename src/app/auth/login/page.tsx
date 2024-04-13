@@ -9,8 +9,12 @@ import Input from "@/app/ui/form/uncontrolled/Input";
 import { LoginFormData, loginSchema } from "@/lib/forms/auth/loginSchema";
 import { useEffect, useState } from "react";
 import Notification from "@/app/ui/Notification";
+import { login } from "@/app/actions/AuthActions";
+import { useRouter } from "next/navigation";
 
 function Login() {
+  const router = useRouter();
+
   const [authSuccessMessage, setAuthSuccessMessage] = useState("");
 
   const {
@@ -35,7 +39,14 @@ function Login() {
   return (
     <div className="form-control flex-1 h-full items-center justify-center p-2">
       <form
-        onSubmit={handleSubmit((data) => console.log(data))}
+        onSubmit={handleSubmit(async (data) => {
+          const response = await login(data);
+          const { success } = JSON.parse(response);
+
+          if (success) {
+            router.push("/");
+          }
+        })}
         className="bg-base-300 w-full max-w-md p-10 flex flex-col gap-y-2 rounded-box"
       >
         <div className="w-full flex justify-between py-5">

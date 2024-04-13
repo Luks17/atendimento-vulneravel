@@ -2,7 +2,7 @@
 
 import { UsuarioService } from "@/database/services/UsuarioService";
 import { CreateUsuarioDTO } from "@/lib/DTO/Usuario/CreateUsuarioDTO";
-import { lucia } from "@/lib/auth/Session";
+import { lucia, validateRequest } from "@/lib/auth/Session";
 import { LoginFormData } from "@/lib/forms/auth/loginSchema";
 import { SignupFormData } from "@/lib/forms/auth/signupSchema";
 import { argon2 } from "@/lib/utils";
@@ -42,7 +42,7 @@ export async function login(data: LoginFormData) {
       throw new Error("Invalid user or password");
     }
 
-    const session = await lucia.createSession(user.id, {});
+    const session = await lucia.createSession(user.id, { nome: user.nome });
     const sessionCookie = lucia.createSessionCookie(session.id);
 
     cookies().set(
@@ -63,4 +63,27 @@ export async function login(data: LoginFormData) {
       error: e,
     });
   }
+}
+
+export async function logout() {
+  const { session } = await validateRequest();
+  if (!session) {
+    return JSON.stringify({
+      success: false,
+      error: "Unauthorized",
+    });
+  }
+
+  await lucia.invalidateSession(session.id);
+
+  const sessionCookie = lucia.createBlankSessionCookie();
+  cookies().set(
+    sessionCookie.name,
+    sessionCookie.value,
+    sessionCookie.attributes,
+  );
+
+  return JSON.stringify({
+    success: true,
+  });
 }
