@@ -49,7 +49,7 @@ function Signup() {
             <h2 className="text-2xl font-bold">Registrar-se</h2>
             <p className="text-sm opacity-70">
               Já possui uma conta?{" "}
-              <Link href="/login" className="link link-success">
+              <Link href="/auth/login" className="link link-success">
                 Conecte-se
               </Link>
             </p>

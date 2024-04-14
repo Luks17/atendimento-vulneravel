@@ -3,15 +3,15 @@ import { DataSource, ObjectLiteral, ObjectType, Repository } from "typeorm";
 import { Vulneravel } from "./models/Vulneravel";
 import { ProblemaSaude } from "./models/ProblemaSaude";
 import { Usuario } from "./models/Usuario";
-import { UsuarioSession } from "./models/UsuarioSession";
-import { Initial1712931511904 } from "./migrations/1712931511904-initial";
+import { Session } from "./models/Session";
+import { Initial1713057682130 } from "./migrations/1713057682130-initial";
 
 export const dbDataSource = new DataSource({
   type: "mysql",
   url: process.env.MYSQL_URL,
   synchronize: false,
-  entities: [Usuario, UsuarioSession, Vulneravel, ProblemaSaude],
-  migrations: [Initial1712931511904],
+  entities: [Usuario, Session, Vulneravel, ProblemaSaude],
+  migrations: [Initial1713057682130],
   subscribers: [],
 });
 

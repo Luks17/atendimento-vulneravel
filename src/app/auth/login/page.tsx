@@ -54,7 +54,7 @@ function Login() {
             <h2 className="text-2xl font-bold">Login</h2>
             <p className="text-sm opacity-70">
               Não tem uma conta?{" "}
-              <Link className="link link-success font-bold" href="/signup">
+              <Link className="link link-success font-bold" href="/auth/signup">
                 Registre-se
               </Link>
             </p>

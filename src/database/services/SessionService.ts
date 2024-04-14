@@ -1,31 +1,25 @@
 import { FindOptionsWhere } from "typeorm";
 import { dbSource } from "../Connection";
-import { UsuarioSession } from "../models/UsuarioSession";
+import { Session } from "../models/Session";
 import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
 
 export class SessionService {
-  static async deleteAll<T extends FindOptionsWhere<UsuarioSession>>(
-    condition: T,
-  ) {
-    const sessionRepository = await dbSource.getRepository(UsuarioSession);
+  static async deleteAll<T extends FindOptionsWhere<Session>>(condition: T) {
+    const sessionRepository = await dbSource.getRepository(Session);
 
     await sessionRepository.delete(condition);
   }
 
-  static async deleteOne<T extends FindOptionsWhere<UsuarioSession>>(
-    condition: T,
-  ) {
-    const sessionRepository = await dbSource.getRepository(UsuarioSession);
+  static async deleteOne<T extends FindOptionsWhere<Session>>(condition: T) {
+    const sessionRepository = await dbSource.getRepository(Session);
 
     const match = await sessionRepository.findOne({ where: condition });
 
     if (match) await sessionRepository.remove(match);
   }
 
-  static async findOne<T extends FindOptionsWhere<UsuarioSession>>(
-    condition: T,
-  ) {
-    const sessionRepository = await dbSource.getRepository(UsuarioSession);
+  static async findOne<T extends FindOptionsWhere<Session>>(condition: T) {
+    const sessionRepository = await dbSource.getRepository(Session);
 
     return await sessionRepository.findOne({
       where: condition,
@@ -33,10 +27,8 @@ export class SessionService {
     });
   }
 
-  static async findAll<T extends FindOptionsWhere<UsuarioSession>>(
-    condition: T,
-  ) {
-    const sessionRepository = await dbSource.getRepository(UsuarioSession);
+  static async findAll<T extends FindOptionsWhere<Session>>(condition: T) {
+    const sessionRepository = await dbSource.getRepository(Session);
 
     return await sessionRepository.find({
       where: condition,
@@ -45,7 +37,7 @@ export class SessionService {
   }
 
   static async new(id: string, expires_at: Date, usuario_id: string) {
-    const sessionRepository = await dbSource.getRepository(UsuarioSession);
+    const sessionRepository = await dbSource.getRepository(Session);
 
     const entity = sessionRepository.create({ id, expires_at, usuario_id });
 
@@ -55,10 +47,10 @@ export class SessionService {
   }
 
   static async update<
-    T extends FindOptionsWhere<UsuarioSession>,
-    U extends QueryDeepPartialEntity<UsuarioSession>,
+    T extends FindOptionsWhere<Session>,
+    U extends QueryDeepPartialEntity<Session>,
   >(condition: T, updated: U) {
-    const sessionRepository = await dbSource.getRepository(UsuarioSession);
+    const sessionRepository = await dbSource.getRepository(Session);
 
     await sessionRepository.update(condition, updated);
   }
