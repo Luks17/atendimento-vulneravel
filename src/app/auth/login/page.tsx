@@ -35,12 +35,13 @@ function Login() {
   return (
     <div className="form-control flex-1 h-full items-center justify-center p-2">
       <form
-        onSubmit={handleSubmit(async (data) => {
-          const response = await login(data);
-          const { success } = JSON.parse(response);
+        onSubmit={handleSubmit(async (formData) => {
+          const { success, data } = await login(formData);
 
           if (success) {
             router.push("/");
+          } else {
+            setNotification({ message: data.message, messageType: "error" });
           }
         })}
         className="bg-base-300 w-full max-w-md p-10 flex flex-col gap-y-2 rounded-box"

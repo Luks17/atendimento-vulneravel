@@ -31,14 +31,13 @@ function Signup() {
     <div className="form-control flex-1 h-full items-center justify-center p-2">
       <form
         onSubmit={handleSubmit(async (formData) => {
-          const response = await signup(formData);
-          const { success, data, error } = JSON.parse(response);
+          const { success, data } = await signup(formData);
 
           if (success) {
             localStorage.setItem("signup-success", data.message);
             router.push("/auth/login");
           } else {
-            setNotification({ message: error, messageType: "error" });
+            setNotification({ message: data.message, messageType: "error" });
           }
         })}
         className="bg-base-300 w-full max-w-md p-10 flex flex-col gap-y-2 rounded-box"

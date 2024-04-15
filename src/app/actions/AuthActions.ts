@@ -14,17 +14,19 @@ export async function signup(data: SignupFormData) {
 
     await UsuarioService.new(dto);
 
-    return JSON.stringify({
+    return {
       success: true,
       data: {
         message: "Conta criada com sucesso!",
       },
-    });
-  } catch (e) {
-    return JSON.stringify({
+    };
+  } catch (e: any) {
+    return {
       success: false,
-      error: "Invalid Form Fields",
-    });
+      data: {
+        message: e.toString(),
+      },
+    };
   }
 }
 
@@ -51,27 +53,31 @@ export async function login(data: LoginFormData) {
       sessionCookie.attributes,
     );
 
-    return JSON.stringify({
+    return {
       success: true,
       data: {
         message: "Login feito com sucesso!",
       },
-    });
-  } catch (e) {
-    return JSON.stringify({
+    };
+  } catch (e: any) {
+    return {
       success: false,
-      error: e,
-    });
+      data: {
+        message: e.toString(),
+      },
+    };
   }
 }
 
 export async function logout() {
   const { session } = await validateRequest();
   if (!session) {
-    return JSON.stringify({
+    return {
       success: false,
-      error: "Unauthorized",
-    });
+      data: {
+        message: "Unauthorized",
+      },
+    };
   }
 
   await lucia.invalidateSession(session.id);
@@ -83,7 +89,10 @@ export async function logout() {
     sessionCookie.attributes,
   );
 
-  return JSON.stringify({
+  return {
     success: true,
-  });
+    data: {
+      message: "Logged out successfully",
+    },
+  };
 }
