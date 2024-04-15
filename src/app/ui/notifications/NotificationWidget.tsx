@@ -1,15 +1,18 @@
 "use client";
 
+import { useEffect, useRef, useState } from "react";
+import { NotificationTypes } from "@/lib/notifications/helpers";
+import { useNotification } from "./NotificationProvider";
 import {
+  XMarkIcon,
   CheckCircleIcon,
   ExclamationCircleIcon,
   InformationCircleIcon,
   XCircleIcon,
-  XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { useEffect, useRef, useState } from "react";
+import React from "react";
 
-const types = {
+const NotificationTemplates = {
   info: {
     alert: "alert-info",
     icon: <InformationCircleIcon className="w-5 h-5" />,
@@ -22,26 +25,35 @@ const types = {
     alert: "alert-warning",
     icon: <ExclamationCircleIcon className="w-5 h-5" />,
   },
-  error: { alert: "alert-error", icon: <XCircleIcon className="w-5 h-5" /> },
+  error: {
+    alert: "alert-error",
+    icon: <XCircleIcon className="w-5 h-5" />,
+  },
 };
 
-function Notification({
-  message,
-  messageType = "info",
-}: {
-  message: string;
-  messageType?: string;
-}) {
+function NotificationWidget() {
+  const notification = useNotification();
   const container = useRef<HTMLDivElement>(null);
 
-  const [open, setOpen] = useState(message !== "");
+  const [open, setOpen] = useState(false);
   const [progress, setProgress] = useState(100);
 
-  const alertType = types[messageType as keyof typeof types];
+  const alertType =
+    NotificationTemplates[notification.messageType as NotificationTypes];
 
   // always check if open is true, otherwise a memory leak may happen
   useEffect(() => {
+    if (!open) {
+      setTimeout(() => {
+        container.current!.classList.add("hidden");
+        setProgress(100);
+      }, 300);
+    }
+
     if (open && progress > 0) {
+      if (container.current!.classList.contains("hidden")) {
+        container.current!.classList.remove("hidden");
+      }
       const interval = setTimeout(() => {
         setProgress((old) => old - 1);
       }, 50);
@@ -49,16 +61,14 @@ function Notification({
       return () => clearTimeout(interval);
     } else if (open && progress <= 0) {
       setOpen(false);
-
-      setTimeout(() => container.current!.classList.add("hidden"), 300);
     }
   }, [open, progress]);
 
   useEffect(() => {
-    if (message !== "") {
+    if (notification.message !== "") {
       setOpen(true);
     }
-  }, [message]);
+  }, [notification]);
 
   return (
     <div
@@ -75,10 +85,12 @@ function Notification({
         <div className="px-2">
           <p className="flex items-center gap-x-2">
             {alertType.icon}
-            <span className="text-neutral font-bold">{message}</span>
+            <span className="text-neutral font-bold">
+              {notification.message}
+            </span>
           </p>
           <progress
-            className="progress progress-primary bg-neutral w-full"
+            className="progress bg-neutral w-full"
             value={progress}
             max={100}
           ></progress>
@@ -88,4 +100,4 @@ function Notification({
   );
 }
 
-export default Notification;
+export default NotificationWidget;

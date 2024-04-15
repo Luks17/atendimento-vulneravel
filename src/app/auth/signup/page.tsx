@@ -13,12 +13,11 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { signup } from "@/app/actions/AuthActions";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
-import Notification from "@/app/ui/Notification";
+import { useSetNotification } from "@/app/ui/notifications/NotificationProvider";
 
 function Signup() {
   const router = useRouter();
-  const [serverError, setServerError] = useState("");
+  const setNotification = useSetNotification();
 
   const {
     register,
@@ -36,10 +35,10 @@ function Signup() {
           const { success, data, error } = JSON.parse(response);
 
           if (success) {
-            localStorage.setItem("auth-success", data.message);
+            localStorage.setItem("signup-success", data.message);
             router.push("/auth/login");
           } else {
-            setServerError(error);
+            setNotification({ message: error, messageType: "error" });
           }
         })}
         className="bg-base-300 w-full max-w-md p-10 flex flex-col gap-y-2 rounded-box"
@@ -95,7 +94,6 @@ function Signup() {
           Criar conta
         </button>
       </form>
-      <Notification message={serverError} messageType="error" />
     </div>
   );
 }

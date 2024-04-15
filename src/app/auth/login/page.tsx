@@ -7,15 +7,14 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "@/app/ui/form/uncontrolled/Input";
 import { LoginFormData, loginSchema } from "@/lib/forms/auth/loginSchema";
-import { useEffect, useState } from "react";
-import Notification from "@/app/ui/Notification";
+import { useEffect } from "react";
 import { login } from "@/app/actions/AuthActions";
 import { useRouter } from "next/navigation";
+import { useSetNotification } from "@/app/ui/notifications/NotificationProvider";
 
 function Login() {
   const router = useRouter();
-
-  const [authSuccessMessage, setAuthSuccessMessage] = useState("");
+  const setNotification = useSetNotification();
 
   const {
     register,
@@ -26,15 +25,12 @@ function Login() {
   });
 
   useEffect(() => {
-    if (authSuccessMessage == "") {
-      const message = localStorage.getItem("auth-success");
-      if (message) {
-        setAuthSuccessMessage(message);
-      }
-    } else {
-      localStorage.removeItem("auth-success");
+    const message = localStorage.getItem("signup-success");
+    if (message) {
+      setNotification({ message, messageType: "success" });
+      localStorage.removeItem("signup-success");
     }
-  }, [authSuccessMessage]);
+  }, []);
 
   return (
     <div className="form-control flex-1 h-full items-center justify-center p-2">
@@ -86,7 +82,6 @@ function Login() {
           Login
         </button>
       </form>
-      <Notification message={authSuccessMessage} messageType="success" />
     </div>
   );
 }
