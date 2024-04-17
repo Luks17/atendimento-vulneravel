@@ -1,8 +1,9 @@
+import { HomeIcon } from "@heroicons/react/24/solid";
 import ThemeDropdown from "./ThemeDropdown";
 
 function Navbar() {
   return (
-    <nav className="navbar w-auto bg-neutral text-neutral-content rounded-box">
+    <nav className="navbar w-auto bg-base-100 text-base-content">
       <div className="flex-none lg:hidden">
         <label
           htmlFor="sidebar"
@@ -25,7 +26,14 @@ function Navbar() {
           </svg>
         </label>
       </div>
-      <div className="flex-1 px-2 font-bold text-xl">Dashboard</div>
+      <div className="flex-1 px-2 font-bold">
+        <a href="/" className="btn max-sm:btn-square max-sm:btn-sm btn-ghost">
+          <HomeIcon className="sm:hidden w-6 h-6" />
+          <span className="hidden sm:block text-lg">
+            Atendimento Vulneráveis
+          </span>
+        </a>
+      </div>
       <ul className="flex items-stretch">
         {/* Navbar menu content here */}
         <li>
