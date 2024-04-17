@@ -7,9 +7,9 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "new-migration": "ts-node -r dotenv/config ./node_modules/.bin/typeorm-ts-node-esm -d ./src/database/Connection.ts migration:generate",
-    "migrate": "ts-node -r dotenv/config ./node_modules/.bin/typeorm-ts-node-esm migration:run -d ./src/database/Connection.ts",
-    "migrate-down": "ts-node -r dotenv/config ./node_modules/.bin/typeorm-ts-node-esm migration:revert -d ./src/database/Connection.ts"
+    "new-migration": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js -d ./src/database/Connection.ts migration:generate",
+    "migrate": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:run -d ./src/database/Connection.ts",
+    "migrate-down": "ts-node -r dotenv/config ./node_modules/typeorm/cli.js migration:revert -d ./src/database/Connection.ts"
   },
   "dependencies": {
     "@heroicons/react": "^2.1.3",
