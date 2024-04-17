@@ -56,7 +56,7 @@ function Login() {
               </Link>
             </p>
           </div>
-          <ThemeDropdown />
+          <ThemeDropdown showText={false} />
         </div>
         <div className="form-control gap-y-2.5">
           <Input

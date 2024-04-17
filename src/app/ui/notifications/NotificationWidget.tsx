@@ -90,7 +90,7 @@ function NotificationWidget() {
             </span>
           </p>
           <progress
-            className="progress bg-neutral w-full"
+            className="progress bg-base-100 w-full"
             value={progress}
             max={100}
           ></progress>

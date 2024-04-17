@@ -1,6 +1,6 @@
 services:
   mysql-tcc:
-    image: mysql:latest
+    image: mariadb:latest
     container_name: tcc-db
     volumes:
       - ~/.local/state/docker-volumes/sistemas/mysql-tcc/data:/var/lib/mysql
@@ -9,3 +9,4 @@ services:
     environment:
       - MYSQL_ROOT_PASSWORD=123456
       - MYSQL_DATABASE=nec
+      - TZ=Brazil/East

@@ -1,8 +1,13 @@
 "use client";
 
+import { PaintBrushIcon } from "@heroicons/react/24/solid";
 import { useEffect } from "react";
 
-export default function ThemeDropdown() {
+export default function ThemeDropdown({
+  showText = true,
+}: {
+  showText?: boolean;
+}) {
   useEffect(() => {
     const currentTheme = localStorage.getItem("data-theme");
 
@@ -32,8 +37,14 @@ export default function ThemeDropdown() {
 
   return (
     <div className="dropdown dropdown-end">
-      <div tabIndex={0} role="button" className="btn btn-ghost rounded-btn">
-        Tema
+      <div
+        aria-label="Selação de tema"
+        tabIndex={0}
+        role="button"
+        className="btn btn-ghost rounded-btn"
+      >
+        <PaintBrushIcon className="w-5 sm:w-6 h-5 sm:h-6" />
+        {showText && <span>Tema</span>}
       </div>
       <ul
         tabIndex={0}
