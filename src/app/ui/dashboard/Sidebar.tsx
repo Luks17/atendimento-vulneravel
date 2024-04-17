@@ -6,7 +6,7 @@ function Sidebar() {
   return (
     <aside className="min-h-screen bg-base-300 text-base-content w-72 lg:w-96 border-r-8 border-base-300">
       <div className="sticky top-0 text-center p-5 font-bold text-xl">
-        Situação Vulneráveis
+        Atendimento Vulneráveis
       </div>
       <ul className="menu">
         {menuItems.map((item, i) => (

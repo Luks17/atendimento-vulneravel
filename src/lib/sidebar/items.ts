@@ -5,9 +5,9 @@ export const menuItems: SidebarItem[] = [
     title: "Cidadão",
     list: [
       {
-        label: "Cadastrar Vulnerável",
+        label: "Cadastrar Solicitação",
         icon: "",
-        url: "cadastrar-vulneravel",
+        url: "cadastrar-solicitacao",
       },
     ],
   },
