@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from "react";
 
-export default function MultiSelect({
+export default function MultiInput({
   value,
   onChange,
   onBlur,
