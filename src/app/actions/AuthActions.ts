@@ -7,6 +7,8 @@ import { LoginFormData } from "@/lib/forms/auth/loginSchema";
 import { SignupFormData } from "@/lib/forms/auth/signupSchema";
 import { argon2 } from "@/lib/crypt";
 import { cookies } from "next/headers";
+import { mapAndTraceError } from "@/lib/error/util";
+import { ServerError } from "@/lib/error/ServerError";
 
 export async function signup(data: SignupFormData) {
   try {
@@ -21,12 +23,7 @@ export async function signup(data: SignupFormData) {
       },
     };
   } catch (e: any) {
-    return {
-      success: false,
-      data: {
-        message: e.toString(),
-      },
-    };
+    return mapAndTraceError(e);
   }
 }
 
@@ -35,13 +32,13 @@ export async function login(data: LoginFormData) {
     const user = await UsuarioService.findOne({ email: data.email });
 
     if (!user) {
-      throw new Error("Invalid user or password");
+      throw new ServerError("INV_USER", "Invalid user");
     }
 
     const doPasswordsMatch = await argon2.verify(user.passwd, data.passwd);
 
     if (!doPasswordsMatch) {
-      throw new Error("Invalid user or password");
+      throw new ServerError("INV_PASSWD", "Invalid Password");
     }
 
     const session = await lucia.createSession(user.id, { nome: user.nome });
@@ -60,39 +57,33 @@ export async function login(data: LoginFormData) {
       },
     };
   } catch (e: any) {
-    return {
-      success: false,
-      data: {
-        message: e.toString(),
-      },
-    };
+    return mapAndTraceError(e);
   }
 }
 
 export async function logout() {
-  const { session } = await validateRequest();
-  if (!session) {
+  try {
+    const { session } = await validateRequest();
+    if (!session) {
+      throw new ServerError("NO_AUTH", "Unauthorized to Logout");
+    }
+
+    await lucia.invalidateSession(session.id);
+
+    const sessionCookie = lucia.createBlankSessionCookie();
+    cookies().set(
+      sessionCookie.name,
+      sessionCookie.value,
+      sessionCookie.attributes,
+    );
+
     return {
-      success: false,
+      success: true,
       data: {
-        message: "Unauthorized",
+        message: "Logged out successfully",
       },
     };
+  } catch (e) {
+    return mapAndTraceError(e);
   }
-
-  await lucia.invalidateSession(session.id);
-
-  const sessionCookie = lucia.createBlankSessionCookie();
-  cookies().set(
-    sessionCookie.name,
-    sessionCookie.value,
-    sessionCookie.attributes,
-  );
-
-  return {
-    success: true,
-    data: {
-      message: "Logged out successfully",
-    },
-  };
 }
