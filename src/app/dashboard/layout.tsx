@@ -1,6 +1,6 @@
 import { RoutePermissions, validateProtected } from "@/lib/auth/Permissions";
-import Navbar from "../ui/dashboard/Navbar";
-import Sidebar from "../ui/dashboard/Sidebar";
+import Navbar from "@/app/(components)/dashboard/Navbar";
+import Sidebar from "@/app/(components)/dashboard/Sidebar";
 
 async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { user, session } = await validateProtected(RoutePermissions.IS_LOGGED);

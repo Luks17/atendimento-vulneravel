@@ -1,6 +1,6 @@
 "use client";
 
-import { Notification } from "@/lib/notifications/helpers";
+import { Notification } from "@/lib/ui/notifications/helpers";
 import {
   Dispatch,
   ReactNode,

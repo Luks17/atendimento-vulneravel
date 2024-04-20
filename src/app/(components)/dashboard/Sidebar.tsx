@@ -1,6 +1,6 @@
 import Link from "next/link";
-import type { SidebarLink } from "@/lib/sidebar/types";
-import { menuItems } from "@/lib/sidebar/items";
+import type { SidebarLink } from "@/lib/ui/sidebar/types";
+import { menuItems } from "@/lib/ui/sidebar/items";
 import React from "react";
 
 function Sidebar({ username }: { username: string }) {

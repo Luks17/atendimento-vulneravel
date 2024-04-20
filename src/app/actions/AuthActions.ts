@@ -3,8 +3,8 @@
 import { UsuarioService } from "@/database/services/UsuarioService";
 import { CreateUsuarioDTO } from "@/lib/DTO/Usuario/CreateUsuarioDTO";
 import { lucia, validateRequest } from "@/lib/auth/Session";
-import { LoginFormData } from "@/lib/forms/auth/loginSchema";
-import { SignupFormData } from "@/lib/forms/auth/signupSchema";
+import { LoginFormData } from "@/lib/ui/forms/auth/loginSchema";
+import { SignupFormData } from "@/lib/ui/forms/auth/signupSchema";
 import { argon2 } from "@/lib/crypt";
 import { cookies } from "next/headers";
 import { mapAndTraceError } from "@/lib/error/util";

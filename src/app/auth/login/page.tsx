@@ -1,16 +1,16 @@
 "use client";
 
 import { EnvelopeIcon, KeyIcon } from "@heroicons/react/24/outline";
-import ThemeDropdown from "@/app/ui/dashboard/ThemeDropdown";
+import ThemeDropdown from "@/app/(components)/dashboard/ThemeDropdown";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "@/app/ui/form/uncontrolled/Input";
-import { LoginFormData, loginSchema } from "@/lib/forms/auth/loginSchema";
+import Input from "@/app/(components)/form/uncontrolled/Input";
+import { LoginFormData, loginSchema } from "@/lib/ui/forms/auth/loginSchema";
 import { useEffect } from "react";
 import { login } from "@/app/actions/AuthActions";
 import { useRouter } from "next/navigation";
-import { useSetNotification } from "@/app/ui/notifications/NotificationProvider";
+import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
 
 function Login() {
   const router = useRouter();

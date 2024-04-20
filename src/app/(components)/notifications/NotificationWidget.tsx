@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { NotificationTypes } from "@/lib/notifications/helpers";
+import { NotificationTypes } from "@/lib/ui/notifications/helpers";
 import { useNotification } from "./NotificationProvider";
 import {
   XMarkIcon,

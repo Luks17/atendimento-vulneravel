@@ -5,15 +5,15 @@ import {
   KeyIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
-import ThemeDropdown from "@/app/ui/dashboard/ThemeDropdown";
-import Input from "@/app/ui/form/uncontrolled/Input";
+import ThemeDropdown from "@/app/(components)/dashboard/ThemeDropdown";
+import Input from "@/app/(components)/form/uncontrolled/Input";
 import { useForm } from "react-hook-form";
-import { SignupFormData, signupSchema } from "@/lib/forms/auth/signupSchema";
+import { SignupFormData, signupSchema } from "@/lib/ui/forms/auth/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { signup } from "@/app/actions/AuthActions";
 import { useRouter } from "next/navigation";
-import { useSetNotification } from "@/app/ui/notifications/NotificationProvider";
+import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
 
 function Signup() {
   const router = useRouter();
