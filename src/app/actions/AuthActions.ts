@@ -22,7 +22,7 @@ export async function signup(data: SignupFormData) {
         message: "Conta criada com sucesso!",
       },
     };
-  } catch (e: any) {
+  } catch (e) {
     return mapAndTraceError(e);
   }
 }
@@ -56,7 +56,7 @@ export async function login(data: LoginFormData) {
         message: "Login feito com sucesso!",
       },
     };
-  } catch (e: any) {
+  } catch (e) {
     return mapAndTraceError(e);
   }
 }

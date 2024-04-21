@@ -9,7 +9,7 @@ export class CreateUsuarioDTO {
     public email: string,
     public nome: string,
     public passwd: string,
-  ) { }
+  ) {}
 
   static async fromFormData(data: SignupFormData) {
     return new this(
@@ -21,11 +21,7 @@ export class CreateUsuarioDTO {
   }
 
   static async fromRequest(request: NextRequest) {
-    try {
-      const data: SignupFormData = await request.json();
-      return await this.fromFormData(data);
-    } catch (e) {
-      throw new Error("Invalid Request Body");
-    }
+    const data: SignupFormData = await request.json();
+    return await this.fromFormData(data);
   }
 }

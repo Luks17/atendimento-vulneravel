@@ -1,4 +1,5 @@
 import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
+import type { Relation } from "typeorm";
 import { Usuario } from "./Usuario";
 import { IsPositive, Min } from "class-validator";
 
@@ -11,7 +12,7 @@ export enum MoradiaEnum {
 export class Situacao {
   @OneToOne(() => Usuario)
   @JoinColumn({ name: "usuario_id" })
-  usuario: Usuario;
+  usuario: Relation<Usuario>;
 
   @PrimaryColumn({ type: "char", length: 36 })
   usuario_id: string;

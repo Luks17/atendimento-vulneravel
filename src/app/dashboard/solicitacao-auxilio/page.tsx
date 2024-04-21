@@ -4,6 +4,8 @@ import Form from "@/app/(components)/dashboard/Form";
 import FormCarousel from "@/app/(components)/dashboard/FormCarousel";
 import ComboBox from "@/app/(components)/formWidgets/uncontrolled/ComboBox";
 import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
+import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
+import { submitSolicitacaoAuxilio } from "@/app/actions/SolicitacaoAuxilioActions";
 import { TiposAuxilios, TiposProblemas } from "@/database/models/Solicitacao";
 import { enumEntries } from "@/lib/ui/forms/common";
 import {
@@ -17,6 +19,7 @@ import { useForm } from "react-hook-form";
 
 function SolicitacaoAuxilio() {
   const [currentSection, setCurrentSection] = useState(0);
+  const setNotification = useSetNotification();
 
   const {
     register,
@@ -59,8 +62,14 @@ function SolicitacaoAuxilio() {
   return (
     <Form.SectionsWrapper currentSection={currentSection} sections={sections}>
       <Form.Root
-        onSubmit={handleSubmit((data) => {
-          console.log(data);
+        onSubmit={handleSubmit(async (formData) => {
+          const { success, data } = await submitSolicitacaoAuxilio(formData);
+
+          if (success) {
+            setNotification({ message: data.message, messageType: "success" });
+          } else {
+            setNotification({ message: data.message, messageType: "error" });
+          }
         })}
       >
         <FormCarousel.Root>

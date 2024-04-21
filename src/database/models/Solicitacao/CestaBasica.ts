@@ -1,7 +1,7 @@
 import { ChildEntity, Column } from "typeorm";
-import { Solicitacao } from "../Solicitacao";
+import { Solicitacao, TiposAuxilios } from "../Solicitacao";
 
-@ChildEntity()
+@ChildEntity(TiposAuxilios["Cesta Básica"])
 export class CestaBasica extends Solicitacao {
   @Column("int")
   quantidade_cestas: number;

@@ -6,6 +6,7 @@ import {
   PrimaryColumn,
   TableInheritance,
 } from "typeorm";
+import type { Relation } from "typeorm";
 import { Usuario } from "./Usuario";
 
 export enum TiposProblemas {
@@ -30,15 +31,18 @@ export enum TiposAuxilios {
 
 @Entity("solicitacoes")
 @TableInheritance({
-  column: { type: "enum", enum: TiposAuxilios, name: "descriminador" },
+  column: "descriminador",
 })
 export class Solicitacao {
   @PrimaryColumn({ type: "char", length: 36 })
   id: string;
 
+  @Column({ type: "enum", enum: TiposAuxilios, name: "descriminador" })
+  descriminador: TiposAuxilios;
+
   @ManyToOne(() => Usuario, { nullable: false })
   @JoinColumn({ name: "usuario_id" })
-  usuario: Usuario;
+  usuario: Relation<Usuario>;
 
   @Column({
     type: "enum",
