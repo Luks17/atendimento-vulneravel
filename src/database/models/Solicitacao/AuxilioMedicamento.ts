@@ -4,5 +4,5 @@ import { Solicitacao } from "../Solicitacao";
 @ChildEntity()
 export class AuxilioMedicamento extends Solicitacao {
   @Column("int")
-  quantidade: number;
+  vl_auxilio_medicamento: number;
 }

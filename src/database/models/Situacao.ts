@@ -1,4 +1,4 @@
-import { Column, Entity, OneToOne, PrimaryColumn } from "typeorm";
+import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
 import { Usuario } from "./Usuario";
 import { IsPositive, Min } from "class-validator";
 
@@ -9,8 +9,11 @@ export enum MoradiaEnum {
 
 @Entity("situacoes")
 export class Situacao {
+  @OneToOne(() => Usuario)
+  @JoinColumn({ name: "usuario_id" })
+  usuario: Usuario;
+
   @PrimaryColumn({ type: "char", length: 36 })
-  @OneToOne(() => Usuario, (usuario) => usuario.id)
   usuario_id: string;
 
   @Column({ type: "enum", enum: MoradiaEnum })

@@ -1,6 +1,7 @@
 import {
   Column,
   Entity,
+  JoinColumn,
   ManyToOne,
   PrimaryColumn,
   TableInheritance,
@@ -11,6 +12,7 @@ export enum TiposProblemas {
   "Catástrofe" = "catastrofe",
   "Doença" = "doenca",
   "Acidente" = "acidente",
+  "Financeiro" = "financeiro",
 }
 
 export enum EstadosSolicitacao {
@@ -34,10 +36,15 @@ export class Solicitacao {
   @PrimaryColumn({ type: "char", length: 36 })
   id: string;
 
-  @ManyToOne(() => Usuario, (usuario) => usuario.id)
-  usuario_id: string;
+  @ManyToOne(() => Usuario, { nullable: false })
+  @JoinColumn({ name: "usuario_id" })
+  usuario: Usuario;
 
-  @Column({ type: "enum", enum: EstadosSolicitacao })
+  @Column({
+    type: "enum",
+    enum: EstadosSolicitacao,
+    default: EstadosSolicitacao.Pendente,
+  })
   estado: EstadosSolicitacao;
 
   @Column({ type: "enum", enum: TiposProblemas })

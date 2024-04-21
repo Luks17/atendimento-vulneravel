@@ -1,12 +1,5 @@
 import { MinLength } from "class-validator";
-import {
-  Column,
-  Entity,
-  JoinColumn,
-  OneToMany,
-  OneToOne,
-  PrimaryColumn,
-} from "typeorm";
+import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
 import { Solicitacao } from "./Solicitacao";
 import { Situacao } from "./Situacao";
 
@@ -29,6 +22,5 @@ export class Usuario {
   solicitacoes: Solicitacao[];
 
   @OneToOne(() => Situacao)
-  @JoinColumn()
   situacao: Situacao;
 }

@@ -12,8 +12,8 @@ import {
 } from "@/lib/ui/forms/solicitacao-auxilio/schema";
 import { sections } from "@/lib/ui/forms/solicitacao-auxilio/sections";
 import { yupResolver } from "@hookform/resolvers/yup";
-import { useEffect, useState } from "react";
-import { useForm, useWatch } from "react-hook-form";
+import { useState } from "react";
+import { useForm } from "react-hook-form";
 
 function SolicitacaoAuxilio() {
   const [currentSection, setCurrentSection] = useState(0);
@@ -22,17 +22,16 @@ function SolicitacaoAuxilio() {
     register,
     handleSubmit,
     trigger,
-    control,
+    watch,
     formState: { errors },
   } = useForm<SolicitacaoAuxilioFormData>({
     resolver: yupResolver(solicitacaoAuxilioSchema),
   });
 
-  const tipoAuxilio = useWatch({
-    name: "tipo_auxilio",
-    control,
-    defaultValue: TiposAuxilios["Auxílio Medicamento"],
-  });
+  const tipoAuxilio = watch(
+    "tipo_auxilio",
+    TiposAuxilios["Auxílio Medicamento"],
+  );
 
   function changeSection(
     e: React.MouseEvent<HTMLButtonElement>,
@@ -56,10 +55,6 @@ function SolicitacaoAuxilio() {
       }
     });
   }
-
-  useEffect(() => {
-    window.history.scrollRestoration = "manual";
-  }, []);
 
   return (
     <Form.SectionsWrapper currentSection={currentSection} sections={sections}>

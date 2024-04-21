@@ -1,5 +1,7 @@
 import "reflect-metadata";
 import { DataSource, ObjectLiteral, ObjectType, Repository } from "typeorm";
+import { logger } from "../lib/logger";
+
 import { Session } from "./models/Session";
 import { Situacao } from "./models/Situacao";
 import { Solicitacao } from "./models/Solicitacao";
@@ -8,7 +10,7 @@ import { AuxilioMedicamento } from "./models/Solicitacao/AuxilioMedicamento";
 import { CestaBasica } from "./models/Solicitacao/CestaBasica";
 import { VagaCreche } from "./models/Solicitacao/VagaCreche";
 import { VagaEscola } from "./models/Solicitacao/VagaEscola";
-import { logger } from "@/lib/logger";
+import { Initial1713667404153 } from "./migrations/1713667404153-initial";
 
 export const dbDataSource = new DataSource({
   type: "mysql",
@@ -24,7 +26,7 @@ export const dbDataSource = new DataSource({
     VagaCreche,
     VagaEscola,
   ],
-  migrations: ["src/database/migrations/**/*.ts|js"],
+  migrations: [Initial1713667404153],
   subscribers: [],
 });
 
