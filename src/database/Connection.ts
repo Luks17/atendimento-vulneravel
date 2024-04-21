@@ -8,6 +8,7 @@ import { AuxilioMedicamento } from "./models/Solicitacao/AuxilioMedicamento";
 import { CestaBasica } from "./models/Solicitacao/CestaBasica";
 import { VagaCreche } from "./models/Solicitacao/VagaCreche";
 import { VagaEscola } from "./models/Solicitacao/VagaEscola";
+import { logger } from "@/lib/logger";
 
 export const dbDataSource = new DataSource({
   type: "mysql",
@@ -36,7 +37,12 @@ class DatabaseSource {
 
   async getConnection(): Promise<DataSource> {
     if (!this.dataSource.isInitialized) {
-      await this.dataSource.initialize();
+      try {
+        await this.dataSource.initialize();
+      } catch (e) {
+        logger.error("CRITICAL: Failed to Connect to Database!");
+        throw e;
+      }
     }
 
     return this.dataSource;

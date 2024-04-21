@@ -6,7 +6,7 @@ import {
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import ThemeDropdown from "@/app/(components)/dashboard/ThemeDropdown";
-import Input from "@/app/(components)/form/uncontrolled/Input";
+import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
 import { useForm } from "react-hook-form";
 import { SignupFormData, signupSchema } from "@/lib/ui/forms/auth/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";

@@ -5,9 +5,9 @@ export const menuItems: SidebarItem[] = [
     title: "Cidadão",
     list: [
       {
-        label: "Cadastrar Solicitação",
+        label: "Solicitar Auxílio",
         icon: "",
-        url: "cadastrar-solicitacao",
+        url: "solicitacao-auxilio",
       },
     ],
   },

@@ -31,7 +31,7 @@ export default function Input({
     <div className="form-control">
       {showLabel && <span>{label + (required ? "*" : "")}</span>}
       <label
-        className={`input input-bordered flex items-center gap-x-2 ${error ? "input-error" : "input-bordered"}`}
+        className={`input input-bordered w-fit flex items-center gap-x-2 ${error ? "input-error" : "input-bordered"}`}
       >
         {icon}
         <input

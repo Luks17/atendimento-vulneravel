@@ -5,7 +5,7 @@ import ThemeDropdown from "@/app/(components)/dashboard/ThemeDropdown";
 import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import Input from "@/app/(components)/form/uncontrolled/Input";
+import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
 import { LoginFormData, loginSchema } from "@/lib/ui/forms/auth/loginSchema";
 import { useEffect } from "react";
 import { login } from "@/app/actions/AuthActions";
