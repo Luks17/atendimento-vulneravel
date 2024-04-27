@@ -1,6 +1,7 @@
 import { HomeIcon } from "@heroicons/react/24/solid";
 import ThemeDropdown from "./ThemeDropdown";
 import { Bars3BottomLeftIcon } from "@heroicons/react/24/outline";
+import LogoutBtn from "./LogoutBtn";
 
 function Navbar() {
   return (
@@ -23,9 +24,11 @@ function Navbar() {
         </a>
       </div>
       <ul className="flex items-stretch">
-        {/* Navbar menu content here */}
         <li>
           <ThemeDropdown />
+        </li>
+        <li>
+          <LogoutBtn />
         </li>
       </ul>
     </nav>
