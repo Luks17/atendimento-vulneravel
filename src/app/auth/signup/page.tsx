@@ -2,18 +2,21 @@
 
 import {
   EnvelopeIcon,
+  IdentificationIcon,
   KeyIcon,
+  PhoneIcon,
   UserCircleIcon,
 } from "@heroicons/react/24/outline";
 import ThemeDropdown from "@/app/(components)/dashboard/ThemeDropdown";
 import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
-import { useForm } from "react-hook-form";
+import { Controller, useForm } from "react-hook-form";
 import { SignupFormData, signupSchema } from "@/lib/ui/forms/auth/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { signup } from "@/app/actions/AuthActions";
 import { useRouter } from "next/navigation";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
+import InputMask from "@/app/(components)/formWidgets/controlled/InputMask";
 
 function Signup() {
   const router = useRouter();
@@ -22,6 +25,7 @@ function Signup() {
   const {
     register,
     handleSubmit,
+    control,
     formState: { errors },
   } = useForm<SignupFormData>({
     resolver: yupResolver(signupSchema),
@@ -55,6 +59,38 @@ function Signup() {
           <ThemeDropdown showText={false} />
         </div>
         <div className="form-control gap-y-2.5">
+          <Controller
+            control={control}
+            name="cpf"
+            defaultValue=""
+            render={({ field: { value, onChange } }) => (
+              <InputMask
+                mask="999.999.999-99"
+                icon={<IdentificationIcon className="w-6 h-6 opacity-70" />}
+                placeholder="000.000.000-00"
+                value={value}
+                onChange={onChange}
+                required={true}
+                label="CPF"
+              />
+            )}
+          />
+          <Controller
+            control={control}
+            name="phone"
+            defaultValue=""
+            render={({ field: { value, onChange } }) => (
+              <InputMask
+                mask="(99) 99999-9999"
+                icon={<PhoneIcon className="w-6 h-6 opacity-70" />}
+                placeholder="(00) 00000-0000"
+                value={value}
+                onChange={onChange}
+                required={true}
+                label="Número de Telefone"
+              />
+            )}
+          />
           <Input
             label="Nome de usuário"
             type="text"
