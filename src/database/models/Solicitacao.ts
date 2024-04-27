@@ -44,6 +44,9 @@ export class Solicitacao {
   @JoinColumn({ name: "usuario_id" })
   usuario: Relation<Usuario>;
 
+  @Column({ type: "char", length: 36 })
+  usuario_id: string;
+
   @Column({
     type: "enum",
     enum: EstadosSolicitacao,
