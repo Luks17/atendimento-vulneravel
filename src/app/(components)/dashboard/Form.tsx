@@ -22,9 +22,10 @@ interface SubmitWithSectionsProps {
 function Sections({ children, currentSection, sections }: SectionsProps) {
   return (
     <div className="w-full bg-base-200 rounded-box form-control lg:grid lg:grid-cols-4">
+      <div className="lg:col-span-3">{children}</div>
       <ul
         className="steps lg:steps-vertical border-8 border-base-200 bg-secondary max-lg:rounded-t-2xl 
-        lg:rounded-l-2xl px-10 py-16 text-sm sm:text-lg lg:col-span-1"
+        lg:rounded-r-2xl px-10 py-16 text-sm sm:text-lg lg:col-span-1"
       >
         {sections.map((section, i) => (
           <li
@@ -35,7 +36,6 @@ function Sections({ children, currentSection, sections }: SectionsProps) {
           </li>
         ))}
       </ul>
-      <div className="lg:col-span-3">{children}</div>
     </div>
   );
 }

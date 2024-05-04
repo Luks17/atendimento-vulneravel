@@ -1,29 +1,37 @@
 "use client";
 
 import { PaintBrushIcon } from "@heroicons/react/24/solid";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 export default function ThemeDropdown({
   showText = true,
 }: {
   showText?: boolean;
 }) {
-  useEffect(() => {
-    const currentTheme = localStorage.getItem("data-theme");
-
-    if (currentTheme) {
-      document.firstElementChild?.setAttribute("data-theme", currentTheme);
-    }
-  }, []);
+  const [theme, setTheme] = useState<string>();
 
   function handleThemeChange(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
 
     const value = e.currentTarget.value;
 
-    document.firstElementChild?.setAttribute("data-theme", value);
+    setTheme(value);
     localStorage.setItem("data-theme", value);
   }
+
+  useEffect(() => {
+    const currentTheme = localStorage.getItem("data-theme");
+
+    if (currentTheme) {
+      setTheme(currentTheme);
+    }
+  }, []);
+
+  useEffect(() => {
+    if (theme) {
+      document.firstElementChild?.setAttribute("data-theme", theme);
+    }
+  }, [theme]);
 
   const themes = [
     "corporate",
@@ -36,7 +44,7 @@ export default function ThemeDropdown({
   ];
 
   return (
-    <div className="dropdown dropdown-end">
+    <div className="dropdown dropdown-end z-10">
       <div
         aria-label="Selação de tema"
         tabIndex={0}
@@ -48,16 +56,16 @@ export default function ThemeDropdown({
       </div>
       <ul
         tabIndex={0}
-        className="dropdown-content z-[1] p-2 shadow bg-base-100 text-base-content rounded-box w-52"
+        className="dropdown-content p-2 shadow bg-base-100 text-base-content rounded-box w-52"
       >
-        {themes.map((theme, i) => (
+        {themes.map((themeOption, i) => (
           <li key={i}>
             <button
-              className="btn btn-sm btn-block btn-ghost capitalize justify-start"
-              value={theme}
+              className={`btn btn-sm btn-block capitalize justify-start ${theme === themeOption ? "btn-primary" : "btn-ghost"}`}
+              value={themeOption}
               onClick={handleThemeChange}
             >
-              {theme}
+              {themeOption}
             </button>
           </li>
         ))}
