@@ -6,16 +6,20 @@ import { NextRequest } from "next/server";
 export class CreateUsuarioDTO {
   private constructor(
     public id: string,
-    public email: string,
     public nome: string,
+    public cpf: string,
+    public phone: string,
+    public email: string,
     public passwd: string,
-  ) {}
+  ) { }
 
   static async fromFormData(data: SignupFormData) {
     return new this(
       generateId(36),
-      data.email,
       data.nome,
+      data.cpf,
+      data.phone,
+      data.email,
       await argon2.hash(data.passwd),
     );
   }

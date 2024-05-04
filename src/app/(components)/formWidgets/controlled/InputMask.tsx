@@ -1,6 +1,6 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { FieldError } from "react-hook-form";
 import Error from "../Error";
 
@@ -63,8 +63,11 @@ function InputMask({
   function handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     const maskedInput = applyMask(e.currentTarget.value);
     setInputValue(maskedInput);
-    onChange(inputValue);
   }
+
+  useEffect(() => {
+    onChange(inputValue);
+  }, [inputValue]);
 
   return (
     <div className="form-control">

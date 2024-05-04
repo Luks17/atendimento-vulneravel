@@ -59,6 +59,22 @@ function Signup() {
           <ThemeDropdown showText={false} />
         </div>
         <div className="form-control gap-y-2.5">
+          <Input
+            label="Nome de usuário"
+            type="text"
+            register={register("nome")}
+            placeholder="Fulano123"
+            icon={<UserCircleIcon className="w-6 h-6 opacity-70" />}
+            error={errors.nome}
+          />
+          <Input
+            label="E-mail"
+            type="email"
+            register={register("email")}
+            placeholder="exemplo.123@mail.com"
+            icon={<EnvelopeIcon className="w-6 h-6 opacity-70" />}
+            error={errors.email}
+          />
           <Controller
             control={control}
             name="cpf"
@@ -90,22 +106,6 @@ function Signup() {
                 label="Número de Telefone"
               />
             )}
-          />
-          <Input
-            label="Nome de usuário"
-            type="text"
-            register={register("nome")}
-            placeholder="Fulano123"
-            icon={<UserCircleIcon className="w-6 h-6 opacity-70" />}
-            error={errors.nome}
-          />
-          <Input
-            label="E-mail"
-            type="email"
-            register={register("email")}
-            placeholder="exemplo.123@mail.com"
-            icon={<EnvelopeIcon className="w-6 h-6 opacity-70" />}
-            error={errors.email}
           />
           <Input
             label="Senha"
