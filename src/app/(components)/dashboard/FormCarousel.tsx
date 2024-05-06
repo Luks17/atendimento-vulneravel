@@ -16,7 +16,7 @@ function CarouselSection({
       className="carousel-item w-full"
       id={`form-carousel-section-${id}`}
     >
-      <div className="flex flex-col items-start gap-y-4 p-10 xl:p-20">
+      <div className="form-control items-start gap-y-4 p-10 xl:p-20">
         {children}
       </div>
     </section>

@@ -1,6 +1,6 @@
-import { MoradiaEnum } from "@/database/models/Situacao";
 import * as yup from "yup";
 import { enumValues } from "../common";
+import { MoradiaEnum } from "@/lib/enums/Situacao";
 
 export const registrarSituacaoSchema = yup.object({
   moradia: yup.mixed<MoradiaEnum>().oneOf(enumValues(MoradiaEnum)).required(),

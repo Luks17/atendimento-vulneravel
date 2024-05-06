@@ -2,11 +2,7 @@ import { Column, Entity, JoinColumn, OneToOne, PrimaryColumn } from "typeorm";
 import type { Relation } from "typeorm";
 import { Usuario } from "./Usuario";
 import { IsPositive, Min } from "class-validator";
-
-export enum MoradiaEnum {
-  "Casa Própria" = "casa_propria",
-  "Aluguel" = "aluguel",
-}
+import { MoradiaEnum } from "@/lib/enums/Situacao";
 
 @Entity("situacoes")
 export class Situacao {

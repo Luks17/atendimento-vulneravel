@@ -1,5 +1,6 @@
 import { ChildEntity, Column } from "typeorm";
-import { Solicitacao, TiposAuxilios } from "../Solicitacao";
+import { Solicitacao } from "../Solicitacao";
+import { TiposAuxilios } from "@/lib/enums/Solicitacao";
 
 @ChildEntity(TiposAuxilios["Auxílio Medicamento"])
 export class AuxilioMedicamento extends Solicitacao {

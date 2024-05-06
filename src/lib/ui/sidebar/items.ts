@@ -5,6 +5,11 @@ export const menuItems: SidebarItem[] = [
     title: "Cidadão",
     list: [
       {
+        label: "Registrar situação",
+        icon: "",
+        url: "registrar-situacao",
+      },
+      {
         label: "Solicitar Auxílio",
         icon: "",
         url: "solicitacao-auxilio",

@@ -1,5 +1,5 @@
-import { TiposAuxilios, TiposProblemas } from "@/database/models/Solicitacao";
 import { validateRequest } from "@/lib/auth/Session";
+import { TiposAuxilios, TiposProblemas } from "@/lib/enums/Solicitacao";
 import { ServerError } from "@/lib/error/ServerError";
 import { SolicitacaoAuxilioFormData } from "@/lib/ui/forms/solicitacao-auxilio/schema";
 import { generateId } from "lucia";
@@ -16,7 +16,7 @@ export class CreateSolicitacaoDTO {
     public numero_vagas_escolas?: number,
     public quantidade_cestas?: number,
     public vl_auxilio_medicamento?: number,
-  ) {}
+  ) { }
 
   static async fromFormData(data: SolicitacaoAuxilioFormData) {
     const { user } = await validateRequest();
