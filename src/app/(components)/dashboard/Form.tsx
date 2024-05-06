@@ -86,9 +86,16 @@ function SubmitWithSections({
   );
 }
 
+function Group({ children }: FormProps) {
+  return (
+    <div className="form-control sm:flex-row gap-x-4 gap-y-4">{children}</div>
+  );
+}
+
 export default {
   Root: Form,
   SectionsWrapper: Sections,
   Submit,
   SubmitWithSections,
+  Group,
 };

@@ -35,7 +35,7 @@ export default function Input({
       >
         {icon}
         <input
-          className={`bg-base-100 w-full`}
+          className="bg-base-100"
           {...register}
           defaultValue={defaultValue}
           placeholder={placeholder !== undefined ? placeholder : label}
