@@ -9,8 +9,11 @@ import { argon2 } from "@/lib/crypt";
 import { cookies } from "next/headers";
 import { mapAndTraceError } from "@/lib/error/util";
 import { ServerError } from "@/lib/error/ServerError";
+import Response, { SimpleReturn } from "@/lib/Response";
 
-export async function signup(data: SignupFormData) {
+export async function signup(
+  data: SignupFormData,
+): Promise<Response<SimpleReturn>> {
   try {
     const dto = await CreateUsuarioDTO.fromFormData(data);
 
@@ -27,7 +30,9 @@ export async function signup(data: SignupFormData) {
   }
 }
 
-export async function login(data: LoginFormData) {
+export async function login(
+  data: LoginFormData,
+): Promise<Response<SimpleReturn>> {
   try {
     const user = await UsuarioService.findOne({ email: data.email });
 
@@ -61,7 +66,7 @@ export async function login(data: LoginFormData) {
   }
 }
 
-export async function logout() {
+export async function logout(): Promise<Response<SimpleReturn>> {
   try {
     const { session } = await validateRequest();
     if (!session) {

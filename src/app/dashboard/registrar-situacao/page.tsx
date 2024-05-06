@@ -4,6 +4,7 @@ import Form from "@/app/(components)/dashboard/Form";
 import ComboBox from "@/app/(components)/formWidgets/uncontrolled/ComboBox";
 import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
+import { submitSituacao } from "@/app/actions/RegistrarSituacaoActions";
 import { MoradiaEnum } from "@/lib/enums/Situacao";
 import { enumEntries } from "@/lib/ui/forms/common";
 import {
@@ -32,10 +33,19 @@ function RegistrarSituacao() {
       <Form.Root
         className="form-control w-full items-center p-10 xl:p-20"
         onSubmit={handleSubmit(async (formData) => {
-          setNotification({
-            message: JSON.stringify(formData),
-            messageType: "success",
-          });
+          const { success, data } = await submitSituacao(formData);
+
+          if (success) {
+            setNotification({
+              message: data.message,
+              messageType: "success",
+            });
+          } else {
+            setNotification({
+              message: data.message,
+              messageType: "error",
+            });
+          }
         })}
       >
         <div className="form-control items-start gap-y-4 border-l-2 border-l-primary pl-5 max-w-lg">
@@ -62,6 +72,7 @@ function RegistrarSituacao() {
             <Input
               register={register("total_adultos")}
               label="Total de Adultos na Moradia"
+              type="number"
               size={18}
               placeholder="Quantos?"
               error={errors.total_adultos}
@@ -69,6 +80,7 @@ function RegistrarSituacao() {
             <Input
               register={register("total_criancas")}
               label="Total de Crianças na Moradia"
+              type="number"
               size={18}
               placeholder="Quantas?"
               error={errors.total_criancas}
