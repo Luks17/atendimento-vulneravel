@@ -1,9 +1,12 @@
-import { RoutePermissions, validateProtected } from "@/lib/auth/Permissions";
+import { RoutePermissions } from "@/lib/auth/Permissions";
 import Navbar from "@/app/(components)/dashboard/Navbar";
 import Sidebar from "@/app/(components)/dashboard/Sidebar";
+import RouteProtection from "@/lib/auth/RouteProtection";
 
 async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
-  const { user, session } = await validateProtected(RoutePermissions.IS_LOGGED);
+  const { user } = await new RouteProtection(
+    RoutePermissions.IS_NEW_USER,
+  ).verifyAuth();
 
   return (
     <div className="drawer lg:drawer-open h-full">

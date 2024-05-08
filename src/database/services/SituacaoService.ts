@@ -6,43 +6,43 @@ import { Situacao } from "../models/Situacao";
 
 export class SituacaoService {
   static async deleteAll<T extends FindOptionsWhere<Situacao>>(condition: T) {
-    const solicitacaoRepository = await dbSource.getRepository(Situacao);
+    const situacaoRepository = await dbSource.getRepository(Situacao);
 
-    await solicitacaoRepository.delete(condition);
+    await situacaoRepository.delete(condition);
   }
 
   static async deleteOne<T extends FindOptionsWhere<Situacao>>(condition: T) {
-    const solicitacaoRepository = await dbSource.getRepository(Situacao);
+    const situacaoRepository = await dbSource.getRepository(Situacao);
 
-    const match = await solicitacaoRepository.findOne({ where: condition });
+    const match = await situacaoRepository.findOne({ where: condition });
 
-    if (match) await solicitacaoRepository.remove(match);
+    if (match) await situacaoRepository.remove(match);
   }
 
   static async findOne<T extends FindOptionsWhere<Situacao>>(condition: T) {
-    const solicitacaoRepository = await dbSource.getRepository(Situacao);
+    const situacaoRepository = await dbSource.getRepository(Situacao);
 
-    return await solicitacaoRepository.findOne({
+    return await situacaoRepository.findOne({
       where: condition,
       loadRelationIds: true,
     });
   }
 
   static async findAll<T extends FindOptionsWhere<Situacao>>(condition: T) {
-    const solicitacaoRepository = await dbSource.getRepository(Situacao);
+    const situacaoRepository = await dbSource.getRepository(Situacao);
 
-    return await solicitacaoRepository.find({
+    return await situacaoRepository.find({
       where: condition,
       loadRelationIds: true,
     });
   }
 
   static async new(dto: CreateSituacaoDTO) {
-    const solicitacaoRepository = await dbSource.getRepository(Situacao);
+    const situacaoRepository = await dbSource.getRepository(Situacao);
 
-    const entity = solicitacaoRepository.create({ ...dto });
+    const entity = situacaoRepository.create({ ...dto });
 
-    await solicitacaoRepository.save(entity);
+    await situacaoRepository.save(entity);
 
     return entity;
   }
@@ -51,8 +51,8 @@ export class SituacaoService {
     T extends FindOptionsWhere<Situacao>,
     U extends QueryDeepPartialEntity<Situacao>,
   >(condition: T, updated: U) {
-    const solicitacaoRepository = await dbSource.getRepository(Situacao);
+    const situacaoRepository = await dbSource.getRepository(Situacao);
 
-    await solicitacaoRepository.update(condition, updated);
+    await situacaoRepository.update(condition, updated);
   }
 }

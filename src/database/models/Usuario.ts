@@ -2,11 +2,19 @@ import { MinLength } from "class-validator";
 import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
 import { Solicitacao } from "./Solicitacao";
 import { Situacao } from "./Situacao";
+import { RoutePermissions } from "@/lib/auth/Permissions";
 
 @Entity("usuarios")
 export class Usuario {
   @PrimaryColumn({ type: "char", length: 36 })
   id: string;
+
+  @Column({
+    type: "enum",
+    enum: RoutePermissions,
+    default: RoutePermissions.IS_NEW_USER,
+  })
+  role: RoutePermissions;
 
   @Column({ type: "varchar", length: 255 })
   @MinLength(2)

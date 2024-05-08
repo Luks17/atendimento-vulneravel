@@ -8,7 +8,7 @@
     "start": "next start",
     "lint": "next lint",
     "new-migration": "ts-node -r tsconfig-paths/register -r dotenv/config ./node_modules/typeorm/cli.js -d ./src/database/Connection.ts migration:generate",
-    "migrate": "ts-node -r tsconfig-paths/register -r dotenv/config ./node_modules/typeorm/cli.js migration:run -d ./src/database/Connection.ts",
+    "migrate-up": "ts-node -r tsconfig-paths/register -r dotenv/config ./node_modules/typeorm/cli.js migration:run -d ./src/database/Connection.ts",
     "migrate-down": "ts-node -r tsconfig-paths/register -r dotenv/config ./node_modules/typeorm/cli.js migration:revert -d ./src/database/Connection.ts"
   },
   "dependencies": {

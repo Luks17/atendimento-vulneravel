@@ -43,8 +43,8 @@ export class TypeORMAdapter implements Adapter {
     const user: DatabaseUser = {
       id: userDb.id,
       attributes: {
-        role: "",
-        ...userDb,
+        nome: userDb.nome,
+        role: userDb.role,
       },
     };
 

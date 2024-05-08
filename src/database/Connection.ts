@@ -10,7 +10,7 @@ import { AuxilioMedicamento } from "./models/Solicitacao/AuxilioMedicamento";
 import { CestaBasica } from "./models/Solicitacao/CestaBasica";
 import { VagaCreche } from "./models/Solicitacao/VagaCreche";
 import { VagaEscola } from "./models/Solicitacao/VagaEscola";
-import { Initial1714954723653 } from "./migrations/1714954723653-initial";
+import { Initial1715128194182 } from "./migrations/1715128194182-initial";
 
 export const dbDataSource = new DataSource({
   type: "mysql",
@@ -26,7 +26,7 @@ export const dbDataSource = new DataSource({
     VagaCreche,
     VagaEscola,
   ],
-  migrations: [Initial1714954723653],
+  migrations: [Initial1715128194182],
   subscribers: [],
 });
 

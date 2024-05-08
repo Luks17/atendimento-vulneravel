@@ -1,8 +1,10 @@
 "use server";
 
 import { SituacaoService } from "@/database/services/SituacaoService";
+import { UsuarioService } from "@/database/services/UsuarioService";
 import { CreateSituacaoDTO } from "@/lib/DTO/Situacao/CreateSituacaoDTO";
 import Response, { SimpleReturn } from "@/lib/Response";
+import { RoutePermissions } from "@/lib/auth/Permissions";
 import { validateRequest } from "@/lib/auth/Session";
 import { ServerError } from "@/lib/error/ServerError";
 import { mapAndTraceError } from "@/lib/error/util";
@@ -21,6 +23,11 @@ export async function submitSituacao(
     const dto = CreateSituacaoDTO.fromFormData(data, user.id);
 
     await SituacaoService.new(dto);
+
+    await UsuarioService.update(
+      { id: user.id },
+      { role: RoutePermissions.HAS_SITUACAO },
+    );
 
     return {
       success: true,

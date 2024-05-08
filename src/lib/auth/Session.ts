@@ -2,6 +2,7 @@ import { Lucia, TimeSpan } from "lucia";
 import { TypeORMAdapter } from "./TypeORMAdapter";
 import { cookies } from "next/headers";
 import { cache } from "react";
+import { RoutePermissions } from "./Permissions";
 
 export const lucia = new Lucia(new TypeORMAdapter(), {
   sessionExpiresIn: new TimeSpan(2, "w"),
@@ -53,5 +54,5 @@ declare module "lucia" {
 
 interface UserAttributes {
   nome: string;
-  role: string;
+  role: RoutePermissions;
 }
