@@ -21,7 +21,7 @@ async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
           aria-label="close sidebar"
           className="drawer-overlay"
         ></label>
-        <Sidebar username={user!.nome} />
+        <Sidebar user={user!} />
       </div>
     </div>
   );

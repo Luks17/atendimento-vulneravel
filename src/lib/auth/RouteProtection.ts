@@ -37,7 +37,7 @@ export default class RouteProtection {
     return { session, user };
   }
 
-  private checkClearance(user: User | null, strict: boolean): boolean {
+  public checkClearance(user: User | null, strict: boolean): boolean {
     if (!user) return false;
 
     const { role } = user;

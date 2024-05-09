@@ -1,3 +1,4 @@
+import { RoutePermissions } from "@/lib/auth/Permissions";
 import { SidebarItem } from "./types";
 
 export const menuItems: SidebarItem[] = [
@@ -15,6 +16,7 @@ export const menuItems: SidebarItem[] = [
         url: "solicitacao-auxilio",
       },
     ],
+    protection: RoutePermissions.IS_NEW_USER,
   },
   {
     title: "Administrador",
@@ -30,5 +32,6 @@ export const menuItems: SidebarItem[] = [
         url: "visualizar-totalizadores",
       },
     ],
+    protection: RoutePermissions.IS_ADMIN,
   },
 ];
