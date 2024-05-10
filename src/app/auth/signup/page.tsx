@@ -17,6 +17,7 @@ import { signup } from "@/app/actions/AuthActions";
 import { useRouter } from "next/navigation";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
 import InputMask from "@/app/(components)/formWidgets/controlled/InputMask";
+import { enqueueNotification } from "@/lib/ui/notifications/helpers";
 
 function Signup() {
   const router = useRouter();
@@ -38,7 +39,10 @@ function Signup() {
           const { success, data } = await signup(formData);
 
           if (success) {
-            localStorage.setItem("signup-success", data.message);
+            enqueueNotification({
+              message: data.message,
+              messageType: "success",
+            });
             router.push("/auth/login");
           } else {
             setNotification({ message: data.message, messageType: "error" });

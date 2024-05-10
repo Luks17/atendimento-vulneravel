@@ -7,7 +7,6 @@ import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
 import { LoginFormData, loginSchema } from "@/lib/ui/forms/auth/loginSchema";
-import { useEffect } from "react";
 import { login } from "@/app/actions/AuthActions";
 import { useRouter } from "next/navigation";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
@@ -23,14 +22,6 @@ function Login() {
   } = useForm<LoginFormData>({
     resolver: yupResolver(loginSchema),
   });
-
-  useEffect(() => {
-    const message = localStorage.getItem("signup-success");
-    if (message) {
-      setNotification({ message, messageType: "success" });
-      localStorage.removeItem("signup-success");
-    }
-  }, []);
 
   return (
     <div className="form-control flex-1 h-full items-center justify-center p-2">

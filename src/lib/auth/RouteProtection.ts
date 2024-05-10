@@ -26,15 +26,9 @@ export default class RouteProtection {
   }
 
   public async verifyRole(strict = false) {
-    const { session, user } = await validateRequest();
+    const { user } = await validateRequest();
 
-    const isUserAuthorized = this.checkClearance(user, strict);
-
-    if (!isUserAuthorized) {
-      return redirect("/");
-    }
-
-    return { session, user };
+    return this.checkClearance(user, strict);
   }
 
   public checkClearance(user: User | null, strict: boolean): boolean {
