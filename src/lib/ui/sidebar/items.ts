@@ -1,5 +1,6 @@
 import { RoutePermissions } from "@/lib/auth/Permissions";
 import { SidebarItem } from "./types";
+import RouteProtection from "@/lib/auth/RouteProtection";
 
 export const menuItems: SidebarItem[] = [
   {
@@ -9,14 +10,15 @@ export const menuItems: SidebarItem[] = [
         label: "Registrar Situação",
         icon: "",
         url: "registrar-situacao",
+        protection: new RouteProtection(RoutePermissions.IS_NEW_USER, true),
       },
       {
         label: "Solicitar Auxílio",
         icon: "",
         url: "solicitacao-auxilio",
+        protection: new RouteProtection(RoutePermissions.HAS_SITUACAO),
       },
     ],
-    protection: RoutePermissions.IS_NEW_USER,
   },
   {
     title: "Administrador",
@@ -25,13 +27,14 @@ export const menuItems: SidebarItem[] = [
         label: "Pesquisar Vulneráveis",
         icon: "",
         url: "pesquisar-vulneraveis",
+        protection: new RouteProtection(RoutePermissions.IS_ADMIN),
       },
       {
         label: "Visualizar Totalizadores",
         icon: "",
         url: "visualizar-totalizadores",
+        protection: new RouteProtection(RoutePermissions.IS_ADMIN),
       },
     ],
-    protection: RoutePermissions.IS_ADMIN,
   },
 ];

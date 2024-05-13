@@ -5,7 +5,8 @@ import RouteProtection from "@/lib/auth/RouteProtection";
 async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const hasClearance = await new RouteProtection(
     RoutePermissions.IS_NEW_USER,
-  ).verifyRole(true);
+    true,
+  ).verifyRole();
 
   const message = "Você já tem uma situação registrada!";
 

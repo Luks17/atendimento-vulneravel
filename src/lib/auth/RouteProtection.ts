@@ -6,6 +6,7 @@ import { redirect } from "next/navigation";
 export default class RouteProtection {
   public constructor(
     public routeProtection: RoutePermissions,
+    public strict = false,
     public disallowedRole?: RoutePermissions,
   ) { }
 
@@ -25,13 +26,13 @@ export default class RouteProtection {
     return { session, user };
   }
 
-  public async verifyRole(strict = false) {
+  public async verifyRole() {
     const { user } = await validateRequest();
 
-    return this.checkClearance(user, strict);
+    return this.checkClearance(user);
   }
 
-  public checkClearance(user: User | null, strict: boolean): boolean {
+  public checkClearance(user: User | null): boolean {
     if (!user) return false;
 
     const { role } = user;
@@ -40,7 +41,7 @@ export default class RouteProtection {
       return false;
     }
 
-    return strict
+    return this.strict
       ? this.routeProtection === role
       : this.routeProtection <= role;
   }

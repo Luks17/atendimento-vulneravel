@@ -1,8 +1,7 @@
-import { RoutePermissions } from "@/lib/auth/Permissions";
+import RouteProtection from "@/lib/auth/RouteProtection";
 
 export interface SidebarItem {
   title: string;
-  protection: RoutePermissions;
   list: SidebarLink[];
 }
 
@@ -10,4 +9,5 @@ export interface SidebarLink {
   label: string;
   icon: string;
   url: string;
+  protection: RouteProtection;
 }

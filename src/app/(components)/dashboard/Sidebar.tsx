@@ -20,17 +20,17 @@ function Sidebar({ user }: { user: User }) {
       </div>
       <ul className="menu">
         {menuItems.map((item, i) => {
-          const hasClearance = new RouteProtection(
-            item.protection,
-          ).checkClearance(user, false);
+          const clearedLinks = item.list.filter((link) =>
+            link.protection.checkClearance(user),
+          );
 
-          return hasClearance ? (
+          return clearedLinks.length > 0 ? (
             <React.Fragment key={i}>
               <li className="menu-title pointer-events-none">
                 <h6>{item.title}</h6>
               </li>
               <li>
-                <SidebarLinks sidebarLinks={item.list} />
+                <SidebarLinks sidebarLinks={clearedLinks} />
               </li>
             </React.Fragment>
           ) : null;
