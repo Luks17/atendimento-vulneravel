@@ -13,6 +13,12 @@ export const menuItems: SidebarItem[] = [
         protection: new RouteProtection(RoutePermissions.IS_NEW_USER, true),
       },
       {
+        label: "Visualizar Situação",
+        icon: "",
+        url: "visualizar-situacao",
+        protection: new RouteProtection(RoutePermissions.HAS_SITUACAO),
+      },
+      {
         label: "Solicitar Auxílio",
         icon: "",
         url: "solicitacao-auxilio",

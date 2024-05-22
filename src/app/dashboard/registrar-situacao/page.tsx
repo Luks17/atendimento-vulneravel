@@ -4,7 +4,7 @@ import Form from "@/app/(components)/dashboard/Form";
 import ComboBox from "@/app/(components)/formWidgets/uncontrolled/ComboBox";
 import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
-import { submitSituacao } from "@/app/actions/RegistrarSituacaoActions";
+import { submitSituacao } from "@/app/actions/SituacaoActions";
 import { MoradiaEnum } from "@/lib/enums/Situacao";
 import { enumEntries } from "@/lib/ui/forms/common";
 import {

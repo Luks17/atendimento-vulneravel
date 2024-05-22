@@ -3,7 +3,6 @@ import type { SidebarLink } from "@/lib/ui/sidebar/types";
 import { menuItems } from "@/lib/ui/sidebar/items";
 import React from "react";
 import { User } from "lucia";
-import RouteProtection from "@/lib/auth/RouteProtection";
 
 function Sidebar({ user }: { user: User }) {
   return (

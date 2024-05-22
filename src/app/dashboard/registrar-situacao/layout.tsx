@@ -8,10 +8,8 @@ async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
     true,
   ).verifyRole();
 
-  const message = "Você já tem uma situação registrada!";
-
   return (
-    <ProtectedRouteWrapper hasClearance={hasClearance} message={message}>
+    <ProtectedRouteWrapper hasClearance={hasClearance}>
       {children}
     </ProtectedRouteWrapper>
   );

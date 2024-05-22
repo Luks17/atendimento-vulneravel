@@ -12,6 +12,7 @@ export function mapAndTraceError(e: any) {
       msg = "Erro: Usuário ou Senha Inválido";
     else if (e.code === "NO_AUTH")
       msg = "Erro: Você não tem autorização para acessar esse recurso";
+    else if (e.code === "NOT_FOUND") msg = "Erro: Recurso não encontrado";
   }
 
   logger.error(e.toString() + " | Sent Client Error: '" + msg + "'");

@@ -10,11 +10,11 @@ import { ReactNode, useEffect } from "react";
 export default function ProtectedRouteWrapper({
   children,
   hasClearance,
-  message,
+  message = "Você não tem acesso a este recurso!",
 }: {
   children: ReactNode;
   hasClearance: boolean;
-  message: string;
+  message?: string;
 }) {
   const router = useRouter();
 
@@ -23,7 +23,7 @@ export default function ProtectedRouteWrapper({
       const notification: Notification = { message, messageType: "warning" };
       enqueueNotification(notification);
 
-      router.back();
+      router.push("/dashboard");
     }, []);
 
     return null;
