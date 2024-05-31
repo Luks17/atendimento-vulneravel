@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { enumValues } from "../common";
+import { enumValues } from "@/lib/enums/common";
 import { TiposAuxilios, TiposProblemas } from "@/lib/enums/Solicitacao";
 
 export const solicitacaoAuxilioSchema = yup.object({

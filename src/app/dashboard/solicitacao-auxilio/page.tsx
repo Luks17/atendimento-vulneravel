@@ -7,7 +7,7 @@ import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
 import { submitSolicitacaoAuxilio } from "@/app/actions/SolicitacaoAuxilioActions";
 import { TiposAuxilios, TiposProblemas } from "@/lib/enums/Solicitacao";
-import { enumEntries } from "@/lib/ui/forms/common";
+import { enumEntries } from "@/lib/enums/common";
 import {
   SolicitacaoAuxilioFormData,
   solicitacaoAuxilioSchema,

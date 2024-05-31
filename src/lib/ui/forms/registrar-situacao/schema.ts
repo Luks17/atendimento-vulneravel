@@ -1,5 +1,5 @@
 import * as yup from "yup";
-import { enumValues } from "../common";
+import { enumValues } from "@/lib/enums/common";
 import { MoradiaEnum } from "@/lib/enums/Situacao";
 
 export const registrarSituacaoSchema = yup.object({

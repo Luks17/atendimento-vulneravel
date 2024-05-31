@@ -1,5 +1,7 @@
+import ItemView from "@/app/(components)/dashboard/ItemView";
 import { getSituacao } from "@/app/actions/SituacaoActions";
 import { Situacao } from "@/database/models/Situacao";
+import { SituacaoFields } from "@/lib/ui/item-view/situacao";
 
 async function Page() {
   const { success, data } = await getSituacao();
@@ -7,11 +9,11 @@ async function Page() {
   if (success) {
     const situacao = data as Situacao;
     return (
-      <div className="w-full h-full bg-base-200 rounded-box flex items-center">
-        <ul>
-          <li>{situacao.moradia}</li>
-        </ul>
-      </div>
+      <ItemView
+        title="Sua situação"
+        fields={SituacaoFields}
+        object={situacao}
+      />
     );
   }
 }

@@ -6,7 +6,7 @@ import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
 import { submitSituacao } from "@/app/actions/SituacaoActions";
 import { MoradiaEnum } from "@/lib/enums/Situacao";
-import { enumEntries } from "@/lib/ui/forms/common";
+import { enumEntries } from "@/lib/enums/common";
 import {
   RegistrarSituacaoFormData,
   registrarSituacaoSchema,

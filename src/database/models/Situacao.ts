@@ -30,5 +30,5 @@ export class Situacao {
 
   @Column({ type: "decimal", precision: 10, scale: 3, nullable: true })
   @IsPositive()
-  valor_aluguel: number;
+  valor_aluguel: number | null;
 }
