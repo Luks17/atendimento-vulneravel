@@ -5,7 +5,7 @@ import { ArrowRightEndOnRectangleIcon } from "@heroicons/react/24/outline";
 import { useSetNotification } from "../notifications/NotificationProvider";
 import { useRouter } from "next/navigation";
 
-async function LogoutBtn() {
+function LogoutBtn() {
   const router = useRouter();
   const setNotification = useSetNotification();
 

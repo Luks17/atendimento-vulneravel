@@ -21,9 +21,12 @@ function ItemView<T extends Record<string, string>>({
           {title}
         </h3>
         <ul className="form-control text-sm sm:text-base">
-          {entries.map((entry) => {
+          {entries.map((entry, i) => {
             return (
-              <li className="flex justify-between border-b-neutral border-b py-2 px-2 md:px-6">
+              <li
+                key={i}
+                className="flex justify-between border-b-neutral border-b py-2 px-2 md:px-6"
+              >
                 <span className="font-semibold">{entry.value}</span>
                 <span className="text-accent uppercase font-bold">
                   {object[entry.key]}
