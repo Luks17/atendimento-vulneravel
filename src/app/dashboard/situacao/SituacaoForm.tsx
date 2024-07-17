@@ -4,7 +4,8 @@ import Form from "@/app/(components)/dashboard/Form";
 import ComboBox from "@/app/(components)/formWidgets/uncontrolled/ComboBox";
 import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
-import { submitSituacao } from "@/app/actions/SituacaoActions";
+import { submitSituacao, updateSituacao } from "@/app/actions/SituacaoActions";
+import { Situacao } from "@/database/models/Situacao";
 import { MoradiaEnum } from "@/lib/enums/Situacao";
 import { enumEntries } from "@/lib/enums/common";
 import {
@@ -12,15 +13,24 @@ import {
   registrarSituacaoSchema,
 } from "@/lib/ui/forms/registrar-situacao/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
-function RegistrarSituacao() {
+interface Props {
+  situacaoJSON?: string;
+}
+
+function SituacaoForm({ situacaoJSON }: Props) {
   const setNotification = useSetNotification();
+  const situacao: Situacao | null = situacaoJSON
+    ? JSON.parse(situacaoJSON)
+    : null;
 
   const {
     register,
     handleSubmit,
     watch,
+    reset,
     formState: { errors },
   } = useForm<RegistrarSituacaoFormData>({
     resolver: yupResolver(registrarSituacaoSchema),
@@ -28,12 +38,26 @@ function RegistrarSituacao() {
 
   const moradia = watch("moradia", MoradiaEnum["Casa Própria"]);
 
+  useEffect(() => {
+    if (situacao) {
+      reset({
+        moradia: situacao.moradia,
+        valor_aluguel: situacao.valor_aluguel ?? undefined,
+        total_adultos: situacao.total_adultos,
+        total_criancas: situacao.total_criancas,
+        renda_familiar: situacao.renda_familiar,
+      });
+    }
+  }, []);
+
   return (
     <div className="w-full bg-base-200 h-full rounded-box form-control">
       <Form.Root
         className="form-control w-full items-center p-10 xl:p-20"
         onSubmit={handleSubmit(async (formData) => {
-          const { success, data } = await submitSituacao(formData);
+          const { success, data } = situacao
+            ? await submitSituacao(formData)
+            : await updateSituacao(formData);
 
           if (success) {
             setNotification({
@@ -100,4 +124,4 @@ function RegistrarSituacao() {
   );
 }
 
-export default RegistrarSituacao;
+export default SituacaoForm;

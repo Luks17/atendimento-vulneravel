@@ -4,6 +4,7 @@ import { Situacao } from "@/database/models/Situacao";
 import { SituacaoService } from "@/database/services/SituacaoService";
 import { UsuarioService } from "@/database/services/UsuarioService";
 import { CreateSituacaoDTO } from "@/lib/DTO/Situacao/CreateSituacaoDTO";
+import { UpdateSituacaoDTO } from "@/lib/DTO/Situacao/UpdateSituacaoDTO";
 import Response, { SimpleReturn } from "@/lib/Response";
 import { RoutePermissions } from "@/lib/auth/Permissions";
 import { validateRequest } from "@/lib/auth/Session";
@@ -34,6 +35,29 @@ export async function submitSituacao(
       success: true,
       data: {
         message: "Situacao registrada com sucesso",
+      },
+    };
+  } catch (e) {
+    return mapAndTraceError(e);
+  }
+}
+
+export async function updateSituacao(data: RegistrarSituacaoFormData) {
+  try {
+    const { session, user } = await validateRequest();
+
+    if (!session) {
+      throw new ServerError("NO_AUTH", "Unauthorized to create situacao");
+    }
+
+    const dto = UpdateSituacaoDTO.fromFormData(data);
+
+    await SituacaoService.update({ usuario_id: user.id }, dto);
+
+    return {
+      success: true,
+      data: {
+        message: "Situacao atualizada com sucesso",
       },
     };
   } catch (e) {

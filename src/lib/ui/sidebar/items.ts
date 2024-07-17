@@ -9,13 +9,13 @@ export const menuItems: SidebarItem[] = [
       {
         label: "Registrar Situação",
         icon: "",
-        url: "registrar-situacao",
+        url: "situacao/registrar",
         protection: new RouteProtection(RoutePermissions.IS_NEW_USER, true),
       },
       {
         label: "Visualizar Situação",
         icon: "",
-        url: "visualizar-situacao",
+        url: "situacao/visualizar",
         protection: new RouteProtection(RoutePermissions.HAS_SITUACAO),
       },
       {
