@@ -27,7 +27,7 @@ export const menuItems: SidebarItem[] = [
       {
         label: "Visualizar Solicitações Auxílio",
         icon: "",
-        url: "solicitacao-auxilio/visualizar",
+        url: "solicitacao-auxilio/listar",
         protection: new RouteProtection(RoutePermissions.HAS_SITUACAO),
       },
     ],
