@@ -55,9 +55,10 @@ function SituacaoForm({ situacaoJSON }: Props) {
       <Form.Root
         className="form-control w-full items-center p-10 xl:p-20"
         onSubmit={handleSubmit(async (formData) => {
-          const { success, data } = situacao
-            ? await submitSituacao(formData)
-            : await updateSituacao(formData);
+          const { success, data } =
+            situacao === null
+              ? await submitSituacao(formData)
+              : await updateSituacao(formData);
 
           if (success) {
             setNotification({
