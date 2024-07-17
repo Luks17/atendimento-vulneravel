@@ -32,7 +32,7 @@ export class SolicitacaoService {
     });
   }
 
-  static async findAll<T extends FindOptionsWhere<Solicitacao>>(condition: T) {
+  static async findAll<T extends FindOptionsWhere<Solicitacao>>(condition?: T) {
     const solicitacaoRepository = await dbSource.getRepository(Solicitacao);
 
     return await solicitacaoRepository.find({

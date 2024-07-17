@@ -18,7 +18,7 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { useRef, useState } from "react";
+import { ReactNode, useRef, useState } from "react";
 import { ObjectLiteral } from "typeorm";
 import FilterContent from "./table/FilterContent";
 
@@ -31,7 +31,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
   const modalContainer = useRef<HTMLDialogElement | null>(null);
 
   const [currentModalTitle, setCurrentModalTitle] = useState("");
-  const [currentModalElements, setCurrentModalElements] = useState<any[]>([]);
+  const [currentModalElement, setCurrentModalElement] = useState<ReactNode>([]);
 
   const [data, _] = useState(initialData);
   const [sorting, setSorting] = useState<SortingState>([]);
@@ -40,12 +40,12 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
   function showModal(
     e: React.MouseEvent<HTMLButtonElement>,
     title: string,
-    elements: any[],
+    element: ReactNode,
   ) {
     e.preventDefault();
 
     setCurrentModalTitle(title);
-    setCurrentModalElements(elements);
+    setCurrentModalElement(element);
 
     modalContainer.current!.showModal();
   }
@@ -165,15 +165,9 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
       </div>
       <dialog ref={modalContainer} className="modal">
         <div className="modal-box">
-          <h3 className="font-bold text-lg mb-5">{currentModalTitle}</h3>
-          <ul className="flex flex-col gap-y-1">
-            {currentModalElements.map((element, i) => {
-              return (
-                <li className="p-2" key={i}>
-                  {i + 1 + ". " + element.tipo}
-                </li>
-              );
-            })}
+          <h3 className="font-bold text-lg pb-5">{currentModalTitle}</h3>
+          <ul className="flex flex-col gap-y-2">
+            <>{currentModalElement}</>
           </ul>
         </div>
         <form method="dialog" className="modal-backdrop">

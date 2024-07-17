@@ -19,9 +19,15 @@ export const menuItems: SidebarItem[] = [
         protection: new RouteProtection(RoutePermissions.HAS_SITUACAO),
       },
       {
-        label: "Solicitar Auxílio",
+        label: "Registrar Solicitar Auxílio",
         icon: "",
-        url: "solicitacao-auxilio",
+        url: "solicitacao-auxilio/registrar",
+        protection: new RouteProtection(RoutePermissions.HAS_SITUACAO),
+      },
+      {
+        label: "Visualizar Solicitações Auxílio",
+        icon: "",
+        url: "solicitacao-auxilio/visualizar",
         protection: new RouteProtection(RoutePermissions.HAS_SITUACAO),
       },
     ],

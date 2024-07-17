@@ -7,7 +7,7 @@ export const solicitacaoAuxilioSchema = yup.object({
     .mixed<TiposProblemas>()
     .oneOf(enumValues(TiposProblemas))
     .required(),
-  descricao_problema: yup.string().min(20).required(),
+  descricao_problema: yup.string().min(10).required(),
   tipo_auxilio: yup
     .mixed<TiposAuxilios>()
     .oneOf(enumValues(TiposAuxilios))

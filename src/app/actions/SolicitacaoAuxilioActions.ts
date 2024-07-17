@@ -8,6 +8,23 @@ import { ServerError } from "@/lib/error/ServerError";
 import { mapAndTraceError } from "@/lib/error/util";
 import { SolicitacaoAuxilioFormData } from "@/lib/ui/forms/solicitacao-auxilio/schema";
 
+export async function list() {
+  const { session, user } = await validateRequest();
+
+  if (!session) {
+    throw new ServerError(
+      "NO_AUTH",
+      "Unauthorized to list solicitacoes auxilio",
+    );
+  }
+
+  try {
+    return await SolicitacaoService.findAll({ usuario_id: user.id });
+  } catch (e) {
+    return mapAndTraceError(e);
+  }
+}
+
 export async function submitSolicitacaoAuxilio(
   data: SolicitacaoAuxilioFormData,
 ): Promise<Response<SimpleReturn>> {
