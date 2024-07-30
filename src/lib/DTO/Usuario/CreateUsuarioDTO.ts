@@ -1,7 +1,7 @@
-import { argon2 } from "@/lib/crypt";
 import { SignupFormData } from "@/lib/ui/forms/auth/signupSchema";
 import { generateId } from "lucia";
 import { NextRequest } from "next/server";
+import argon2 from "@node-rs/argon2";
 
 export class CreateUsuarioDTO {
   private constructor(
