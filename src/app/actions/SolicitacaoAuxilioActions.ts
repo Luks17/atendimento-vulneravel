@@ -9,16 +9,16 @@ import { mapAndTraceError } from "@/lib/error/util";
 import { SolicitacaoAuxilioFormData } from "@/lib/ui/forms/solicitacao-auxilio/schema";
 
 export async function list() {
-  const { session, user } = await validateRequest();
-
-  if (!session) {
-    throw new ServerError(
-      "NO_AUTH",
-      "Unauthorized to list solicitacoes auxilio",
-    );
-  }
-
   try {
+    const { session, user } = await validateRequest();
+
+    if (!session) {
+      throw new ServerError(
+        "NO_AUTH",
+        "Unauthorized to list solicitacoes auxilio",
+      );
+    }
+
     return await SolicitacaoService.findAll({ usuario_id: user.id });
   } catch (e) {
     return mapAndTraceError(e);
@@ -44,6 +44,29 @@ export async function submitSolicitacaoAuxilio(
       data: {
         message: "Solicitacao Criada com Sucesso",
       },
+    };
+  } catch (e) {
+    return mapAndTraceError(e);
+  }
+}
+
+export async function getSolicitacaoAuxilio(id: string) {
+  try {
+    const { session } = await validateRequest();
+
+    if (!session) {
+      throw new ServerError("NO_AUTH", "Unauthorized to get solicitacao");
+    }
+
+    const solicitacao = await SolicitacaoService.findOne({ id });
+
+    if (!solicitacao) {
+      throw new ServerError("NOT_FOUND", "Solicitacao not found");
+    }
+
+    return {
+      success: true,
+      data: solicitacao,
     };
   } catch (e) {
     return mapAndTraceError(e);

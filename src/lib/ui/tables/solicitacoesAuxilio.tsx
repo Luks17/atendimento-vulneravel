@@ -6,6 +6,7 @@ import {
   TiposProblemas,
 } from "@/lib/enums/Solicitacao";
 import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import Link from "next/link";
 
 const columnHelper = createColumnHelper<Solicitacao>();
 
@@ -40,6 +41,17 @@ export const columns: ColumnDef<Solicitacao, any>[] = [
       >
         Visualizar
       </button>
+    ),
+  }),
+  columnHelper.display({
+    id: "actions",
+    cell: (props) => (
+      <Link
+        className="btn btn-outline btn-xs btn-secondary"
+        href={`/dashboard/solicitacao-auxilio/visualizar/${props.row.original.id}`}
+      >
+        Expandir
+      </Link>
     ),
   }),
 ];

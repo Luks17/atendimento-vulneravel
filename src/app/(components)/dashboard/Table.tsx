@@ -77,23 +77,27 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
                   key={headerGroup.id}
                   className="bg-secondary text-secondary-content"
                 >
-                  {headerGroup.headers.map((header) => (
-                    <th key={header.id}>
-                      <div className="dropdown">
-                        <div
-                          tabIndex={0}
-                          className="cursor-pointer flex gap-x-1"
-                        >
-                          {flexRender(
-                            header.column.columnDef.header,
-                            header.getContext(),
-                          )}
-                          <FunnelIcon className="w-3" />
+                  {headerGroup.headers.map((header) =>
+                    header.id !== "actions" ? (
+                      <th key={header.id}>
+                        <div className="dropdown">
+                          <div
+                            tabIndex={0}
+                            className="cursor-pointer flex gap-x-1"
+                          >
+                            {flexRender(
+                              header.column.columnDef.header,
+                              header.getContext(),
+                            )}
+                            <FunnelIcon className="w-3" />
+                          </div>
+                          <FilterContent column={header.column} table={table} />
                         </div>
-                        <FilterContent column={header.column} table={table} />
-                      </div>
-                    </th>
-                  ))}
+                      </th>
+                    ) : (
+                      <th key={header.id}>Ações</th>
+                    ),
+                  )}
                 </tr>
               ))}
             </thead>
@@ -145,7 +149,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
             >
               <ChevronLeftIcon className="w-4" />
             </button>
-            <button className="join-item btn">{`Página ${table.getState().pagination.pageIndex + 1}/${table.getPageCount()}`}</button>
+            <button className="join-item btn">{`Página ${table.getState().pagination.pageIndex + 1}/${table.getPageCount() == 0 ? 1 : table.getPageCount()}`}</button>
             <button
               disabled={!table.getCanNextPage()}
               onClick={() => table.nextPage()}
