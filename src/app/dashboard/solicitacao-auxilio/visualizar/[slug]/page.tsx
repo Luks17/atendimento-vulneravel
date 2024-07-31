@@ -13,6 +13,7 @@ async function Page({ params }: { params: { slug: string } }) {
         title="Solicitação"
         fields={solicitacaoAuxilioFields}
         object={solicitacao}
+        edit_url={`/dashboard/solicitacao-auxilio/editar/${params.slug}`}
       />
     );
   }
