@@ -33,7 +33,10 @@ function ItemView<T extends Record<string, string>>({
           </h3>
           <ul className="form-control text-sm sm:text-base">
             {entries.map((entry, i) => {
-              const content = object[entry.key] as string;
+              const content = object[entry.key] as string | undefined;
+
+              if (!content) return null;
+
               const shouldExpand = content.length > 20;
 
               if (shouldExpand) {
