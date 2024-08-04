@@ -1,4 +1,4 @@
-import RouteProtection from "@/lib/auth/RouteProtection";
+import type RouteProtection from "@/lib/auth/RouteProtection";
 
 export interface SidebarItem {
   title: string;

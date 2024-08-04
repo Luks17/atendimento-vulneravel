@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { FieldError } from "react-hook-form";
+import type { FieldError } from "react-hook-form";
 import Error from "../Error";
 
 interface Props {

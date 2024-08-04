@@ -1,5 +1,5 @@
-import { MoradiaEnum } from "@/lib/enums/Situacao";
-import { RegistrarSituacaoFormData } from "@/lib/ui/forms/registrar-situacao/schema";
+import type { MoradiaEnum } from "@/lib/enums/Situacao";
+import type { RegistrarSituacaoFormData } from "@/lib/ui/forms/registrar-situacao/schema";
 
 export class CreateSituacaoDTO {
   private constructor(
@@ -8,12 +8,12 @@ export class CreateSituacaoDTO {
     public valor_aluguel: number | undefined,
     public total_adultos: number,
     public total_criancas: number,
-    public renda_familiar: number,
+    public renda_familiar: number
   ) {}
 
   public static fromFormData(
     formData: RegistrarSituacaoFormData,
-    usuario_id: string,
+    usuario_id: string
   ) {
     return new this(
       usuario_id,
@@ -21,7 +21,7 @@ export class CreateSituacaoDTO {
       formData.valor_aluguel,
       formData.total_adultos,
       formData.total_criancas,
-      formData.renda_familiar,
+      formData.renda_familiar
     );
   }
 }

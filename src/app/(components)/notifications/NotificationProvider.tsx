@@ -1,10 +1,10 @@
 "use client";
 
-import { Notification } from "@/lib/ui/notifications/helpers";
+import type { Notification } from "@/lib/ui/notifications/helpers";
 import {
-  Dispatch,
-  ReactNode,
-  SetStateAction,
+  type Dispatch,
+  type ReactNode,
+  type SetStateAction,
   createContext,
   useContext,
   useEffect,

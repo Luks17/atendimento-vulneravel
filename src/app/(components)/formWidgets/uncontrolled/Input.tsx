@@ -1,6 +1,6 @@
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
 import Error from "../Error";
-import React from "react";
+import type React from "react";
 
 interface Props {
   register: UseFormRegisterReturn;

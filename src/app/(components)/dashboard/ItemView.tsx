@@ -1,5 +1,5 @@
 import { enumEntries } from "@/lib/enums/common";
-import { ObjectLiteral } from "typeorm";
+import type { ObjectLiteral } from "typeorm";
 import Link from "next/link";
 
 interface Props<T extends Record<string, string>> {

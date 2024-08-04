@@ -1,7 +1,7 @@
-import { FindOptionsWhere } from "typeorm";
+import type { FindOptionsWhere } from "typeorm";
 import { dbSource } from "../Connection";
 import { Session } from "../models/Session";
-import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
+import type { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
 
 export class SessionService {
   static async deleteAll<T extends FindOptionsWhere<Session>>(condition: T) {

@@ -1,5 +1,5 @@
-import { Column } from "@tanstack/react-table";
-import { ObjectLiteral } from "typeorm";
+import type { Column } from "@tanstack/react-table";
+import type { ObjectLiteral } from "typeorm";
 import { enumEntries } from "@/lib/enums/common";
 
 interface Props<T extends ObjectLiteral, U extends Record<string, string>> {

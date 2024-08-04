@@ -5,11 +5,11 @@ import ComboBox from "@/app/(components)/formWidgets/uncontrolled/ComboBox";
 import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
 import { submitSituacao, updateSituacao } from "@/app/actions/SituacaoActions";
-import { Situacao } from "@/database/models/Situacao";
+import type { Situacao } from "@/database/models/Situacao";
 import { MoradiaEnum } from "@/lib/enums/Situacao";
 import { enumEntries } from "@/lib/enums/common";
 import {
-  RegistrarSituacaoFormData,
+  type RegistrarSituacaoFormData,
   registrarSituacaoSchema,
 } from "@/lib/ui/forms/registrar-situacao/schema";
 import { yupResolver } from "@hookform/resolvers/yup";

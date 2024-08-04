@@ -8,9 +8,9 @@ import {
 } from "@heroicons/react/24/outline";
 import { FunnelIcon, TrashIcon } from "@heroicons/react/24/solid";
 import {
-  ColumnDef,
-  ColumnFiltersState,
-  SortingState,
+  type ColumnDef,
+  type ColumnFiltersState,
+  type SortingState,
   flexRender,
   getCoreRowModel,
   getFilteredRowModel,
@@ -18,8 +18,8 @@ import {
   getSortedRowModel,
   useReactTable,
 } from "@tanstack/react-table";
-import { ReactNode, useRef, useState } from "react";
-import { ObjectLiteral } from "typeorm";
+import { type ReactNode, useRef, useState } from "react";
+import type { ObjectLiteral } from "typeorm";
 import FilterContent from "./table/FilterContent";
 
 interface Props<T extends ObjectLiteral> {
@@ -40,7 +40,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
   function showModal(
     e: React.MouseEvent<HTMLButtonElement>,
     title: string,
-    element: ReactNode,
+    element: ReactNode
   ) {
     e.preventDefault();
 
@@ -87,7 +87,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
                           >
                             {flexRender(
                               header.column.columnDef.header,
-                              header.getContext(),
+                              header.getContext()
                             )}
                             <FunnelIcon className="w-3" />
                           </div>
@@ -96,7 +96,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
                       </th>
                     ) : (
                       <th key={header.id}>Ações</th>
-                    ),
+                    )
                   )}
                 </tr>
               ))}
@@ -109,7 +109,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
                       <td key={cell.id} className="pl-4">
                         {flexRender(
                           cell.column.columnDef.cell,
-                          cell.getContext(),
+                          cell.getContext()
                         )}
                       </td>
                     ))}

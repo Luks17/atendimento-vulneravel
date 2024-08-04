@@ -1,6 +1,6 @@
 import { SessionService } from "@/database/services/SessionService";
 import { UsuarioService } from "@/database/services/UsuarioService";
-import { Adapter, DatabaseSession, DatabaseUser } from "lucia";
+import type { Adapter, DatabaseSession, DatabaseUser } from "lucia";
 import { LessThan } from "typeorm";
 
 export class TypeORMAdapter implements Adapter {
@@ -19,7 +19,7 @@ export class TypeORMAdapter implements Adapter {
   }
 
   async getSessionAndUser(
-    sessionId: string,
+    sessionId: string
   ): Promise<[session: DatabaseSession | null, user: DatabaseUser | null]> {
     const sessionDb = await SessionService.findOne({ id: sessionId });
 
@@ -68,7 +68,7 @@ export class TypeORMAdapter implements Adapter {
 
   async updateSessionExpiration(
     sessionId: string,
-    expiresAt: Date,
+    expiresAt: Date
   ): Promise<void> {
     await SessionService.update({ id: sessionId }, { expires_at: expiresAt });
   }

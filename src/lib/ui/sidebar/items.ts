@@ -1,5 +1,5 @@
 import { RoutePermissions } from "@/lib/auth/Permissions";
-import { SidebarItem } from "./types";
+import type { SidebarItem } from "./types";
 import RouteProtection from "@/lib/auth/RouteProtection";
 
 export const menuItems: SidebarItem[] = [

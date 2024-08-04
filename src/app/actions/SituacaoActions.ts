@@ -1,19 +1,20 @@
 "use server";
 
-import { Situacao } from "@/database/models/Situacao";
+import type { Situacao } from "@/database/models/Situacao";
 import { SituacaoService } from "@/database/services/SituacaoService";
 import { UsuarioService } from "@/database/services/UsuarioService";
 import { CreateSituacaoDTO } from "@/lib/DTO/Situacao/CreateSituacaoDTO";
 import { UpdateSituacaoDTO } from "@/lib/DTO/Situacao/UpdateSituacaoDTO";
-import Response, { SimpleReturn } from "@/lib/Response";
+import type Response from "@/lib/Response";
+import type { SimpleReturn } from "@/lib/Response";
 import { RoutePermissions } from "@/lib/auth/Permissions";
 import { validateRequest } from "@/lib/auth/Session";
 import { ServerError } from "@/lib/error/ServerError";
 import { mapAndTraceError } from "@/lib/error/util";
-import { RegistrarSituacaoFormData } from "@/lib/ui/forms/registrar-situacao/schema";
+import type { RegistrarSituacaoFormData } from "@/lib/ui/forms/registrar-situacao/schema";
 
 export async function submitSituacao(
-  data: RegistrarSituacaoFormData,
+  data: RegistrarSituacaoFormData
 ): Promise<Response<SimpleReturn>> {
   try {
     const { session, user } = await validateRequest();
@@ -28,7 +29,7 @@ export async function submitSituacao(
 
     await UsuarioService.update(
       { id: user.id },
-      { role: RoutePermissions.HAS_SITUACAO },
+      { role: RoutePermissions.HAS_SITUACAO }
     );
 
     return {

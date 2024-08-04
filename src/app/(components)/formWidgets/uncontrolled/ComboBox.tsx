@@ -1,5 +1,5 @@
-import { FieldError, UseFormRegisterReturn } from "react-hook-form";
-import { Option } from "@/lib/enums/common";
+import type { FieldError, UseFormRegisterReturn } from "react-hook-form";
+import type { Option } from "@/lib/enums/common";
 
 import Error from "../Error";
 

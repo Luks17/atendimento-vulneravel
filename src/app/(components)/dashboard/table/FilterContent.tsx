@@ -3,8 +3,8 @@ import {
   ArrowUpIcon,
   XMarkIcon,
 } from "@heroicons/react/24/outline";
-import { Column, Table } from "@tanstack/react-table";
-import { ObjectLiteral } from "typeorm";
+import type { Column, Table } from "@tanstack/react-table";
+import type { ObjectLiteral } from "typeorm";
 import NumberFilter from "./filters/NumberFilter";
 import TextFilter from "./filters/TextFilter";
 import EnumFilter from "./filters/EnumFilter";
@@ -25,7 +25,7 @@ function FilterContent<T extends ObjectLiteral>({ table, column }: Props<T>) {
   function getFilterType() {
     const meta = column.columnDef.meta;
     let content: React.JSX.Element | null = null;
-    let props = { column, columnFilterValue };
+    const props = { column, columnFilterValue };
 
     if (meta) {
       if (meta.type === "array") {

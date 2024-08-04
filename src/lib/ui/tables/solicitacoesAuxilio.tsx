@@ -1,11 +1,11 @@
-import { Solicitacao } from "@/database/models/Solicitacao";
+import type { Solicitacao } from "@/database/models/Solicitacao";
 import { findKey } from "@/lib/enums/common";
 import {
   EstadosSolicitacao,
   TiposAuxilios,
   TiposProblemas,
 } from "@/lib/enums/Solicitacao";
-import { ColumnDef, createColumnHelper } from "@tanstack/react-table";
+import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import Link from "next/link";
 
 const columnHelper = createColumnHelper<Solicitacao>();
@@ -35,7 +35,7 @@ export const columns: ColumnDef<Solicitacao, any>[] = [
           table.options.meta?.showModal(
             e,
             column.columnDef.header as string,
-            <li>{getValue()}</li>,
+            <li>{getValue()}</li>
           )
         }
       >

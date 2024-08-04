@@ -1,7 +1,7 @@
-import { FindOptionsWhere } from "typeorm";
+import type { FindOptionsWhere } from "typeorm";
 import { dbSource } from "../Connection";
-import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
-import { CreateSituacaoDTO } from "@/lib/DTO/Situacao/CreateSituacaoDTO";
+import type { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
+import type { CreateSituacaoDTO } from "@/lib/DTO/Situacao/CreateSituacaoDTO";
 import { Situacao } from "../models/Situacao";
 
 export class SituacaoService {

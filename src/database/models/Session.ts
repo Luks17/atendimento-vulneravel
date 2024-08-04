@@ -9,6 +9,9 @@ export class Session {
   @Column({ type: "datetime" })
   expires_at: Date;
 
-  @ManyToOne(() => Usuario, (usuario) => usuario.id)
+  @ManyToOne(
+    () => Usuario,
+    (usuario) => usuario.id
+  )
   usuario_id: string;
 }

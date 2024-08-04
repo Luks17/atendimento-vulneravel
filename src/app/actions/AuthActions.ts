@@ -3,16 +3,17 @@
 import { UsuarioService } from "@/database/services/UsuarioService";
 import { CreateUsuarioDTO } from "@/lib/DTO/Usuario/CreateUsuarioDTO";
 import { lucia, validateRequest } from "@/lib/auth/Session";
-import { LoginFormData } from "@/lib/ui/forms/auth/loginSchema";
-import { SignupFormData } from "@/lib/ui/forms/auth/signupSchema";
+import type { LoginFormData } from "@/lib/ui/forms/auth/loginSchema";
+import type { SignupFormData } from "@/lib/ui/forms/auth/signupSchema";
 import argon2 from "@node-rs/argon2";
 import { cookies } from "next/headers";
 import { mapAndTraceError } from "@/lib/error/util";
 import { ServerError } from "@/lib/error/ServerError";
-import Response, { SimpleReturn } from "@/lib/Response";
+import type Response from "@/lib/Response";
+import type { SimpleReturn } from "@/lib/Response";
 
 export async function signup(
-  data: SignupFormData,
+  data: SignupFormData
 ): Promise<Response<SimpleReturn>> {
   try {
     const dto = await CreateUsuarioDTO.fromFormData(data);
@@ -31,7 +32,7 @@ export async function signup(
 }
 
 export async function login(
-  data: LoginFormData,
+  data: LoginFormData
 ): Promise<Response<SimpleReturn>> {
   try {
     const user = await UsuarioService.findOne({ email: data.email });
@@ -52,7 +53,7 @@ export async function login(
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes,
+      sessionCookie.attributes
     );
 
     return {
@@ -79,7 +80,7 @@ export async function logout(): Promise<Response<SimpleReturn>> {
     cookies().set(
       sessionCookie.name,
       sessionCookie.value,
-      sessionCookie.attributes,
+      sessionCookie.attributes
     );
 
     return {

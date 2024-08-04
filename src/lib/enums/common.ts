@@ -14,5 +14,5 @@ export const enumEntries = <T extends Record<string, string>>(e: T): Option[] =>
 
 export const findKey = <T extends Record<string, string>>(
   e: T,
-  value: string,
+  value: string
 ) => enumEntries(e).find((entry) => entry.value === value)?.key;

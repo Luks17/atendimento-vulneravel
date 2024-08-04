@@ -41,7 +41,7 @@ export default function MultiInput({
   function handleMenuClick(e: React.MouseEvent<HTMLButtonElement>) {
     e.preventDefault();
 
-    let target = e.currentTarget.value;
+    const target = e.currentTarget.value;
     inputContainer.current!.focus();
 
     addChip(target);
@@ -52,7 +52,7 @@ export default function MultiInput({
   }
 
   function handleInputSpecialKeys(e: React.KeyboardEvent<HTMLInputElement>) {
-    let key = e.key;
+    const key = e.key;
 
     if (key === "Backspace" && inputValue.length === 0) {
       setChips(chips.slice(0, -1));
@@ -63,12 +63,12 @@ export default function MultiInput({
   }
 
   function handleMenuSpecialKeys(e: React.KeyboardEvent<HTMLButtonElement>) {
-    let key = e.key;
+    const key = e.key;
 
     if (key === "Enter") {
       e.preventDefault();
 
-      let target = e.currentTarget.value;
+      const target = e.currentTarget.value;
       inputContainer.current!.focus();
 
       addChip(target);
@@ -76,7 +76,7 @@ export default function MultiInput({
   }
 
   function handleDelete(chipIndex: number) {
-    let updatedChips = chips.filter((_, i) => i !== chipIndex);
+    const updatedChips = chips.filter((_, i) => i !== chipIndex);
     setChips(updatedChips);
   }
 

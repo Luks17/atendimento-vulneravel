@@ -1,6 +1,6 @@
 import ItemView from "@/app/(components)/dashboard/ItemView";
 import { getSolicitacaoAuxilio } from "@/app/actions/SolicitacaoAuxilioActions";
-import { Solicitacao } from "@/database/models/Solicitacao";
+import type { Solicitacao } from "@/database/models/Solicitacao";
 import { solicitacaoAuxilioFields } from "@/lib/ui/item-view/solicitacaoAuxilio";
 
 async function Page({ params }: { params: { slug: string } }) {

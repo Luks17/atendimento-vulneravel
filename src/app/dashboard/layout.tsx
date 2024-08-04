@@ -5,7 +5,7 @@ import RouteProtection from "@/lib/auth/RouteProtection";
 
 async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const { user } = await new RouteProtection(
-    RoutePermissions.IS_NEW_USER,
+    RoutePermissions.IS_NEW_USER
   ).verifyAuth();
 
   return (

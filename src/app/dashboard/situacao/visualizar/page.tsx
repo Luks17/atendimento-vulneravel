@@ -1,6 +1,6 @@
 import ItemView from "@/app/(components)/dashboard/ItemView";
 import { getSituacao } from "@/app/actions/SituacaoActions";
-import { Situacao } from "@/database/models/Situacao";
+import type { Situacao } from "@/database/models/Situacao";
 import { SituacaoFields } from "@/lib/ui/item-view/situacao";
 
 async function Page() {

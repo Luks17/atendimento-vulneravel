@@ -33,7 +33,10 @@ export class Usuario {
   @MinLength(6)
   passwd: string;
 
-  @OneToMany(() => Solicitacao, (solicitacao) => solicitacao.id)
+  @OneToMany(
+    () => Solicitacao,
+    (solicitacao) => solicitacao.id
+  )
   solicitacoes: Solicitacao[];
 
   @OneToOne(() => Situacao)

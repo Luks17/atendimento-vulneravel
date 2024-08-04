@@ -1,14 +1,14 @@
 export enum TiposProblemas {
-  "Catástrofe" = "catastrofe",
-  "Doença" = "doenca",
-  "Acidente" = "acidente",
-  "Financeiro" = "financeiro",
+  Catástrofe = "catastrofe",
+  Doença = "doenca",
+  Acidente = "acidente",
+  Financeiro = "financeiro",
 }
 
 export enum EstadosSolicitacao {
-  "Pendente" = "pendente",
-  "Reprovada" = "reprovada",
-  "Aprovada" = "aprovada",
+  Pendente = "pendente",
+  Reprovada = "reprovada",
+  Aprovada = "aprovada",
 }
 
 export enum TiposAuxilios {

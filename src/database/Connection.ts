@@ -1,5 +1,5 @@
 import "reflect-metadata";
-import { DataSource, ObjectLiteral, ObjectType, Repository } from "typeorm";
+import { DataSource, type ObjectLiteral, type ObjectType, type Repository } from "typeorm";
 import { logger } from "../lib/logger";
 
 import { Session } from "./models/Session";
@@ -51,7 +51,7 @@ class DatabaseSource {
   }
 
   async getRepository<T extends ObjectLiteral>(
-    entity: ObjectType<T>,
+    entity: ObjectType<T>
   ): Promise<Repository<T>> {
     const connection = await this.getConnection();
     return connection.getRepository(entity);

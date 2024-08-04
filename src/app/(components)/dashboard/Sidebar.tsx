@@ -2,7 +2,7 @@ import Link from "next/link";
 import type { SidebarLink } from "@/lib/ui/sidebar/types";
 import { menuItems } from "@/lib/ui/sidebar/items";
 import React from "react";
-import { User } from "lucia";
+import type { User } from "lucia";
 
 function Sidebar({ user }: { user: User }) {
   return (
@@ -20,7 +20,7 @@ function Sidebar({ user }: { user: User }) {
       <ul className="menu">
         {menuItems.map((item, i) => {
           const clearedLinks = item.list.filter((link) =>
-            link.protection.checkClearance(user),
+            link.protection.checkClearance(user)
           );
 
           return clearedLinks.length > 0 ? (

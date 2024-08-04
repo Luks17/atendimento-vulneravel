@@ -6,7 +6,7 @@ import Link from "next/link";
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
-import { LoginFormData, loginSchema } from "@/lib/ui/forms/auth/loginSchema";
+import { type LoginFormData, loginSchema } from "@/lib/ui/forms/auth/loginSchema";
 import { login } from "@/app/actions/AuthActions";
 import { useRouter } from "next/navigation";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";

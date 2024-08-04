@@ -1,6 +1,6 @@
-import { ObjectLiteral } from "typeorm";
+import type { ObjectLiteral } from "typeorm";
 import DebouncedInput from "../DebouncedInput";
-import { Column } from "@tanstack/react-table";
+import type { Column } from "@tanstack/react-table";
 
 interface Props<T extends ObjectLiteral> {
   column: Column<T, any>;

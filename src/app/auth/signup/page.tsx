@@ -10,7 +10,7 @@ import {
 import ThemeDropdown from "@/app/(components)/dashboard/ThemeDropdown";
 import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
 import { Controller, useForm } from "react-hook-form";
-import { SignupFormData, signupSchema } from "@/lib/ui/forms/auth/signupSchema";
+import { type SignupFormData, signupSchema } from "@/lib/ui/forms/auth/signupSchema";
 import { yupResolver } from "@hookform/resolvers/yup";
 import Link from "next/link";
 import { signup } from "@/app/actions/AuthActions";

@@ -1,12 +1,12 @@
-import { FindOptionsWhere } from "typeorm";
+import type { FindOptionsWhere } from "typeorm";
 import { dbSource } from "../Connection";
 import { Solicitacao } from "../models/Solicitacao";
-import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
-import { CreateSolicitacaoDTO } from "@/lib/DTO/Solicitacao/CreateSolicitacaoDTO";
+import type { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
+import type { CreateSolicitacaoDTO } from "@/lib/DTO/Solicitacao/CreateSolicitacaoDTO";
 
 export class SolicitacaoService {
   static async deleteAll<T extends FindOptionsWhere<Solicitacao>>(
-    condition: T,
+    condition: T
   ) {
     const solicitacaoRepository = await dbSource.getRepository(Solicitacao);
 
@@ -14,7 +14,7 @@ export class SolicitacaoService {
   }
 
   static async deleteOne<T extends FindOptionsWhere<Solicitacao>>(
-    condition: T,
+    condition: T
   ) {
     const solicitacaoRepository = await dbSource.getRepository(Solicitacao);
 

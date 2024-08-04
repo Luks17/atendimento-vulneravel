@@ -1,9 +1,9 @@
 import { validateRequest } from "@/lib/auth/Session";
-import { TiposAuxilios, TiposProblemas } from "@/lib/enums/Solicitacao";
+import type { TiposAuxilios, TiposProblemas } from "@/lib/enums/Solicitacao";
 import { ServerError } from "@/lib/error/ServerError";
-import { SolicitacaoAuxilioFormData } from "@/lib/ui/forms/solicitacao-auxilio/schema";
+import type { SolicitacaoAuxilioFormData } from "@/lib/ui/forms/solicitacao-auxilio/schema";
 import { generateId } from "lucia";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 
 export class CreateSolicitacaoDTO {
   private constructor(
@@ -15,8 +15,8 @@ export class CreateSolicitacaoDTO {
     public numero_vagas_creches?: number,
     public numero_vagas_escolas?: number,
     public quantidade_cestas?: number,
-    public vl_auxilio_medicamento?: number,
-  ) { }
+    public vl_auxilio_medicamento?: number
+  ) {}
 
   static async fromFormData(data: SolicitacaoAuxilioFormData) {
     const { user } = await validateRequest();
@@ -34,7 +34,7 @@ export class CreateSolicitacaoDTO {
       data.qtd_vagas_creche,
       data.qtd_vagas_escola,
       data.qtd_cestas_basica,
-      data.vl_auxilio_medicamento,
+      data.vl_auxilio_medicamento
     );
   }
 

@@ -1,11 +1,11 @@
 "use client";
 
 import {
-  Notification,
+  type Notification,
   enqueueNotification,
 } from "@/lib/ui/notifications/helpers";
 import { useRouter } from "next/navigation";
-import { ReactNode, useEffect } from "react";
+import { type ReactNode, useEffect } from "react";
 
 export default function ProtectedRouteWrapper({
   children,

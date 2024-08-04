@@ -2,7 +2,7 @@ import { Lucia, TimeSpan } from "lucia";
 import { TypeORMAdapter } from "./TypeORMAdapter";
 import { cookies } from "next/headers";
 import { cache } from "react";
-import { RoutePermissions } from "./Permissions";
+import type { RoutePermissions } from "./Permissions";
 
 export const lucia = new Lucia(new TypeORMAdapter(), {
   sessionExpiresIn: new TimeSpan(2, "w"),
@@ -29,7 +29,7 @@ export const validateRequest = cache(async () => {
       cookies().set(
         sessionCookie.name,
         sessionCookie.value,
-        sessionCookie.attributes,
+        sessionCookie.attributes
       );
     }
     if (!result.session) {
@@ -37,10 +37,10 @@ export const validateRequest = cache(async () => {
       cookies().set(
         sessionCookie.name,
         sessionCookie.value,
-        sessionCookie.attributes,
+        sessionCookie.attributes
       );
     }
-  } catch { }
+  } catch {}
 
   return result;
 });

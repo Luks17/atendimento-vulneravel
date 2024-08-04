@@ -1,6 +1,6 @@
-import { SignupFormData } from "@/lib/ui/forms/auth/signupSchema";
+import type { SignupFormData } from "@/lib/ui/forms/auth/signupSchema";
 import { generateId } from "lucia";
-import { NextRequest } from "next/server";
+import type { NextRequest } from "next/server";
 import argon2 from "@node-rs/argon2";
 
 export class CreateUsuarioDTO {
@@ -10,8 +10,8 @@ export class CreateUsuarioDTO {
     public cpf: string,
     public phone: string,
     public email: string,
-    public passwd: string,
-  ) { }
+    public passwd: string
+  ) {}
 
   static async fromFormData(data: SignupFormData) {
     return new this(
@@ -20,7 +20,7 @@ export class CreateUsuarioDTO {
       data.cpf,
       data.phone,
       data.email,
-      await argon2.hash(data.passwd),
+      await argon2.hash(data.passwd)
     );
   }
 

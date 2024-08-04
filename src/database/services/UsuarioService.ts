@@ -1,8 +1,8 @@
-import { CreateUsuarioDTO } from "@/lib/DTO/Usuario/CreateUsuarioDTO";
+import type { CreateUsuarioDTO } from "@/lib/DTO/Usuario/CreateUsuarioDTO";
 import { dbSource } from "../Connection";
 import { Usuario } from "../models/Usuario";
-import { FindOptionsWhere } from "typeorm";
-import { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
+import type { FindOptionsWhere } from "typeorm";
+import type { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
 
 export class UsuarioService {
   static async deleteAll<T extends FindOptionsWhere<Usuario>>(condition: T) {

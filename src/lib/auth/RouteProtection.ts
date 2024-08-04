@@ -1,4 +1,4 @@
-import { User } from "lucia";
+import type { User } from "lucia";
 import { RoutePermissions } from "./Permissions";
 import { validateRequest } from "./Session";
 import { redirect } from "next/navigation";
@@ -7,8 +7,8 @@ export default class RouteProtection {
   public constructor(
     public routeProtection: RoutePermissions,
     public strict = false,
-    public disallowedRole?: RoutePermissions,
-  ) { }
+    public disallowedRole?: RoutePermissions
+  ) {}
 
   public async verifyAuth() {
     const { session, user } = await validateRequest();

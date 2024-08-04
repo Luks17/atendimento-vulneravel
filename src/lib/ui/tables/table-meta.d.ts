@@ -1,12 +1,13 @@
 import "@tanstack/react-table";
-import React, { ReactNode } from "react";
+import type React from "react";
+import type { ReactNode } from "react";
 
 declare module "@tanstack/table-core" {
   interface TableMeta<TData extends RowData> {
     showModal: (
       e: React.MouseEvent<HTMLButtonElement>,
       title: string,
-      element: ReactNode,
+      element: ReactNode
     ) => void;
   }
 
