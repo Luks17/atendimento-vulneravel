@@ -20,7 +20,7 @@ async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
           htmlFor="sidebar"
           aria-label="close sidebar"
           className="drawer-overlay"
-        ></label>
+        />
         <Sidebar user={user!} />
       </div>
     </div>

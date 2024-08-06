@@ -1,30 +1,34 @@
 import { enumEntries } from "@/lib/enums/common";
 import type { ObjectLiteral } from "typeorm";
-import Link from "next/link";
+import type Response from "@/lib/Response";
+import type { SimpleReturn } from "@/lib/Response";
+import MenuHeader from "./ItemView/MenuHeader";
 
 interface Props<T extends Record<string, string>> {
   title: string;
   fields: T;
   object: ObjectLiteral;
-  edit_url?: string;
+  editUrl?: string;
+  deleteHandler?: (id: string) => Promise<Response<SimpleReturn>>;
 }
 
 function ItemView<T extends Record<string, string>>({
   title,
   fields,
   object,
-  edit_url,
+  editUrl,
+  deleteHandler,
 }: Props<T>) {
   const entries = enumEntries(fields);
 
   return (
     <div>
-      {edit_url && (
-        <div className="flex justify-end gap-x-3 p-3">
-          <Link className="btn btn-secondary" href={edit_url}>
-            Editar
-          </Link>
-        </div>
+      {(editUrl || deleteHandler) && (
+        <MenuHeader
+          editUrl={editUrl}
+          deleteHandler={deleteHandler}
+          deleteTarget={object.id}
+        />
       )}
       <div className="w-full h-full bg-base-200 rounded-box form-control py-16 px-4 md:px-8 lg:px-12 xl:px-16">
         <div className="border-l-2 border-l-primary py-4 pl-4 md:pl-8">

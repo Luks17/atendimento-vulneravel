@@ -13,7 +13,7 @@ async function Page() {
         title="Sua situação"
         fields={SituacaoFields}
         object={situacao}
-        edit_url="/dashboard/situacao/editar"
+        editUrl="/dashboard/situacao/editar"
       />
     );
   }

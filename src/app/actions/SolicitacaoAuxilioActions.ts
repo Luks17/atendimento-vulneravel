@@ -78,6 +78,29 @@ export async function updateSolicitacaoAuxilio(
   }
 }
 
+export async function deleteSolicitacaoAuxilio(
+  id: string
+): Promise<Response<SimpleReturn>> {
+  try {
+    const { session } = await validateRequest();
+
+    if (!session) {
+      throw new ServerError("NO_AUTH", "Unauthorized to delete solicitacao");
+    }
+
+    await SolicitacaoService.deleteOne({ id });
+
+    return {
+      success: true,
+      data: {
+        message: "Solicitacao Removida com Sucesso",
+      },
+    };
+  } catch (e) {
+    return mapAndTraceError(e);
+  }
+}
+
 export async function getSolicitacaoAuxilio(id: string) {
   try {
     const { session } = await validateRequest();
