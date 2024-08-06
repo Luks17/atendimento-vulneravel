@@ -4,6 +4,7 @@ import Form from "@/app/(components)/dashboard/Form";
 import FormCarousel from "@/app/(components)/dashboard/FormCarousel";
 import ComboBox from "@/app/(components)/formWidgets/uncontrolled/ComboBox";
 import Input from "@/app/(components)/formWidgets/uncontrolled/Input";
+import TextArea from "@/app/(components)/formWidgets/uncontrolled/TextArea";
 import { useSetNotification } from "@/app/(components)/notifications/NotificationProvider";
 import {
   submitSolicitacaoAuxilio,
@@ -106,7 +107,7 @@ function SolicitacaoForm({ solicitacaoJSON }: Props) {
               label="Tipo de Problema"
               error={errors.tipo_problema}
             />
-            <Input
+            <TextArea
               register={register("descricao_problema")}
               label="Descrição do Problema"
               error={errors.descricao_problema}
