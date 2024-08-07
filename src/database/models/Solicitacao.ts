@@ -25,7 +25,11 @@ export class Solicitacao {
   @Column({ type: "enum", enum: TiposAuxilios, name: "descriminador" })
   descriminador: TiposAuxilios;
 
-  @ManyToOne(() => Usuario, { nullable: false })
+  @ManyToOne(
+    () => Usuario,
+    (usuario) => usuario.solicitacoes,
+    { nullable: false }
+  )
   @JoinColumn({ name: "usuario_id" })
   usuario: Relation<Usuario>;
 

@@ -35,10 +35,13 @@ export class Usuario {
 
   @OneToMany(
     () => Solicitacao,
-    (solicitacao) => solicitacao.id
+    (solicitacao) => solicitacao.usuario
   )
   solicitacoes: Solicitacao[];
 
-  @OneToOne(() => Situacao)
+  @OneToOne(
+    () => Situacao,
+    (situacao) => situacao.usuario
+  )
   situacao: Situacao;
 }

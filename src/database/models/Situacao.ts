@@ -6,7 +6,10 @@ import { MoradiaEnum } from "@/lib/enums/Situacao";
 
 @Entity("situacoes")
 export class Situacao {
-  @OneToOne(() => Usuario)
+  @OneToOne(
+    () => Usuario,
+    (usuario) => usuario.situacao
+  )
   @JoinColumn({ name: "usuario_id" })
   usuario: Relation<Usuario>;
 
