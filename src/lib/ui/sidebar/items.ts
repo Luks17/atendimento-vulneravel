@@ -36,9 +36,9 @@ export const menuItems: SidebarItem[] = [
     title: "Administrador",
     list: [
       {
-        label: "Pesquisar Vulneráveis",
+        label: "Administrar Vulneráveis",
         icon: "",
-        url: "pesquisar-vulneraveis",
+        url: "administrar-vulneraveis/listar",
         protection: new RouteProtection(RoutePermissions.IS_ADMIN),
       },
       {

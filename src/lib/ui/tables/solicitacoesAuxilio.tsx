@@ -30,6 +30,7 @@ export const columns: ColumnDef<Solicitacao, any>[] = [
     header: "Descrição do Problema",
     cell: ({ table, getValue, column }) => (
       <button
+        type="button"
         className="btn btn-secondary btn-xs btn-outline"
         onClick={(e) =>
           table.options.meta?.showModal(
