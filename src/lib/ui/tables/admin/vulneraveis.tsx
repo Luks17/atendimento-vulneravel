@@ -15,13 +15,13 @@ export const columns: ColumnDef<Usuario, any>[] = [
       <div className="flex gap-x-1">
         <Link
           className="btn btn-outline btn-xs btn-secondary"
-          href={`/dashboard/administrar-vulneraveis/situacao/${props.row.original.id}`}
+          href={`/dashboard/administrar-vulneraveis/situacao/visualizar/${props.row.original.id}`}
         >
           Situação
         </Link>
         <Link
           className="btn btn-outline btn-xs btn-secondary"
-          href={`/dashboard/administrar-vulneraveis/solicitacoes-auxilio/${props.row.original.id}`}
+          href={`/dashboard/administrar-vulneraveis/solicitacoes-auxilio/listar/${props.row.original.id}`}
         >
           Solicitações
         </Link>

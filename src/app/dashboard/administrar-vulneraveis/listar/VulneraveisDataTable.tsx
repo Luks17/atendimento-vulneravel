@@ -2,7 +2,7 @@
 
 import Table from "@/app/(components)/dashboard/Table";
 import type { Usuario } from "@/database/models/Usuario";
-import { columns } from "@/lib/ui/tables/vulneraveis";
+import { columns } from "@/lib/ui/tables/admin/vulneraveis";
 
 interface Props {
   vulneraveisJSON: string;

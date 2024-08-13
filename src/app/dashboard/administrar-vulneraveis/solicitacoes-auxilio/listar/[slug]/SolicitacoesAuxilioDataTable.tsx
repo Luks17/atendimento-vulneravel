@@ -2,7 +2,7 @@
 
 import Table from "@/app/(components)/dashboard/Table";
 import type { Solicitacao } from "@/database/models/Solicitacao";
-import { columns } from "@/lib/ui/tables/solicitacoesAuxilio";
+import { columns } from "@/lib/ui/tables/admin/solicitacoesAuxilio";
 
 function SolicitacoesAuxilioDataTable({
   solicitacoesAuxilioJson,

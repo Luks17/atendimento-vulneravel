@@ -92,3 +92,26 @@ export async function getSolicitacoes(
     return mapAndTraceError(e);
   }
 }
+
+export async function getSolicitacao(id: string) {
+  try {
+    const { session } = await validateRequest();
+
+    if (!session) {
+      throw new ServerError("NO_AUTH", "Unauthorized to get solicitacao");
+    }
+
+    const solicitacao = await SolicitacaoService.findOne({ id });
+
+    if (!solicitacao) {
+      throw new ServerError("NOT_FOUND", "Solicitacao not found");
+    }
+
+    return {
+      success: true,
+      data: solicitacao,
+    };
+  } catch (e) {
+    return mapAndTraceError(e);
+  }
+}
