@@ -36,7 +36,7 @@ export const columns: ColumnDef<Solicitacao, any>[] = [
           table.options.meta?.showModal(
             e,
             column.columnDef.header as string,
-            <li>{getValue()}</li>
+            getValue()
           )
         }
       >

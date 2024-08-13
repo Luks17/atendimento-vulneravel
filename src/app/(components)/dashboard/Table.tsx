@@ -170,9 +170,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
       <dialog ref={modalContainer} className="modal">
         <div className="modal-box">
           <h3 className="font-bold text-lg pb-5">{currentModalTitle}</h3>
-          <ul className="flex flex-col gap-y-2">
-            <>{currentModalElement}</>
-          </ul>
+          <div className="flex flex-col gap-y-2">{currentModalElement}</div>
         </div>
         <form method="dialog" className="modal-backdrop">
           <button>close</button>

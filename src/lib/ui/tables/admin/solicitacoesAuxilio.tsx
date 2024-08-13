@@ -36,7 +36,7 @@ export const columns: ColumnDef<Solicitacao, any>[] = [
           table.options.meta?.showModal(
             e,
             column.columnDef.header as string,
-            <li>{getValue()}</li>
+            getValue()
           )
         }
       >
@@ -47,12 +47,14 @@ export const columns: ColumnDef<Solicitacao, any>[] = [
   columnHelper.display({
     id: "actions",
     cell: (props) => (
-      <Link
-        className="btn btn-outline btn-xs btn-secondary"
-        href={`/dashboard/administrar-vulneraveis/solicitacoes-auxilio/visualizar/${props.row.original.id}`}
-      >
-        Expandir
-      </Link>
+      <div className="flex gap-x-1">
+        <Link
+          className="btn btn-outline btn-xs btn-secondary"
+          href={`/dashboard/administrar-vulneraveis/solicitacoes-auxilio/visualizar/${props.row.original.id}`}
+        >
+          Expandir
+        </Link>
+      </div>
     ),
   }),
 ];
