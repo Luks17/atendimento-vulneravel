@@ -12,7 +12,7 @@ export const registrarSituacaoSchema = yup.object({
       then: (schema) => schema.required(),
     }),
   total_adultos: yup.number().positive().integer().required(),
-  total_criancas: yup.number().positive().integer().required(),
+  total_criancas: yup.number().min(0).integer().required(),
   renda_familiar: yup.number().positive().required(),
 });
 
