@@ -1,10 +1,16 @@
 import { list } from "@/app/actions/AdministrarVulneraveisActions";
 import VulneraveisDataTable from "./VulneraveisDataTable";
+import type { Usuario } from "@/database/models/Usuario";
 
 async function AdministrarVulneraveis() {
-  const vulneraveis = await list();
+  const { success, data } = await list();
 
-  return <VulneraveisDataTable vulneraveisJSON={JSON.stringify(vulneraveis)} />;
+  if (success) {
+    const vulneraveis = data as Usuario[];
+    return (
+      <VulneraveisDataTable vulneraveisJSON={JSON.stringify(vulneraveis)} />
+    );
+  }
 }
 
 export default AdministrarVulneraveis;
