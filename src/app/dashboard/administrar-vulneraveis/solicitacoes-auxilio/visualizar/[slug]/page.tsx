@@ -1,6 +1,10 @@
 import ItemView from "@/app/(components)/dashboard/ItemView";
-import { getSolicitacao } from "@/app/actions/AdministrarVulneraveisActions";
+import {
+  getSolicitacao,
+  updateEstadoSolicitacao,
+} from "@/app/actions/AdministrarVulneraveisActions";
 import type { Solicitacao } from "@/database/models/Solicitacao";
+import { EstadosSolicitacao } from "@/lib/enums/Solicitacao";
 import { solicitacaoAuxilioFields } from "@/lib/ui/item-view/solicitacaoAuxilio";
 
 async function Page({ params }: { params: { slug: string } }) {
@@ -13,6 +17,8 @@ async function Page({ params }: { params: { slug: string } }) {
         title="Solicitação"
         fields={solicitacaoAuxilioFields}
         object={solicitacao}
+        updateStatusHandler={updateEstadoSolicitacao}
+        updateStatusEnum={EstadosSolicitacao}
       />
     );
   }

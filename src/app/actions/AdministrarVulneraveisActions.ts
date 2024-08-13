@@ -8,6 +8,7 @@ import { SolicitacaoService } from "@/database/services/SolicitacaoService";
 import { UsuarioService } from "@/database/services/UsuarioService";
 import { RoutePermissions } from "@/lib/auth/Permissions";
 import { validateRequest } from "@/lib/auth/Session";
+import { EstadosSolicitacao } from "@/lib/enums/Solicitacao";
 import { ServerError } from "@/lib/error/ServerError";
 import { mapAndTraceError } from "@/lib/error/util";
 import type Response from "@/lib/Response";
@@ -110,6 +111,30 @@ export async function getSolicitacao(id: string) {
     return {
       success: true,
       data: solicitacao,
+    };
+  } catch (e) {
+    return mapAndTraceError(e);
+  }
+}
+
+export async function updateEstadoSolicitacao(
+  id: string,
+  newStatus: EstadosSolicitacao
+): Promise<Response<SimpleReturn>> {
+  try {
+    const { session } = await validateRequest();
+
+    if (!session) {
+      throw new ServerError("NO_AUTH", "Unauthorized to update solicitacao");
+    }
+
+    await SolicitacaoService.update({ id }, { estado: newStatus });
+
+    return {
+      success: true,
+      data: {
+        message: "Solicitacao Atualizada com Sucesso",
+      },
     };
   } catch (e) {
     return mapAndTraceError(e);

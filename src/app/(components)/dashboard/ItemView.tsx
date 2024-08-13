@@ -1,33 +1,43 @@
 import { enumEntries } from "@/lib/enums/common";
 import type { ObjectLiteral } from "typeorm";
-import type Response from "@/lib/Response";
-import type { SimpleReturn } from "@/lib/Response";
 import MenuHeader from "./ItemView/MenuHeader";
 
-interface Props<T extends Record<string, string>> {
+interface Props<
+  T extends Record<string, string>,
+  U extends Record<string, string>,
+> {
   title: string;
   fields: T;
   object: ObjectLiteral;
   editUrl?: string;
-  deleteHandler?: (id: string) => Promise<Response<SimpleReturn>>;
+  deleteHandler?: Function;
+  updateStatusEnum?: U;
+  updateStatusHandler?: Function;
 }
 
-function ItemView<T extends Record<string, string>>({
+function ItemView<
+  T extends Record<string, string>,
+  U extends Record<string, string>,
+>({
   title,
   fields,
   object,
   editUrl,
   deleteHandler,
-}: Props<T>) {
+  updateStatusEnum,
+  updateStatusHandler,
+}: Props<T, U>) {
   const entries = enumEntries(fields);
 
   return (
     <div>
-      {(editUrl || deleteHandler) && (
+      {(editUrl || deleteHandler || updateStatusEnum) && (
         <MenuHeader
           editUrl={editUrl}
           deleteHandler={deleteHandler}
-          deleteTarget={object.id}
+          updateStatusHandler={updateStatusHandler}
+          updateStatusEnum={updateStatusEnum}
+          target={object.id}
         />
       )}
       <div className="w-full h-full bg-base-200 rounded-box form-control py-16 px-4 md:px-8 lg:px-12 xl:px-16">
