@@ -1,10 +1,12 @@
 import {
   Column,
+  CreateDateColumn,
   Entity,
   JoinColumn,
   ManyToOne,
   PrimaryColumn,
   TableInheritance,
+  UpdateDateColumn,
 } from "typeorm";
 import type { Relation } from "typeorm";
 import { Usuario } from "./Usuario";
@@ -48,4 +50,10 @@ export class Solicitacao {
 
   @Column("text")
   descricao_problema: string;
+
+  @CreateDateColumn()
+  public created_at: Date;
+
+  @UpdateDateColumn()
+  public updated_at: Date;
 }

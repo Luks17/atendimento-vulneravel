@@ -1,5 +1,13 @@
 import { MinLength } from "class-validator";
-import { Column, Entity, OneToMany, OneToOne, PrimaryColumn } from "typeorm";
+import {
+  Column,
+  CreateDateColumn,
+  Entity,
+  OneToMany,
+  OneToOne,
+  PrimaryColumn,
+  UpdateDateColumn,
+} from "typeorm";
 import { Solicitacao } from "./Solicitacao";
 import { Situacao } from "./Situacao";
 import { RoutePermissions } from "@/lib/auth/Permissions";
@@ -44,4 +52,10 @@ export class Usuario {
     (situacao) => situacao.usuario
   )
   situacao: Situacao;
+
+  @CreateDateColumn()
+  public created_at: Date;
+
+  @UpdateDateColumn()
+  public updated_at: Date;
 }
