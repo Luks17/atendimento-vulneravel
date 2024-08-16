@@ -52,4 +52,19 @@ export class UsuarioService {
 
     await usuarioRepository.update(condition, updated);
   }
+
+  static async fetchLastMonthsCount() {
+    const usuarioRepository = await dbSource.getRepository(Usuario);
+
+    const result: { month: string; count: number }[] = await usuarioRepository
+      .createQueryBuilder("user")
+      .select("DATE_FORMAT(user.created_at, '%Y-%m')", "x")
+      .addSelect("COUNT(user.id)", "y")
+      .where("user.created_at >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)")
+      .groupBy("DATE_FORMAT(user.created_at, '%Y-%m')")
+      .orderBy("DATE_FORMAT(user.created_at, '%Y-%m')", "ASC")
+      .getRawMany();
+
+    return result;
+  }
 }
