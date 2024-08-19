@@ -3,7 +3,7 @@ import { dbSource } from "../Connection";
 import { Usuario } from "../models/Usuario";
 import type { FindOptionsWhere } from "typeorm";
 import type { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
-import { LineChartProps } from "@/lib/ui/charts/LineChart";
+import { ChartProps } from "@/lib/ui/charts/Chart";
 import { format, subMonths } from "date-fns";
 
 export class UsuarioService {
@@ -55,7 +55,7 @@ export class UsuarioService {
     await usuarioRepository.update(condition, updated);
   }
 
-  static async fetchLastMonthsCount(): Promise<LineChartProps> {
+  static async fetchLastMonthsCount(): Promise<ChartProps> {
     const usuarioRepository = await dbSource.getRepository(Usuario);
 
     const months = Array.from({ length: 12 }, (_, i) => {

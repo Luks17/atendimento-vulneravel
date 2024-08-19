@@ -3,6 +3,9 @@ import { dbSource } from "../Connection";
 import { Solicitacao } from "../models/Solicitacao";
 import type { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
 import type { CreateSolicitacaoDTO } from "@/lib/DTO/Solicitacao/CreateSolicitacaoDTO";
+import { ChartProps } from "@/lib/ui/charts/Chart";
+import { EstadosSolicitacao } from "@/lib/enums/Solicitacao";
+import { findKey } from "@/lib/enums/common";
 
 export class SolicitacaoService {
   static async deleteAll<T extends FindOptionsWhere<Solicitacao>>(
@@ -58,5 +61,28 @@ export class SolicitacaoService {
     const solicitacaoRepository = await dbSource.getRepository(Solicitacao);
 
     await solicitacaoRepository.update(condition, updated);
+  }
+
+  static async fetchStatusCount(): Promise<ChartProps> {
+    const solicitacaoRepository = await dbSource.getRepository(Solicitacao);
+
+    const data: { status: EstadosSolicitacao; count: number }[] =
+      await solicitacaoRepository
+        .createQueryBuilder("s")
+        .select("s.estado", "status")
+        .addSelect("COUNT(s.id)", "count")
+        .groupBy("s.estado")
+        .getRawMany();
+
+    const result = {
+      items: data.map((item) => {
+        return {
+          label: findKey(EstadosSolicitacao, item.status)!,
+          value: item.count,
+        };
+      }),
+    };
+
+    return result;
   }
 }

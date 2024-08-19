@@ -1,23 +1,14 @@
 "use client";
 
-import type { LineChartProps } from "@/lib/ui/charts/LineChart";
+import type { ChartProps } from "@/lib/ui/charts/Chart";
 import {
   extractThemeColorsFromDOM,
   type ThemeColors,
 } from "@/lib/ui/colors/extract";
-import {
-  CategoryScale,
-  Chart,
-  LinearScale,
-  LineElement,
-  PointElement,
-} from "chart.js";
 import { useEffect, useState } from "react";
 import { Line } from "react-chartjs-2";
 
-Chart.register(CategoryScale, LinearScale, PointElement, LineElement);
-
-function LineChart({ items }: LineChartProps) {
+function LineChart({ items }: ChartProps) {
   const [themeColors, setThemeColors] = useState<ThemeColors | null>(null);
 
   useEffect(() => {
@@ -31,7 +22,7 @@ function LineChart({ items }: LineChartProps) {
         labels: items.map((item) => item.label),
         datasets: [
           {
-            label: "Usuários",
+            label: "Quantidade",
             data: items.map((item) => item.value),
             backgroundColor: themeColors?.primary,
             borderColor: themeColors?.primary,
