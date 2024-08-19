@@ -56,6 +56,8 @@ function SolicitacaoForm({ solicitacaoJSON }: Props) {
         ...solicitacao,
         tipo_auxilio: solicitacao.descriminador,
         qtd_cestas_basica: solicitacao.quantidade_cestas,
+        qtd_vagas_creche: solicitacao.numero_vagas_creche,
+        qtd_vagas_escola: solicitacao.numero_vagas_escola,
       });
     }
   }, []);

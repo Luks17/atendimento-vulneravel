@@ -6,8 +6,8 @@ export class UpdateSolicitacaoDTO {
     public descriminador: TiposAuxilios,
     public tipo_problema: TiposProblemas,
     public descricao_problema: string,
-    public numero_vagas_creches?: number,
-    public numero_vagas_escolas?: number,
+    public numero_vagas_creche?: number,
+    public numero_vagas_escola?: number,
     public quantidade_cestas?: number,
     public vl_auxilio_medicamento?: number
   ) {}

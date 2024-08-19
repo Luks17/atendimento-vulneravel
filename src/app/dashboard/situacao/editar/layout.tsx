@@ -4,7 +4,9 @@ import RouteProtection from "@/lib/auth/RouteProtection";
 
 async function Layout({ children }: Readonly<{ children: React.ReactNode }>) {
   const hasClearance = await new RouteProtection(
-    RoutePermissions.HAS_SITUACAO
+    RoutePermissions.HAS_SITUACAO,
+    false,
+    RoutePermissions.IS_ADMIN
   ).verifyRole();
 
   return (
