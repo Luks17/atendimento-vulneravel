@@ -1,7 +1,7 @@
 "use client";
 
 import { PaintBrushIcon } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+import { useLayoutEffect, useState } from "react";
 
 export default function ThemeDropdown({
   showText = true,
@@ -16,22 +16,18 @@ export default function ThemeDropdown({
     const value = e.currentTarget.value;
 
     setTheme(value);
+    document.firstElementChild?.setAttribute("data-theme", value);
     localStorage.setItem("data-theme", value);
   }
 
-  useEffect(() => {
+  useLayoutEffect(() => {
     const currentTheme = localStorage.getItem("data-theme");
 
     if (currentTheme) {
       setTheme(currentTheme);
+      document.firstElementChild?.setAttribute("data-theme", currentTheme);
     }
   }, []);
-
-  useEffect(() => {
-    if (theme) {
-      document.firstElementChild?.setAttribute("data-theme", theme);
-    }
-  }, [theme]);
 
   const themes = [
     "corporate",
@@ -61,6 +57,7 @@ export default function ThemeDropdown({
         {themes.map((themeOption, i) => (
           <li key={i}>
             <button
+              type="button"
               className={`btn btn-sm btn-block capitalize justify-start ${theme === themeOption ? "btn-primary" : "btn-ghost"}`}
               value={themeOption}
               onClick={handleThemeChange}

@@ -3,8 +3,12 @@ import { validateRequest } from "@/lib/auth/Session";
 import { ServerError } from "@/lib/error/ServerError";
 import { mapAndTraceError } from "@/lib/error/util";
 import type Response from "@/lib/Response";
+import type { SimpleReturn } from "@/lib/Response";
+import type { LineChartProps } from "@/lib/ui/charts/LineChart";
 
-export async function getLastMonthsUsersCount(): Promise<Response<any>> {
+export async function getLastMonthsUsersCount(): Promise<
+  Response<LineChartProps | SimpleReturn>
+> {
   try {
     const { session } = await validateRequest();
 
@@ -15,18 +19,11 @@ export async function getLastMonthsUsersCount(): Promise<Response<any>> {
       );
     }
 
-    const result = await UsuarioService.fetchLastMonthsCount();
-    const formattedData = [
-      {
-        id: "months",
-        color: "hsl(264, 70%, 50%)",
-        data: result,
-      },
-    ];
+    const data = await UsuarioService.fetchLastMonthsCount();
 
     return {
       success: true,
-      data: formattedData,
+      data,
     };
   } catch (e) {
     return mapAndTraceError(e);

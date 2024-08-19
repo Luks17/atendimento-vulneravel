@@ -3,6 +3,8 @@ import { dbSource } from "../Connection";
 import { Usuario } from "../models/Usuario";
 import type { FindOptionsWhere } from "typeorm";
 import type { QueryDeepPartialEntity } from "typeorm/query-builder/QueryPartialEntity.js";
+import { LineChartProps } from "@/lib/ui/charts/LineChart";
+import { format, subMonths } from "date-fns";
 
 export class UsuarioService {
   static async deleteAll<T extends FindOptionsWhere<Usuario>>(condition: T) {
@@ -53,17 +55,36 @@ export class UsuarioService {
     await usuarioRepository.update(condition, updated);
   }
 
-  static async fetchLastMonthsCount() {
+  static async fetchLastMonthsCount(): Promise<LineChartProps> {
     const usuarioRepository = await dbSource.getRepository(Usuario);
 
-    const result: { month: string; count: number }[] = await usuarioRepository
+    const months = Array.from({ length: 12 }, (_, i) => {
+      const date = subMonths(new Date(), i);
+      return {
+        month: format(date, "MM"),
+        year: format(date, "yyyy"),
+        date: format(date, "yyyy-MM"),
+      };
+    }).reverse();
+
+    const data = await usuarioRepository
       .createQueryBuilder("user")
-      .select("DATE_FORMAT(user.created_at, '%Y-%m')", "x")
-      .addSelect("COUNT(user.id)", "y")
+      .select("DATE_FORMAT(user.created_at, '%Y-%m')", "month")
+      .addSelect("COUNT(user.id)", "count")
       .where("user.created_at >= DATE_SUB(CURDATE(), INTERVAL 12 MONTH)")
       .groupBy("DATE_FORMAT(user.created_at, '%Y-%m')")
       .orderBy("DATE_FORMAT(user.created_at, '%Y-%m')", "ASC")
       .getRawMany();
+
+    const result = {
+      items: months.map(({ month, year, date }) => {
+        const found = data.find((row) => row.month === date);
+        return {
+          label: `${month}-${year}`,
+          value: found ? Number.parseInt(found.count, 10) : 0,
+        };
+      }),
+    };
 
     return result;
   }
