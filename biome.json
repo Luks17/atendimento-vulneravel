@@ -20,6 +20,7 @@
         "noNoninteractiveTabindex": "off"
       },
       "complexity": {
+        "noBannedTypes": "off",
         "useArrowFunction": "off",
         "noStaticOnlyClass": "off",
         "noThisInStatic": "off"

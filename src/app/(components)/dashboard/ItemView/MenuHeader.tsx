@@ -3,7 +3,8 @@
 import Link from "next/link";
 import { useRouter } from "next/navigation";
 import { enumEntries } from "@/lib/enums/common";
-import React from "react";
+import type React from "react";
+import { useSetNotification } from "../../notifications/NotificationProvider";
 
 interface MenuHeaderProps<T extends Record<string, string>> {
   editUrl?: string;
@@ -21,16 +22,25 @@ export default function MenuHeader<T extends Record<string, string>>({
   target,
 }: MenuHeaderProps<T>) {
   const router = useRouter();
+  const setNotification = useSetNotification();
 
   function onDeleteItemClick() {
     if (deleteHandler) deleteHandler(target);
 
+    setNotification({
+      message: "Atenção: Item excluído com sucesso",
+      messageType: "warning",
+    });
     router.back();
   }
 
   function onUpdateStatusClick(e: React.MouseEvent<HTMLButtonElement>) {
     if (updateStatusHandler) updateStatusHandler(target, e.currentTarget.value);
 
+    setNotification({
+      message: "Item atualizado com sucesso",
+      messageType: "success",
+    });
     router.back();
   }
 
