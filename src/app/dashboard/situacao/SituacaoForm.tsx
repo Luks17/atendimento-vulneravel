@@ -13,6 +13,7 @@ import {
   registrarSituacaoSchema,
 } from "@/lib/ui/forms/registrar-situacao/schema";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 
@@ -21,10 +22,12 @@ interface Props {
 }
 
 function SituacaoForm({ situacaoJSON }: Props) {
-  const setNotification = useSetNotification();
   const situacao: Situacao | null = situacaoJSON
     ? JSON.parse(situacaoJSON)
     : null;
+
+  const setNotification = useSetNotification();
+  const router = useRouter();
 
   const {
     register,
@@ -65,6 +68,7 @@ function SituacaoForm({ situacaoJSON }: Props) {
               message: data.message,
               messageType: "success",
             });
+            router.push("/dashboard");
           } else {
             setNotification({
               message: data.message,

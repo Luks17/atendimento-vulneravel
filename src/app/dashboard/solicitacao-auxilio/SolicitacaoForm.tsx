@@ -19,6 +19,7 @@ import {
 } from "@/lib/ui/forms/solicitacao-auxilio/schema";
 import { sections } from "@/lib/ui/forms/solicitacao-auxilio/sections";
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 
@@ -29,6 +30,7 @@ interface Props {
 function SolicitacaoForm({ solicitacaoJSON }: Props) {
   const [currentSection, setCurrentSection] = useState(0);
   const setNotification = useSetNotification();
+  const router = useRouter();
 
   const solicitacao: Solicitacao | null = solicitacaoJSON
     ? JSON.parse(solicitacaoJSON)
@@ -96,6 +98,7 @@ function SolicitacaoForm({ solicitacaoJSON }: Props) {
 
           if (success) {
             setNotification({ message: data.message, messageType: "success" });
+            router.push("/dashboard");
           } else {
             setNotification({ message: data.message, messageType: "error" });
           }
