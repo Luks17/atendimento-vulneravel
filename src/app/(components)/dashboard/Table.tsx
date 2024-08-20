@@ -127,6 +127,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
         </div>
         <div className="flex flex-col-reverse gap-y-4 mt-5 md:grid md:grid-cols-12 items-center md:w-full">
           <button
+            type="button"
             disabled={columnFilters.length === 0}
             onClick={() => setColumnFilters([])}
             className="md:col-start-2 2xl:col-start-3 md:col-end-6 btn btn-error btn-outline bg-base-100 w-fit md:w-4/6"
@@ -136,6 +137,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
           </button>
           <div className="join md:col-start-8 md:col-end-10">
             <button
+              type="button"
               disabled={!table.getCanPreviousPage()}
               onClick={() => table.setPageIndex(0)}
               className="join-item btn"
@@ -143,14 +145,19 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
               <ChevronDoubleLeftIcon className="w-4" />
             </button>
             <button
+              type="button"
               disabled={!table.getCanPreviousPage()}
               onClick={() => table.previousPage()}
               className="join-item btn"
             >
               <ChevronLeftIcon className="w-4" />
             </button>
-            <button className="join-item btn">{`Página ${table.getState().pagination.pageIndex + 1}/${table.getPageCount() == 0 ? 1 : table.getPageCount()}`}</button>
             <button
+              type="button"
+              className="join-item btn"
+            >{`Página ${table.getState().pagination.pageIndex + 1}/${table.getPageCount() === 0 ? 1 : table.getPageCount()}`}</button>
+            <button
+              type="button"
               disabled={!table.getCanNextPage()}
               onClick={() => table.nextPage()}
               className="join-item btn"
@@ -158,6 +165,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
               <ChevronRightIcon className="w-4" />
             </button>
             <button
+              type="button"
               disabled={!table.getCanNextPage()}
               onClick={() => table.setPageIndex(table.getPageCount() - 1)}
               className="join-item btn"
@@ -173,7 +181,7 @@ function Table<T extends ObjectLiteral>({ initialData, columns }: Props<T>) {
           <div className="flex flex-col gap-y-2">{currentModalElement}</div>
         </div>
         <form method="dialog" className="modal-backdrop">
-          <button>close</button>
+          <button type="button">close</button>
         </form>
       </dialog>
     </>

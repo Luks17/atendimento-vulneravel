@@ -51,6 +51,7 @@ function FilterContent<T extends ObjectLiteral>({ table, column }: Props<T>) {
         <span className="text-base-content py-1 px-2">Organizar</span>
         {!column.getIsSorted() || column.getIsSorted() === "desc" ? (
           <button
+            type="button"
             onClick={() => column.toggleSorting(false)}
             className="btn btn-xs"
           >
@@ -58,6 +59,7 @@ function FilterContent<T extends ObjectLiteral>({ table, column }: Props<T>) {
           </button>
         ) : (
           <button
+            type="button"
             onClick={() => column.toggleSorting(true)}
             className="btn btn-xs"
           >
@@ -65,6 +67,7 @@ function FilterContent<T extends ObjectLiteral>({ table, column }: Props<T>) {
           </button>
         )}
         <button
+          type="button"
           disabled={!column.getIsSorted()}
           onClick={() => column.clearSorting()}
           className="btn btn-xs"
