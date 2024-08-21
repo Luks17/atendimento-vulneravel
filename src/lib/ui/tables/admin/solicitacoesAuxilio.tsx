@@ -8,15 +8,18 @@ import {
 import { type ColumnDef, createColumnHelper } from "@tanstack/react-table";
 import { format } from "date-fns";
 import Link from "next/link";
+import { filterDateRange } from "../filtersFn";
 
 const columnHelper = createColumnHelper<Solicitacao>();
 
 export const columns: ColumnDef<Solicitacao, any>[] = [
   columnHelper.accessor("created_at", {
     header: "Data de criação",
+    meta: { type: "date" },
     cell: ({ getValue }) => {
-      return format(getValue(), "YYYY/MM/dd");
+      return format(getValue(), "dd/MM/yyyy - HH:mm");
     },
+    filterFn: filterDateRange,
   }),
   columnHelper.accessor("estado", {
     header: "Estado",

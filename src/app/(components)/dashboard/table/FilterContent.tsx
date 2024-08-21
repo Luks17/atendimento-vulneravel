@@ -9,6 +9,7 @@ import NumberFilter from "./filters/NumberFilter";
 import TextFilter from "./filters/TextFilter";
 import EnumFilter from "./filters/EnumFilter";
 import CheckboxFilter from "./filters/CheckboxFilter";
+import DateRangeFilter from "./filters/DateRangeFilter";
 
 interface Props<T extends ObjectLiteral> {
   table: Table<T>;
@@ -32,6 +33,8 @@ function FilterContent<T extends ObjectLiteral>({ table, column }: Props<T>) {
         content = <CheckboxFilter {...props} />;
       } else if (meta.type === "enum") {
         content = <EnumFilter {...{ ...props, enumToFilter: meta.enum }} />;
+      } else if (meta.type === "date") {
+        content = <DateRangeFilter {...props} />;
       }
     } else {
       content =
