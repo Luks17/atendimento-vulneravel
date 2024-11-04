@@ -30,13 +30,11 @@ export default function ThemeDropdown({
   }, []);
 
   const themes = [
-    "corporate",
     "cupcake",
-    "pastel",
-    "cmyk",
+    "spring",
+    "corporate",
     "dracula",
     "business",
-    "halloween",
   ];
 
   return (
