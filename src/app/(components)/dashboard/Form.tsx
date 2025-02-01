@@ -66,21 +66,21 @@ function SubmitWithSections({
         onClick={(e) => changeSection(e, false)}
         disabled={currentSection === 0}
       >
-        Previous
+        Voltar
       </button>
       <button
         className="btn btn-outline"
         onClick={(e) => changeSection(e, true)}
         disabled={currentSection === sectionsNumber - 1}
       >
-        Next
+        Avançar
       </button>
       <button
         disabled={currentSection !== sectionsNumber - 1}
         className="btn btn-accent w-fit"
         type="submit"
       >
-        Submit
+        Confirmar
       </button>
     </div>
   );
